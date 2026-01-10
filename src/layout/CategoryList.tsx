@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 
 const exampleItemId = '1'
 
-export function SideNav() {
+export function CategoryList() {
   return (
     <aside className="app-sidenav">
       <nav aria-label="Sidebar">
