@@ -1,10 +1,10 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
-import { AppLayout } from '../layout/AppLayout'
-import { ItemCreatePage } from '../pages/ItemCreatePage'
-import { ItemEditPage } from '../pages/ItemEditPage'
-import { ItemViewPage } from '../pages/ItemViewPage'
-import { MainPage } from '../pages/MainPage'
-import { NotFoundPage } from '../pages/NotFoundPage'
+import { AppLayout } from '../layout/AppLayout/AppLayout'
+import { ItemCreatePage } from '../pages/ItemCreatePage/ItemCreatePage'
+import { ItemEditPage } from '../pages/ItemEditPage/ItemEditPage'
+import { ItemViewPage } from '../pages/ItemViewPage/ItemViewPage'
+import { MainPage } from '../pages/MainPage/MainPage'
+import { NotFoundPage } from '../pages/NotFoundPage/NotFoundPage'
 
 export const router = createBrowserRouter([
   {

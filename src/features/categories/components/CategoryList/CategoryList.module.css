@@ -1,0 +1,79 @@
+.sidenav {
+  width: 220px;
+  padding: 12px;
+  border-right: 1px solid var(--border-color);
+  background: #fff7f0;
+}
+
+.sidenav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidenavSection {
+  margin-top: 16px;
+}
+
+.sidenavHeading {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 2px 0 10px;
+  color: #4e3b2a;
+}
+
+.sidenavPlaceholder {
+  font-size: 13px;
+  opacity: 0.75;
+  padding: 4px 2px;
+}
+
+.categoryTree {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.categoryChildren {
+  margin-top: 0;
+  margin-left: 16px;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.categoryButton {
+  width: 100%;
+  text-align: left;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #f1d9c6;
+  background: #fff;
+  color: #433126;
+  font-size: 14px;
+  font-weight: 400;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+}
+
+.categoryButton:hover {
+  border-color: #e8cbb4;
+  background: #fffaf6;
+}
+
+.isChild {
+  font-size: 13px;
+  padding-left: 24px;
+  color: #5a4636;
+}
+
+.hasChildren {
+  margin-bottom: 6px;
+}
+
+.isActive {
+  color: #2f57d2;
+  border-color: #c6d4ff;
+  background: #f4f7ff;
+  font-weight: 700;
+}

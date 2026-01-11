@@ -1,0 +1,8 @@
+:root {
+  --font-family-base: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --color-text: #213547;
+  --color-background: #ffffff;
+  --color-link: #646cff;
+  --color-link-hover: #535bf2;
+  --border-color: rgba(0, 0, 0, 0.12);
+}
