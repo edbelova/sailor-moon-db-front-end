@@ -1,6 +1,6 @@
 import styles from './ItemList.module.css'
 import type { Item as ItemType } from '../../types'
-import { Item } from '../Item/Item'
+import { ItemPreview } from '../ItemPreview/Item'
 
 export function ItemList() {
   const items: ItemType[] = [
@@ -11,5 +11,5 @@ export function ItemList() {
     { id: '5', name: 'Item Five', imgURL: 'https://img.mandarake.co.jp/webshopimg/01/00/637/0100436637/s_01004366376.jpg' },
     { id: '6', name: 'Item Six', imgURL: 'https://img.mandarake.co.jp/webshopimg/03/00/637/0300400637/s_03004006372.jpg' }
   ]
-  return <div className={styles.itemsContainer}>{items.map((item) => (<Item key={item.id} item={item} />))}</div>
+  return <div className={styles.itemsContainer}>{items.map((item) => (<ItemPreview key={item.id} item={item} />))}</div>
 }

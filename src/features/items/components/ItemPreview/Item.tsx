@@ -6,7 +6,7 @@ import Check from './Check.svg'
 import Heart from './Heart.svg'
 import Cart from './Cart.svg'
 
-export function Item( { item }: { item: ItemType }) {
+export function ItemPreview( { item }: { item: ItemType }) {
   return (
     <div className={styles.block}>
       <div className={styles.picContainer}>
