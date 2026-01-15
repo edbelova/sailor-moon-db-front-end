@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { AppLayout } from '../layout/AppLayout/AppLayout'
 import { ItemCreatePage } from '../pages/ItemCreatePage/ItemCreatePage'
@@ -10,18 +9,7 @@ import { SupportUsPage } from '../pages/SupportUsPage/SupportUsPage'
 import { AboutPage } from '../pages/AboutPage/AboutPage'
 import { ContactPage } from '../pages/ContactPage/ContactPage'
 import { LoginPage } from '../pages/LoginPage/LoginPage'
-import { useAuth } from '../features/auth/useAuth'
-
-function RequireAdmin({ children }: { children: ReactNode }) {
-  const { isAuthenticated, isAdmin, isLoading } = useAuth()
-  if (isLoading) {
-    return null
-  }
-  if (!isAuthenticated || !isAdmin) {
-    return <Navigate to="/login" replace />
-  }
-  return children
-}
+import { RequireAdmin } from './requireAdmin'
 
 export const router = createBrowserRouter([
   {
