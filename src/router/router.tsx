@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { AppLayout } from '../layout/AppLayout/AppLayout'
 import { ItemCreatePage } from '../pages/ItemCreatePage/ItemCreatePage'
@@ -8,6 +9,19 @@ import { NotFoundPage } from '../pages/NotFoundPage/NotFoundPage'
 import { SupportUsPage } from '../pages/SupportUsPage/SupportUsPage'
 import { AboutPage } from '../pages/AboutPage/AboutPage'
 import { ContactPage } from '../pages/ContactPage/ContactPage'
+import { LoginPage } from '../pages/LoginPage/LoginPage'
+import { useAuth } from '../features/auth/useAuth'
+
+function RequireAdmin({ children }: { children: ReactNode }) {
+  const { isAuthenticated, isAdmin, isLoading } = useAuth()
+  if (isLoading) {
+    return null
+  }
+  if (!isAuthenticated || !isAdmin) {
+    return <Navigate to="/login" replace />
+  }
+  return children
+}
 
 export const router = createBrowserRouter([
   {
@@ -16,9 +30,24 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <MainPage /> },
       { path: 'items', element: <Navigate to="/" replace /> },
-      { path: 'items/new', element: <ItemCreatePage /> },
-      { path: 'items/:itemId/edit', element: <ItemEditPage /> },
+      {
+        path: 'items/new',
+        element: (
+          <RequireAdmin>
+            <ItemCreatePage />
+          </RequireAdmin>
+        ),
+      },
+      {
+        path: 'items/:itemId/edit',
+        element: (
+          <RequireAdmin>
+            <ItemEditPage />
+          </RequireAdmin>
+        ),
+      },
       { path: 'items/:itemId', element: <ItemViewPage /> },
+      { path: 'login', element: <LoginPage /> },
       { path: 'support-us', element: <SupportUsPage /> },
       { path: 'about', element: <AboutPage /> },
       { path: 'contact', element: <ContactPage /> },

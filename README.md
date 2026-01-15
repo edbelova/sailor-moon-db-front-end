@@ -1,3 +1,38 @@
+# Frontend (React + Vite)
+
+## Requirements
+- Node.js 18+ (LTS recommended)
+- npm 9+
+
+## Install
+```bash
+npm install
+```
+
+## Run (local dev)
+```bash
+npm run dev
+```
+- App: `http://localhost:5173`
+- API base URL in dev: `http://localhost:8080` (see `frontend/src/shared/api.ts`)
+
+## Build
+```bash
+npm run build
+```
+
+## Auth notes
+- Login page: `/login`
+- Uses cookies + CSRF (`XSRF-TOKEN` / `X-XSRF-TOKEN`)
+- Dev credentials (in-memory users from the backend):
+  - `admin` / `change-me`
+  - `customer` / `change-me`
+
+## Useful commands
+```bash
+npm run lint
+```
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

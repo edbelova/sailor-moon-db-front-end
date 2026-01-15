@@ -1,8 +1,10 @@
 import { Link, useParams } from 'react-router-dom'
 import styles from './ItemViewPage.module.css'
+import { useAuth } from '../../features/auth/useAuth'
 
 export function ItemViewPage() {
   const { itemId } = useParams<{ itemId: string }>()
+  const { isAdmin } = useAuth()
 
   return (
     <div className={styles.page}>
@@ -11,7 +13,7 @@ export function ItemViewPage() {
         Item id: <strong>{itemId}</strong>
       </div>
       <div className={styles.pageLinks}>
-        {itemId ? <Link to={`/items/${itemId}/edit`}>Edit this item</Link> : null}
+        {itemId && isAdmin ? <Link to={`/items/${itemId}/edit`}>Edit this item</Link> : null}
         <Link to="/">Back to main</Link>
       </div>
     </div>
