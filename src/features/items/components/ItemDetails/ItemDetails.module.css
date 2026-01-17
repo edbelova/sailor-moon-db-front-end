@@ -1,0 +1,36 @@
+.card {
+  width: 100%;
+}
+
+/* each line is a 2-col grid: label | value */
+.row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  column-gap: 24px;
+  padding: 12px 0;
+  align-items: start;
+}
+
+.label {
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 14px;
+}
+
+.value {
+  color: rgba(0, 0, 0, 0.82);
+  font-size: 14px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.empty {
+  color: rgba(0, 0, 0, 0.35);
+}
+
+.linkLike {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
