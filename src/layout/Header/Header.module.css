@@ -1,44 +1,148 @@
 .header {
   padding: 12px 16px;
-  border-bottom: 1px solid var(--border-color);
 }
 
 .headerInner {
+  height: 84px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 22px;
+
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: space-between; /* left + right */
+  gap: 18px;
 }
 
-.title {
-  font-size: 18px;
-  font-weight: 650;
+.brand {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.88);
+  line-height: 1.05;
+}
+
+.brandTop {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  opacity: 0.75;
+  margin-bottom: 4px;
+}
+
+.brandMain {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.brandSub {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  opacity: 0.75;
+  margin-top: 2px;
+}
+
+.controls {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* stick to right */
+  gap: 12px;
+  min-width: 0; /* allows search to shrink instead of overflowing */
+}
+
+.search {
+  justify-self: center;
+  width: 360px;
+  height: 34px;
+
+  background: #d9d9d9;
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 0 14px;
+}
+
+.searchIcon {
+  font-size: 14px;
+  opacity: 0.65;
+}
+
+.searchInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.searchInput::placeholder {
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .nav {
   display: flex;
+  align-items: center;
   gap: 12px;
 }
+
 .authControls {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .username {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
 }
 
 .logoutButton {
-  border: none;
-  background: none;
-  color: var(--color-link);
-  font-size: 14px;
+  height: 30px;
+  padding: 0 14px;
+
+  border-radius: 999px;
+  background: #e6e6e6;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  color: rgba(0, 0, 0, 0.7);
   cursor: pointer;
-  padding: 4px 8px;
 }
 
 .logoutButton:hover {
   text-decoration: underline;
+}
+
+.loginLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 30px;
+  padding: 0 14px;
+
+  border-radius: 999px;
+  background: #e6e6e6;
+
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  color: #302A4E;
+}
+
+.pillLink:hover,
+.pillButton:hover {
+  opacity: 0.9;
 }
