@@ -14,9 +14,8 @@
 } 
 
 .itemsContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
+  display: block;
+  width: 100%;
 }
 
 .pageLinks {
