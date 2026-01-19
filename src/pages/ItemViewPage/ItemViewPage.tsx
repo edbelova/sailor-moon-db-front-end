@@ -12,6 +12,7 @@ export function ItemViewPage() {
   const item: ItemType = { 
     id: '1', 
     name: 'Item One', 
+    categoryId: 'home-goods',
     images: [
       'https://img.mandarake.co.jp/webshopimg/01/00/576/0100436576/0100436576104.jpg', 
       'https://img.mandarake.co.jp/webshopimg/01/00/576/0100436576/0100436576105.jpg', 

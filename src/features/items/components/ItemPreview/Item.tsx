@@ -11,7 +11,7 @@ export function ItemPreview( { item }: { item: ItemType }) {
     <div className={styles.block}>
       <div className={styles.picContainer}>
         <div className={styles.pic}>
-          <img src={item.imgURL} alt={item.name} />
+          <img src={item.images[0]} alt={item.name} />
         </div>
       </div>
       <div className={styles.title}>
