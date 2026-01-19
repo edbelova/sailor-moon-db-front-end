@@ -10,7 +10,7 @@ export function ItemDetails({
     materials,
     series,
     price,
-    dimentions,
+    dimensions,
     country,
 }: ItemDetailsProps) {
     return (
@@ -21,9 +21,8 @@ export function ItemDetails({
             <ItemAttributeView label="Manufacturer" values={manufacturer ?? ''} />
             <ItemAttributeView label="Materials" values={materials ?? []} />
             <ItemAttributeView label="Series" values={series ?? ''} />
-            <ItemAttributeView label="Series" values={series ?? ''} />
             <ItemAttributeView label="Manufacturer price" values={typeof price === "number" ? `${price}Y` : ''} />
-            <ItemAttributeView label="Dimentions" values={dimentions ?? ''} />
+            <ItemAttributeView label="Dimensions" values={dimensions ?? ''} />
             <ItemAttributeActionView label="Country" values={country ?? []} onAction={value => { alert(value + ' clicked! Change me later'); }} />
         </section>
     );

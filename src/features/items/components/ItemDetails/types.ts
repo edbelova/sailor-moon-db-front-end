@@ -6,6 +6,6 @@ export type ItemDetailsProps = {
     materials?: string[];
     series?: string;
     price?: number;
-    dimentions?: string;
+    dimensions?: string;
     country?: string;
 };

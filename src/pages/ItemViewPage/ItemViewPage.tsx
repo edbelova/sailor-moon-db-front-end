@@ -23,7 +23,7 @@ export function ItemViewPage() {
     materials: ['PVC', 'ABS'],
     series: 'Wonder Statue Work Of Art', 
     price: 12000, 
-    dimaensions: '15x10x8 cm', 
+    dimensions: '15x10x8 cm', 
     countryOfOrigin: 'Japan', 
     characters: ['Sailor Moon', 'Sailor Mars'],
     description: 'Sailor Moon fantasy notebook, a promotional insert (furoku) from the May 1993 issue (Heisei Year 5) of Kodansha\'s Nakayoshi shojo manga magazine, featuring artwork by Naoko Takeuchi. These collectible notebooks, often called "Fantasy Notebooks," were popular Sailor Moon merchandise from that era, and you can find them listed on collector sites like Mandarake or marketplaces like Etsy, often described by their year and issue number.'
@@ -50,7 +50,7 @@ export function ItemViewPage() {
             materials={item.materials}
             series={item.series} 
             price={item.price}
-            dimentions={item.dimaensions}
+            dimensions={item.dimensions}
             country={item.countryOfOrigin}
             />
         </div>
