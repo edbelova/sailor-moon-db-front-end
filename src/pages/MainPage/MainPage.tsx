@@ -2,10 +2,30 @@ import { Link, useParams } from 'react-router-dom'
 import styles from './MainPage.module.css'
 import { ItemList } from '../../features/items/components/ItemList/ItemList'
 import { useAuth } from '../../features/auth/useAuth'
+import { useCategories } from '../../features/categories/queries/useCategories'
+import { useCategoryUiStore } from '../../features/categories/state/useCategoryUiStore'
 
 export function MainPage() {
+  const { data: categories = [], isLoading, isError } = useCategories()
+  const activeCategoryId = useCategoryUiStore((state) => state.activeCategoryId)
+  const setActiveCategoryId = useCategoryUiStore(
+    (state) => state.setActiveCategoryId,
+  )
 
-  const { categoryId } = useParams<{ categoryId: string}>()
+  const { categoryId } = useParams<{ categoryId: string }>()
+
+  if (categoryId === undefined) {
+    setActiveCategoryId(null)
+  } else if (categoryId
+    && !isLoading
+    && !isError
+    && categoryId !== activeCategoryId
+    && (
+      categories.some(cat => cat.id === categoryId))
+      || categories.some(cat => cat.children?.some(child => child.id === categoryId))
+    ) {
+    setActiveCategoryId(categoryId ?? null)
+  }
 
   const { isAdmin } = useAuth()
   return (
@@ -17,7 +37,7 @@ export function MainPage() {
         <div className={styles.pageLinks}>
           {isAdmin ? <Link to="/items/new">Add item</Link> : null}
         </div>
-        <div className={styles.itemsContainer}> 
+        <div className={styles.itemsContainer}>
           <ItemList />
         </div>
       </div>
