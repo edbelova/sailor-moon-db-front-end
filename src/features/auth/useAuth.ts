@@ -1,11 +1,9 @@
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { type User, useAuthStore } from './useAuthStore'
+import type { User } from './types'
 import { apiFetch } from '../../shared/api'
 
 export function useAuth() {
-  const user = useAuthStore((state) => state.user)
-  const setUser = useAuthStore((state) => state.setUser)
   const queryClient = useQueryClient()
 
   const meQuery = useQuery({
@@ -13,16 +11,7 @@ export function useAuth() {
     queryFn: () => apiFetch<User>('/api/auth/me'),
     retry: false,
   })
-
-  useEffect(() => {
-    if (meQuery.isSuccess) {
-      setUser(meQuery.data ?? null)
-      return
-    }
-    if (meQuery.isError) {
-      setUser(null)
-    }
-  }, [meQuery.data, meQuery.isError, meQuery.isSuccess, setUser])
+  const user = meQuery.data ?? null
 
   const loginMutation = useMutation({
     mutationFn: ({
@@ -48,7 +37,6 @@ export function useAuth() {
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['auth', 'me'] })
       queryClient.setQueryData(['auth', 'me'], null)
-      setUser(null)
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({ queryKey: ['auth', 'me'] })
