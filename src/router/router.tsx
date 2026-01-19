@@ -34,6 +34,7 @@ export const router = createBrowserRouter([
           </RequireAdmin>
         ),
       },
+      { path: ':category', element: <MainPage />},
       { path: 'items/:itemId', element: <ItemViewPage /> },
       { path: 'login', element: <LoginPage /> },
       { path: 'support-us', element: <SupportUsPage /> },

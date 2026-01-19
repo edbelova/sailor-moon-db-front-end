@@ -1,17 +1,6 @@
 import { ItemAttributeView, ItemAttributeActionView } from '../ItemAttributeView'
 import styles from './ItemDetails.module.css'
-
-type Props = {
-    name: string;
-    characters?: string[];
-    releaseDate?: string;
-    manufacturer?: string;
-    materials?: string[];
-    series?: string;
-    price?: number;
-    dimentions?: string;
-    country?: string;
-};
+import type { ItemDetailsProps } from "./types";
 
 export function ItemDetails({
     name,
@@ -23,7 +12,7 @@ export function ItemDetails({
     price,
     dimentions,
     country,
-}: Props) {
+}: ItemDetailsProps) {
     return (
         <section className={styles.card} aria-label="Item details">
             <ItemAttributeView label="Name" values={name} />
