@@ -5,13 +5,13 @@ import { useAuth } from '../../features/auth/useAuth'
 
 export function MainPage() {
 
-  const { category } = useParams<{ category: string}>()
+  const { categoryId } = useParams<{ categoryId: string}>()
 
   const { isAdmin } = useAuth()
   return (
     <div className={styles.page}>
       <h1 className={styles.title}>Main screen</h1>
-      <div>{category}</div>
+      <div>{categoryId}</div>
       <div>Placeholder for browse/search/filter UI.</div>
       <div className={styles.itemsSection}>
         <div className={styles.pageLinks}>

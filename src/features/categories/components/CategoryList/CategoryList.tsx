@@ -2,6 +2,7 @@ import { useCategories } from '../../queries/useCategories'
 import { useCategoryUiStore } from '../../state/useCategoryUiStore'
 import type { Category } from '../../types'
 import styles from './CategoryList.module.css'
+import { useNavigate } from 'react-router-dom'
 
 export function CategoryList() {
   const { data: categories = [], isLoading, isError } = useCategories()
@@ -9,6 +10,7 @@ export function CategoryList() {
   const setActiveCategoryId = useCategoryUiStore(
     (state) => state.setActiveCategoryId,
   )
+  const navigate = useNavigate()
 
   const renderCategory = (category: Category, level = 0) => {
     const isActive = category.id === activeCategoryId
@@ -30,7 +32,10 @@ export function CategoryList() {
           type="button"
           className={buttonClassName}
           aria-pressed={isActive}
-          onClick={() => setActiveCategoryId(category.id)}
+          onClick={() => {
+            setActiveCategoryId(category.id)
+            navigate(`/${encodeURIComponent(category.id)}`)
+          }}
         >
           {category.name}
         </button>
