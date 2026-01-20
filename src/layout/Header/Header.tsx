@@ -51,7 +51,7 @@ export function Header() {
             />
           </form>
 
-          <nav className={styles.nav} aria-label="Header">
+          <nav className={styles.nav} aria-label="Authorization">
             {isAdmin ? (
               <NavLink to="/items/new">
                 Add item
