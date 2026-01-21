@@ -1,14 +1,16 @@
-import { Link } from 'react-router-dom'
 import styles from './ItemCreatePage.module.css'
+import { ItemForm } from '../../features/items/components/ItemForm/ItemForm'
+import { useCategories } from '../../features/categories/queries/useCategories'
+import { useCategoryUiStore } from '../../features/categories/state/useCategoryUiStore'
+
 
 export function ItemCreatePage() {
+  const { data: categories = [], isLoading, isError } = useCategories()
+  const activeCategoryId = useCategoryUiStore((state) => state.activeCategoryId)
+  
   return (
-    <div className={styles.page}>
-      <h1 className={styles.title}>Add single item</h1>
-      <div>Placeholder for new item form.</div>
-      <div className={styles.pageLinks}>
-        <Link to="/">Back to main</Link>
-      </div>
+    <div className={styles.createItemPage}>
+      <ItemForm />
     </div>
   )
 }

@@ -7,7 +7,6 @@ export function ItemDescription(description: { description?: string }) {
                 <h1 className={styles.title}>Item Description</h1>
             </div>
             <div className={styles.description}>
-                {/* TODO: Show item description; placeholder for now */}
                 <p className={styles.placeholder}>{description.description}</p>
             </div>
         </div>

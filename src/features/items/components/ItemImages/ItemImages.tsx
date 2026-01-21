@@ -1,7 +1,7 @@
 import styles from './ItemImages.module.css'
 
 type ItemImagesProps = {
-  images: string[];
+    images: string[];
 };
 
 export function ItemImages({ images }: ItemImagesProps) {

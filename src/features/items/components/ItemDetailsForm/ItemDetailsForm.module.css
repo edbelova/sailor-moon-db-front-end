@@ -1,0 +1,16 @@
+.detailsInputBlock {
+    width: 100%;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    column-gap: 24px;
+    padding: 12px 0;
+    align-items: start;
+}
+
+.label {
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 14px;
+}

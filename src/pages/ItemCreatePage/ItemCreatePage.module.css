@@ -6,10 +6,3 @@
   font-size: 24px;
   margin: 0 0 12px;
 }
-
-.pageLinks {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 12px;
-}
