@@ -1,9 +1,6 @@
-import { mockCategories } from '../data/mockCategories'
 import type { Category } from '../types'
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+import { apiFetch } from '../../../shared/api'
 
 export const fetchCategories = async (): Promise<Category[]> => {
-  await delay(250)
-  return mockCategories
+  return apiFetch<Category[]>('/api/categories')
 }
