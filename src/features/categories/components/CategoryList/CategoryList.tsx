@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useCategories } from '../../queries/useCategories'
 import { useCategoryUiStore } from '../../state/useCategoryUiStore'
 import type { Category } from '../../types'
@@ -11,11 +12,19 @@ export function CategoryList() {
     (state) => state.setActiveCategoryId,
   )
   const navigate = useNavigate()
+  const [expandedParentId, setExpandedParentId] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!expandedParentId && categories.length > 0) {
+      setExpandedParentId(categories[0].id)
+    }
+  }, [categories, expandedParentId])
 
   const renderCategory = (category: Category, level = 0) => {
     const isActive = category.id === activeCategoryId
     const isChild = level > 0
     const hasChildren = Boolean(category.children?.length)
+    const isExpanded = !isChild && expandedParentId === category.id
 
     const buttonClassName = [
       styles.categoryButton,
@@ -32,14 +41,20 @@ export function CategoryList() {
           type="button"
           className={buttonClassName}
           aria-pressed={isActive}
+          aria-expanded={hasChildren && !isChild ? isExpanded : undefined}
           onClick={() => {
             setActiveCategoryId(category.id)
             navigate(`/${encodeURIComponent(category.id)}`)
+            if (!isChild && hasChildren) {
+              if (expandedParentId !== category.id) {
+                setExpandedParentId(category.id)
+              }
+            }
           }}
         >
           {category.name}
         </button>
-        {category.children?.length ? (
+        {!isChild && isExpanded && category.children?.length ? (
           <ul className={styles.categoryChildren}>
             {category.children.map((child) => renderCategory(child, level + 1))}
           </ul>
