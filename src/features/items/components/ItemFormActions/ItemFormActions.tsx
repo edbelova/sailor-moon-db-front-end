@@ -2,6 +2,7 @@ import styles from './ItemFormActions.module.css'
 import SaveIcon from './Save.svg'
 import DeleteIcon from './TrashBin.svg'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useCategoryUiStore } from '../../../categories/state/useCategoryUiStore'
 import { useItemFormStore } from '../../state/useItemFormStore'
 import { buildCreateItemInput, validateItemForm } from '../ItemForm/validation'
@@ -14,6 +15,7 @@ export function ItemFormActions() {
     const values = useItemFormStore((state) => state.values)
     const reset = useItemFormStore((state) => state.reset)
     const createItemMutation = useCreateItem()
+    const navigate = useNavigate()
     const errorMessage =
         errors.name ?? errors.categoryId ?? errors.price ?? undefined
 
@@ -28,9 +30,10 @@ export function ItemFormActions() {
         const payload = buildCreateItemInput(values, activeCategoryId)
 
         createItemMutation.mutate(payload, {
-            onSuccess: () => {
+            onSuccess: (createdItem) => {
                 reset()
                 setErrors({})
+                navigate(`/items/${createdItem.id}`)
             },
         })
     }
