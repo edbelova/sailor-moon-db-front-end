@@ -1,25 +1,13 @@
-import { useState } from 'react'
 import styles from './ItemDetailsForm.module.css'
+import { useItemFormStore } from '../../state/useItemFormStore'
 
 export function ItemDetailsForm() {
-    const [formData, setFormData] = useState({
-        name: '',
-        characters: '',
-        releaseDate: '',
-        manufacturer: '',
-        materials: '',
-        series: '',
-        price: '',
-        dimensions: '',
-        country: ''
-    })
+    const values = useItemFormStore((state) => state.values)
+    const setField = useItemFormStore((state) => state.setField)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }))
+        setField(name as keyof typeof values, value)
     }
 
     return (
@@ -29,7 +17,7 @@ export function ItemDetailsForm() {
                 <input 
                     type="text"
                     name="name"
-                    value={formData.name}
+                    value={values.name}
                     onChange={handleChange}
                     className={styles.input}
                 />
@@ -39,7 +27,7 @@ export function ItemDetailsForm() {
                 <input 
                     type="text"
                     name="characters"
-                    value={formData.characters}
+                    value={values.characters}
                     onChange={handleChange}
                     className={styles.input}
                 />
@@ -49,7 +37,7 @@ export function ItemDetailsForm() {
                 <input 
                     type="text"
                     name="releaseDate"
-                    value={formData.releaseDate}
+                    value={values.releaseDate}
                     onChange={handleChange}
                     className={styles.input}
                 />
@@ -59,7 +47,7 @@ export function ItemDetailsForm() {
                 <input 
                     type="text"
                     name="manufacturer"
-                    value={formData.manufacturer}
+                    value={values.manufacturer}
                     onChange={handleChange}
                     className={styles.input}
                 />
@@ -69,7 +57,7 @@ export function ItemDetailsForm() {
                 <input 
                     type="text"
                     name="materials"
-                    value={formData.materials}
+                    value={values.materials}
                     onChange={handleChange}
                     className={styles.input}
                 />
@@ -79,7 +67,7 @@ export function ItemDetailsForm() {
                 <input 
                     type="text"
                     name="series"
-                    value={formData.series}
+                    value={values.series}
                     onChange={handleChange}
                     className={styles.input}
                 />
@@ -89,7 +77,7 @@ export function ItemDetailsForm() {
                 <input 
                     type="number"
                     name="price"
-                    value={formData.price}
+                    value={values.price}
                     onChange={handleChange}
                     className={styles.input}
                 />
@@ -99,7 +87,7 @@ export function ItemDetailsForm() {
                 <input 
                     type="text"
                     name="dimensions"
-                    value={formData.dimensions}
+                    value={values.dimensions}
                     onChange={handleChange}
                     className={styles.input}
                 />
@@ -108,8 +96,8 @@ export function ItemDetailsForm() {
                 <label className={styles.label}>Country</label>
                 <input 
                     type="text"
-                    name="country"
-                    value={formData.country}
+                    name="countryOfOrigin"
+                    value={values.countryOfOrigin}
                     onChange={handleChange}
                     className={styles.input}
                 />

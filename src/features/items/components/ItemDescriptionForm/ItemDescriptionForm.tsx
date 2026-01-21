@@ -1,8 +1,9 @@
-import { useState } from 'react'
 import styles from './ItemDescriptionForm.module.css'
+import { useItemFormStore } from '../../state/useItemFormStore'
 
 export function ItemDescriptionForm() {
-    const [description, setDescription] = useState('')
+    const description = useItemFormStore((state) => state.values.description)
+    const setField = useItemFormStore((state) => state.setField)
 
     return (
         <div className={styles.descriptionBlock}>
@@ -13,7 +14,7 @@ export function ItemDescriptionForm() {
                 <textarea 
                     className={styles.placeholder}
                     value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    onChange={(e) => setField('description', e.target.value)}
                     placeholder="Enter item description..."
                     rows={6}
                 />
