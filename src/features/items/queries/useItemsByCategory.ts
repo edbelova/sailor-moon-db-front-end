@@ -4,6 +4,7 @@ import type { Item } from '../types'
 
 export const itemQueryKeys = {
   all: ['items'] as const,
+  byId: (itemId: string) => ['items', 'by-id', itemId] as const,
 }
 
 export function useItemsByCategory(categoryId: string | null) {
