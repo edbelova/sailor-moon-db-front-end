@@ -4,9 +4,8 @@ import { useCategoryUiStore } from '../../../categories/state/useCategoryUiStore
 import { useItemsByCategory } from '../../queries/useItemsByCategory'
 
 export function ItemList() {
-  const activeCategoryId = useCategoryUiStore((state) => state.activeCategoryId)
-
-  const { data: items = [] } = useItemsByCategory(activeCategoryId)
+  const activeCategory = useCategoryUiStore((state) => state.activeCategory)
+  const { data: items = [] } = useItemsByCategory(activeCategory?.id ?? null)
 
   return (
     <div className={styles.itemsContainer}>

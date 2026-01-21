@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom'
 
 export function CategoryList() {
   const { data: categories = [], isLoading, isError } = useCategories()
-  const activeCategoryId = useCategoryUiStore((state) => state.activeCategoryId)
-  const setActiveCategoryId = useCategoryUiStore(
-    (state) => state.setActiveCategoryId,
+  const activeCategory = useCategoryUiStore((state) => state.activeCategory)
+  const setActiveCategory = useCategoryUiStore(
+    (state) => state.setActiveCategory,
   )
   const navigate = useNavigate()
   const [expandedParentId, setExpandedParentId] = useState<string | null>(null)
@@ -21,7 +21,7 @@ export function CategoryList() {
     : firstParentId
 
   const renderCategory = (category: Category, level = 0) => {
-    const isActive = category.id === activeCategoryId
+    const isActive = category.id === (activeCategory?.id ?? null)
     const isChild = level > 0
     const hasChildren = Boolean(category.children?.length)
     const isExpanded = !isChild && resolvedExpandedParentId === category.id
@@ -43,7 +43,7 @@ export function CategoryList() {
           aria-pressed={isActive}
           aria-expanded={hasChildren && !isChild ? isExpanded : undefined}
           onClick={() => {
-            setActiveCategoryId(category.id)
+            setActiveCategory(category)
             navigate(`/${encodeURIComponent(category.id)}`)
             if (!isChild && hasChildren) {
               if (resolvedExpandedParentId !== category.id) {

@@ -6,8 +6,21 @@ export const categoryQueryKeys = {
   all: ['categories'] as const,
 }
 
+const attachParents = (
+  categories: Category[],
+  parent: Category | null = null,
+): Category[] =>
+  categories.map((category) => {
+    const nextCategory: Category = { ...category, parent }
+    nextCategory.children = category.children
+      ? attachParents(category.children, nextCategory)
+      : null
+    return nextCategory
+  })
+
 export const useCategories = () =>
   useQuery<Category[]>({
     queryKey: categoryQueryKeys.all,
     queryFn: fetchCategories,
+    select: attachParents,
   })

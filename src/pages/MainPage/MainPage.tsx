@@ -7,23 +7,31 @@ import { useCategories } from '../../features/categories/queries/useCategories'
 import { useCategoryUiStore } from '../../features/categories/state/useCategoryUiStore'
 import type { Category } from '../../features/categories/types'
 
-function categoryIdExists(categories: Category[], categoryId: string): boolean {
-  return categories.some((category) => {
+function findCategoryById(
+  categories: Category[],
+  categoryId: string,
+): Category | null {
+  for (const category of categories) {
     if (category.id === categoryId) {
-      return true
+      return category
     }
-    return Boolean(
-      category.children?.some((child) => child.id === categoryId),
+    const childMatch = category.children?.find(
+      (child) => child.id === categoryId,
     )
-  })
+    if (childMatch) {
+      return childMatch
+    }
+  }
+  return null
 }
 
 export function MainPage() {
   const { data: categories = [], isLoading, isError } = useCategories()
-  const activeCategoryId = useCategoryUiStore((state) => state.activeCategoryId)
-  const setActiveCategoryId = useCategoryUiStore(
-    (state) => state.setActiveCategoryId,
+  const activeCategory = useCategoryUiStore((state) => state.activeCategory)
+  const setActiveCategory = useCategoryUiStore(
+    (state) => state.setActiveCategory,
   )
+  const activeCategoryId = activeCategory?.id ?? null
   const navigate = useNavigate()
 
   const { categoryId } = useParams<{ categoryId: string }>()
@@ -31,7 +39,7 @@ export function MainPage() {
   useEffect(() => {
     if (categoryId === undefined) {
       if (activeCategoryId !== null) {
-        setActiveCategoryId(null)
+        setActiveCategory(null)
       }
       return
     }
@@ -40,18 +48,18 @@ export function MainPage() {
       return
     }
 
-    const categoryExists = categoryIdExists(categories, categoryId)
+    const category = findCategoryById(categories, categoryId)
 
-    if (!categoryExists) {
+    if (!category) {
       if (activeCategoryId !== null) {
-        setActiveCategoryId(null)
+        setActiveCategory(null)
       }
       navigate('/', { replace: true })
       return
     }
 
     if (categoryId !== activeCategoryId) {
-      setActiveCategoryId(categoryId)
+      setActiveCategory(category)
     }
   }, [
     activeCategoryId,
@@ -60,7 +68,7 @@ export function MainPage() {
     isError,
     isLoading,
     navigate,
-    setActiveCategoryId,
+    setActiveCategory,
   ])
 
   const { isAdmin } = useAuth()

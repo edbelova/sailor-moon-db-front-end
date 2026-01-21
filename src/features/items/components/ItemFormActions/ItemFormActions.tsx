@@ -11,7 +11,8 @@ import { useCreateItem } from '../../queries/useCreateItem'
 
 export function ItemFormActions() {
     const [errors, setErrors] = useState<ItemFormErrors>({})
-    const activeCategoryId = useCategoryUiStore((state) => state.activeCategoryId)
+    const activeCategory = useCategoryUiStore((state) => state.activeCategory)
+    const activeCategoryId = activeCategory?.id ?? null
     const values = useItemFormStore((state) => state.values)
     const reset = useItemFormStore((state) => state.reset)
     const createItemMutation = useCreateItem()

@@ -1,5 +1,6 @@
 export type Category = {
   id: string
   name: string
-  children?: Category[]
+  parent: Category | null
+  children: Category[] | null
 }
