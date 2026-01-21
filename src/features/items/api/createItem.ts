@@ -1,21 +1,8 @@
-import type { CreateItemInput } from '../components/ItemForm/types'
-import type { Item } from '../types'
+import type { CreateItemRequest, Item } from '../types'
+import { apiFetch } from '../../../shared/api'
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-
-const createId = () => {
-  if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
-    return crypto.randomUUID()
-  }
-
-  return `item-${Date.now()}`
-}
-
-export const createItem = async (payload: CreateItemInput): Promise<Item> => {
-  await delay(350)
-
-  return {
-    id: createId(),
+export const createItem = async (payload: CreateItemRequest): Promise<Item> => {
+  const item: CreateItemRequest = {
     name: payload.name,
     categoryId: payload.categoryId,
     images: payload.images ?? [],
@@ -29,4 +16,9 @@ export const createItem = async (payload: CreateItemInput): Promise<Item> => {
     characters: payload.characters,
     description: payload.description,
   }
+
+  return apiFetch<Item>('/api/items', {
+    method: 'POST',
+    body: JSON.stringify(item),
+  })
 }

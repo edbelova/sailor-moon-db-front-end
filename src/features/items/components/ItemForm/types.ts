@@ -14,17 +14,4 @@ export type ItemFormValues = {
 
 export type ItemFormErrors = Partial<Record<keyof ItemFormValues | 'categoryId', string>>
 
-export type CreateItemInput = {
-  name: string
-  categoryId: string
-  images?: string[]
-  releaseDate?: string
-  manufacturer?: string
-  materials?: string[]
-  series?: string
-  price?: number
-  dimensions?: string
-  countryOfOrigin?: string
-  characters?: string[]
-  description?: string
-}
+export type { CreateItemRequest } from '../../types'

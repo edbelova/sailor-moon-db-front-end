@@ -13,3 +13,5 @@ export type Item = {
   characters?: string[]
   description?: string
 }
+
+export type CreateItemRequest = Omit<Item, 'id'>

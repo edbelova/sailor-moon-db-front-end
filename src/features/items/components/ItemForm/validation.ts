@@ -1,4 +1,4 @@
-import type { CreateItemInput, ItemFormErrors, ItemFormValues } from './types'
+import type { CreateItemRequest, ItemFormErrors, ItemFormValues } from './types'
 
 const listSeparator = /[,\n]+/g
 
@@ -22,10 +22,10 @@ const toTrimmedList = (value: string): string[] =>
     .map((entry) => entry.trim())
     .filter(Boolean)
 
-export const buildCreateItemInput = (
+export const buildCreateItemRequest = (
   values: ItemFormValues,
   categoryId: string
-): CreateItemInput => {
+): CreateItemRequest => {
   const priceNumber = values.price.trim() ? Number(values.price) : undefined
 
   return {

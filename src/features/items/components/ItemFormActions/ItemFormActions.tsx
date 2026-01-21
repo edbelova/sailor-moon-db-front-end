@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCategoryUiStore } from '../../../categories/state/useCategoryUiStore'
 import { useItemFormStore } from '../../state/useItemFormStore'
-import { buildCreateItemInput, validateItemForm } from '../ItemForm/validation'
+import { buildCreateItemRequest, validateItemForm } from '../ItemForm/validation'
 import type { ItemFormErrors } from '../ItemForm/types'
 import { useCreateItem } from '../../queries/useCreateItem'
 
@@ -27,7 +27,7 @@ export function ItemFormActions() {
             return
         }
 
-        const payload = buildCreateItemInput(values, activeCategoryId)
+        const payload = buildCreateItemRequest(values, activeCategoryId)
 
         createItemMutation.mutate(payload, {
             onSuccess: (createdItem) => {
