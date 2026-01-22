@@ -6,6 +6,7 @@ import { useAuth } from '../../features/auth/useAuth'
 import { useCategories } from '../../features/categories/queries/useCategories'
 import { useCategoryUiStore } from '../../features/categories/state/useCategoryUiStore'
 import type { Category } from '../../features/categories/types'
+import { CategoryBreadCrumbs } from '../../features/categories/components/CategoryBreadCrumbs/CategoryBreadCrumbs'
 
 function findCategoryById(
   categories: Category[],
@@ -75,7 +76,7 @@ export function MainPage() {
   return (
     <div className={styles.page}>
       <h1 className={styles.title}>Main screen</h1>
-      <div>Placeholder for browse/search/filter UI.</div>
+      <CategoryBreadCrumbs />
       <div className={styles.itemsSection}>
         <div className={styles.pageLinks}>
           {isAdmin ? <Link to="/items/new">Add item</Link> : null}
