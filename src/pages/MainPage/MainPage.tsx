@@ -1,17 +1,14 @@
 import { useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import styles from './MainPage.module.css'
-import { ItemList } from '../../features/items/components/ItemList/ItemList'
+import { ItemsGrid } from '../../features/items/components/ItemList/ItemsGrid'
 import { useAuth } from '../../features/auth/useAuth'
 import { useCategories } from '../../features/categories/queries/useCategories'
 import { useCategoryUiStore } from '../../features/categories/state/useCategoryUiStore'
 import type { Category } from '../../features/categories/types'
 import { CategoryBreadCrumbs } from '../../features/categories/components/CategoryBreadCrumbs/CategoryBreadCrumbs'
 
-function findCategoryById(
-  categories: Category[],
-  categoryId: string,
-): Category | null {
+function findCategoryById(categories: Category[], categoryId: string): Category | null {
   for (const category of categories) {
     if (category.id === categoryId) {
       return category
@@ -75,14 +72,15 @@ export function MainPage() {
   const { isAdmin } = useAuth()
   return (
     <div className={styles.page}>
-      <h1 className={styles.title}>Main screen</h1>
       <CategoryBreadCrumbs />
       <div className={styles.itemsSection}>
-        <div className={styles.pageLinks}>
-          {isAdmin ? <Link to="/items/new">Add item</Link> : null}
-        </div>
+        {isAdmin && 
+          <div className={styles.pageLinks}>
+            <Link to="/items/new">Add item</Link>
+          </div>
+        }
         <div className={styles.itemsContainer}>
-          <ItemList />
+          <ItemsGrid />
         </div>
       </div>
     </div>
