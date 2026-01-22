@@ -1,5 +1,21 @@
 # Frontend (React + Vite)
 
+## Overview
+React + TypeScript app for the Sailor Moon DB UI. The frontend talks to the Spring Boot backend over REST and uses React Query for server data.
+
+Key flows:
+- Browse items by category (category tree is fetched from `/api/categories`)
+- Item list filtering by category (`/api/items?categoryId=...`)
+- Item details view (`/api/items/:itemId`)
+- Admin-only item creation (`POST /api/items`)
+
+## Tech stack
+- React 18 + TypeScript
+- Vite (dev server + build)
+- React Query for data fetching/caching
+- React Router for routing
+- CSS Modules for styling
+
 ## Requirements
 - Node.js 18+ (LTS recommended)
 - npm 9+
@@ -28,81 +44,21 @@ npm run build
   - `admin` / `change-me`
   - `customer` / `change-me`
 
+## Project structure (high level)
+- `src/pages` routes (e.g. main list, item view, login)
+- `src/features/*` feature modules (items, categories, auth)
+- `src/shared` cross-cutting helpers (API client, etc.)
+
+## API integration details
+- Base fetch helper: `src/shared/api.ts`
+- Categories:
+  - `GET /api/categories` -> `src/features/categories/api/fetchCategories.ts`
+- Items:
+  - `GET /api/items` + `?categoryId=` -> `src/features/items/api/fetchItemsByCategory.ts`
+  - `GET /api/items/:itemId` -> `src/features/items/api/fetchItemById.ts`
+  - `POST /api/items` -> `src/features/items/api/createItem.ts`
+
 ## Useful commands
 ```bash
 npm run lint
-```
-
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
