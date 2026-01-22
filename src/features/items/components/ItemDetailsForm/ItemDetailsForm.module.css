@@ -14,3 +14,13 @@
     color: rgba(0, 0, 0, 0.45);
     font-size: 14px;
 }
+
+.input {
+    padding: 6px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+    font-family: inherit;
+    height: 32px;
+}

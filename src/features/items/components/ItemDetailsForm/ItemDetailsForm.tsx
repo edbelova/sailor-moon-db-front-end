@@ -1,4 +1,5 @@
 import styles from './ItemDetailsForm.module.css'
+import { ReleaseDateInput } from '../ReleaseDateInput/ReleaseDateInput'
 import { useItemFormStore } from '../../state/useItemFormStore'
 
 export function ItemDetailsForm() {
@@ -34,12 +35,9 @@ export function ItemDetailsForm() {
             </div>
             <div className={styles.row}>
                 <label className={styles.label}>Release Date</label>
-                <input 
-                    type="text"
-                    name="releaseDate"
+                <ReleaseDateInput
                     value={values.releaseDate}
-                    onChange={handleChange}
-                    className={styles.input}
+                    onChange={(nextValue) => setField('releaseDate', nextValue)}
                 />
             </div>
             <div className={styles.row}>

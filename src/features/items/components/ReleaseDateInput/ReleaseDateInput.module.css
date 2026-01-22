@@ -1,0 +1,24 @@
+.group {
+    display: grid;
+    grid-template-columns: minmax(66px, 1fr) minmax(90px, 1.2fr) minmax(70px, 1fr);
+    gap: 12px;
+    align-items: center;
+}
+
+.input,
+.select {
+    padding: 6px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+    font-family: inherit;
+    height: 32px;
+}
+
+.select:disabled,
+.input:disabled {
+    background: #f6f6f6;
+    color: rgba(0, 0, 0, 0.4);
+}
+
