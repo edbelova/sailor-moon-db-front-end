@@ -19,7 +19,7 @@ export function ItemCreatePage() {
 
   return (
     <div className={styles.createItemPage}>
-      <ItemForm />
+      <ItemForm mode="create" />
     </div>
   )
 }

@@ -6,8 +6,12 @@ import { CategoryBreadCrumbs } from '../../../categories/components/CategoryBrea
 
 import styles from './ItemForm.module.css'
 
+type ItemFormProps = {
+  mode?: 'create' | 'edit'
+  itemId?: string
+}
 
-export function ItemForm() {
+export function ItemForm({ mode = 'create', itemId }: ItemFormProps) {
   return (
     <div className={styles.itemForm}>
       <CategoryBreadCrumbs />
@@ -20,7 +24,7 @@ export function ItemForm() {
             <ItemDetailsForm />
           </div>
           <div className={styles.itemActions}>
-            <ItemFormActions />
+            <ItemFormActions mode={mode} itemId={itemId} />
           </div>
         </div>
         <div className={styles.itemDescription}>

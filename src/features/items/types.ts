@@ -15,3 +15,5 @@ export type Item = {
 }
 
 export type CreateItemRequest = Omit<Item, 'id'>
+
+export type UpdateItemRequest = Item
