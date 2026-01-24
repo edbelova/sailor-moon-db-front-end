@@ -9,6 +9,7 @@ import { buildCreateItemRequest, buildUpdateItemRequest, validateItemForm } from
 import type { ItemFormErrors } from '../ItemForm/types'
 import { useCreateItem } from '../../queries/useCreateItem'
 import { useUpdateItem } from '../../queries/useUpdateItem'
+import { useDeleteItem } from '../../queries/useDeleteItem'
 
 type ItemFormActionsProps = {
     mode?: 'create' | 'edit'
@@ -23,12 +24,13 @@ export function ItemFormActions({ mode = 'create', itemId }: ItemFormActionsProp
     const reset = useItemFormStore((state) => state.reset)
     const createItemMutation = useCreateItem()
     const updateItemMutation = useUpdateItem()
+    const deleteItemMutation = useDeleteItem()
     const navigate = useNavigate()
     const errorMessage =
         errors.name ?? errors.categoryId ?? errors.price ?? undefined
 
     const isEditing = mode === 'edit'
-    const isSaving = createItemMutation.isPending || updateItemMutation.isPending
+    const isSaving = createItemMutation.isPending || updateItemMutation.isPending || deleteItemMutation.isPending
 
     const handleSave = () => {
         const validationErrors = validateItemForm(values, activeCategoryId)
@@ -67,6 +69,22 @@ export function ItemFormActions({ mode = 'create', itemId }: ItemFormActionsProp
         }
     }
 
+    const handleDelete = () => {
+        if (!isEditing || !itemId) {
+            return
+        }
+        if (!confirm('Are you sure you want to delete this item?')) {
+            return
+        }
+        deleteItemMutation.mutate(itemId, {
+            onSuccess: () => {
+                reset()
+                setErrors({})
+                navigate(`/${activeCategoryId}`)
+            },
+        })
+    }
+
     return (
         <div className={styles.actionsBlock}>
             <button
@@ -77,12 +95,21 @@ export function ItemFormActions({ mode = 'create', itemId }: ItemFormActionsProp
             >
                 <img src={SaveIcon} alt="Save" className={styles.icon} />
             </button>
-            <button className={styles.deleteButton}>
+            <button 
+                className={styles.deleteButton}
+                onClick={handleDelete}
+                disabled={!isEditing || deleteItemMutation.isPending}
+            >
                 <img src={DeleteIcon} alt="Delete" className={styles.icon} />
             </button>
             {(errorMessage || createItemMutation.isError || updateItemMutation.isError) && (
                 <div className={styles.errorText}>
                     {errorMessage ?? 'Unable to save item.'}
+                </div>
+            )}
+            {deleteItemMutation.isError && (
+                <div className={styles.errorText}>
+                    Unable to delete item.
                 </div>
             )}
         </div>

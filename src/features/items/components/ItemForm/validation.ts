@@ -32,7 +32,7 @@ export const buildCreateItemRequest = (
   return {
     name: values.name.trim(),
     categoryId,
-    images: values.images.length ? values.images : undefined,
+    images: values.images.length ? values.images : [],
     releaseDate: values.releaseDate.trim() || undefined,
     manufacturer: values.manufacturer.trim() || undefined,
     materials: values.materials.trim() ? toTrimmedList(values.materials) : undefined,
