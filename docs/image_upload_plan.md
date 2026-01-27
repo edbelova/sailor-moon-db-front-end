@@ -178,7 +178,7 @@ export async function uploadItemImages(files: File[]): Promise<UploadItemImageRe
 }
 ```
 
-- Place the helper in `src/features/items/api/uploadItemImage.ts` and import it into the form state handler (typically a hook or reducer action in `src/features/items/state`), not directly inside the presentational component.
+   - Place the helper in `src/features/items/api/uploadItemImage.ts` and import it into the form state handler (typically a hook or reducer action in `src/features/items/state`), not directly inside the presentational component.
 
 2) **Update `apiFetch` to support `FormData`**
    - The current `apiFetch` always sets `Content-Type: application/json`, which breaks file uploads.
@@ -221,15 +221,76 @@ export async function apiFetch<T = unknown>(path: string, options: RequestInit =
 }
 ```
 
-1) **Add image state to item form**
+3) **Add image state to item form**
    - Create or extend item form state in `src/features/items/state` to include:
      - `images: ItemImage[]`
      - `isUploading: boolean`
      - `uploadErrors: string[]`
    - When editing an item, hydrate state from API:
      - `images` = zip `images` + `imageUrls` into `{ key, url }` objects.
+   - Recommended placement:
+     - Keep form values in `src/features/items/state/useItemFormStore.ts` (Zustand).
+     - Store UI images separately from `values.images` (keys-only) to avoid mixing keys and URLs.
+   - Suggested store shape (example):
 
-2) **Wire state to `ItemImagesForm`**
+```ts
+type ItemFormState = {
+  values: ItemFormValues
+  imageItems: ItemImage[]
+  isUploading: boolean
+  uploadErrors: string[]
+  setImageItems: (images: ItemImage[]) => void
+  // existing setters...
+}
+```
+
+   - Define `ItemImage` alongside form types (e.g., `src/features/items/components/ItemForm/types.ts`):
+
+```ts
+export type ItemImage = {
+  key: string
+  url: string
+  isMain: boolean
+}
+```
+
+   - Initialize the new fields in `useItemFormStore`:
+
+```ts
+export const useItemFormStore = create<ItemFormState>((set) => ({
+  values: getDefaultItemFormValues(),
+  imageItems: [],
+  isUploading: false,
+  uploadErrors: [],
+  setImageItems: (items) => set({ imageItems: items }),
+  // existing setters...
+}))
+```
+
+   - Hydrate on edit (in `ItemEditPage` after item fetch):
+
+```ts
+const setImageItems = useItemFormStore((state) => state.setImageItems)
+  const setValues = useItemFormStore((state) => state.setValues)
+
+  useEffect(() => {
+    if (!item) return
+
+    const imageItems = (item.images ?? []).map((key, index) => ({
+      key,
+      url: item.imageUrls?.[index] ?? '',
+      isMain: index === 0,
+    }))
+
+    setValues(buildItemFormValues(item))
+    setImageItems(imageItems)
+  }, [item, setValues, setImageItems])
+```
+
+   - When saving, keep using `values.images` (keys-only), derived from `imageItems.map(i => i.key)`.
+   - Update the frontend `Item` type to include `imageUrls?: string[]` so TypeScript recognizes the new field.
+
+4) **Wire state to `ItemImagesForm`**
    - Update `ItemImagesForm` to accept props for:
      - `images`
      - `onAddImages(files)`
@@ -240,7 +301,7 @@ export async function apiFetch<T = unknown>(path: string, options: RequestInit =
      - use `uploadItemImage(file)` for single-file selection
      - use `uploadItemImages(files)` for multi-file selection/drag-drop
 
-3) **Implement file picker upload**
+5) **Implement file picker upload**
    - Add a hidden `<input type="file" accept="image/*" multiple />`.
    - Add “Upload from computer” button that triggers the input.
    - On file selection:
@@ -249,36 +310,36 @@ export async function apiFetch<T = unknown>(path: string, options: RequestInit =
      - append new `{ key, url }` to gallery
      - if gallery was empty, set first upload as main
 
-4) **Implement drag-and-drop upload**
+6) **Implement drag-and-drop upload**
    - Add drop handlers to:
      - gallery container (append)
      - main image container (append + set as main)
    - Prevent default browser behavior on drag-over.
    - Add visual drop-target highlight.
 
-5) **Implement drag-to-main behavior**
+7) **Implement drag-to-main behavior**
    - Use `@dnd-kit` sortable list for thumbnails.
    - Add a drop zone over main image:
      - when a thumbnail is dropped there, move it to index 0.
    - Optional: allow full reordering in the gallery list.
 
-6) **Implement delete**
+8) **Implement delete**
    - Add a trash icon overlay (left side) shown on hover.
    - On delete:
      - remove from list
      - if deleted image was main, promote next image (index 0)
      - (optional) call backend delete to avoid orphan images (future enhancement)
 
-7) **Enforce “at least one image” rule**
+9) **Enforce “at least one image” rule**
    - Disable the Save button in `ItemFormActions` when `images.length === 0`.
    - Show inline error message under the image section if user tries to save with no images.
 
-8)  **Persist on save**
+10)  **Persist on save**
    - In create/update payloads, send:
      - `images: images.map(i => i.key)`
    - Do not send `imageUrls` in requests.
 
-9)  **Test flows**
+11)  **Test flows**
    - Create: upload 1–3 images → set main → save item → verify `imageUrls`.
    - Edit: reorder main image → delete → save → verify backend updates.
 

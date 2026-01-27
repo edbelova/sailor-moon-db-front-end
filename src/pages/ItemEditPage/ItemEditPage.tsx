@@ -13,6 +13,7 @@ export function ItemEditPage() {
   const { itemId } = useParams<{ itemId: string }>()
   const { data: item, isLoading, isError } = useItemById(itemId)
   const { data: categories } = useCategories()
+  const setImageItems = useItemFormStore((state) => state.setImageItems)
   const setValues = useItemFormStore((state) => state.setValues)
   const reset = useItemFormStore((state) => state.reset)
   const setActiveCategory = useCategoryUiStore((state) => state.setActiveCategory)
@@ -21,9 +22,14 @@ export function ItemEditPage() {
     if (!item) {
       return
     }
-
+    const imageItems = (item.images ?? []).map((key, index) => ({
+      key,
+      url: item.imageUrls?.[index] ?? '',
+      isMain: index === 0,
+    }))
     setValues(buildItemFormValues(item))
-  }, [item, setValues])
+    setImageItems(imageItems)
+  }, [item, setValues, setImageItems])
 
   useEffect(() => {
     if (!item || !categories) {

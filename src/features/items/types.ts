@@ -3,6 +3,7 @@ export type Item = {
   name: string
   categoryId: string
   images: string[]
+  imageUrls?: string[]
   releaseDate?: string
   manufacturer?: string
   materials?: string[]
