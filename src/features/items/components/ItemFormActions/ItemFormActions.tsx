@@ -31,8 +31,12 @@ export function ItemFormActions({ mode = 'create', itemId }: ItemFormActionsProp
 
     const isEditing = mode === 'edit'
     const isSaving = createItemMutation.isPending || updateItemMutation.isPending || deleteItemMutation.isPending
+    const imageItems = useItemFormStore((state) => state.imageItems)
+    const setField = useItemFormStore((state) => state.setField)
 
     const handleSave = () => {
+        const imageKeys = imageItems.map((img) => img.key)
+        setField('images', imageKeys)
         const validationErrors = validateItemForm(values, activeCategoryId)
         setErrors(validationErrors)
 

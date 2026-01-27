@@ -1,19 +1,28 @@
+import type { ItemImage } from '../ItemForm/types';
 import styles from './ItemImagesForm.module.css'
 import UploadIcon from './Upload.svg'
 
-export function ItemImagesForm() {
+type ItemImagesFormProps = {
+    images: ItemImage[]
+    onAddImages: (files: File[]) => void
+    onDeleteImage: (key: string) => void
+    onSetMainImage: (key: string) => void
+}
+
+export function ItemImagesForm(props: ItemImagesFormProps) {
     return (
         <div className={styles.itemImages}>
 
+            {/* Gallery thumbnails */}
             <div className={styles.gallery}>
-                {/* {galleryImages.map((img, index) => (
+                {props.images.map((img, index) => (
                 <img
                     key={index}
-                    src={img}
+                    src={img.url}
                     alt={`Gallery image ${index + 1}`}
                     className={styles.thumb}
                 />
-                ))} */}
+                ))}
             </div>
 
             {/* Main image */}

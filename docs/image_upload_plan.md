@@ -296,10 +296,104 @@ const setImageItems = useItemFormStore((state) => state.setImageItems)
      - `onAddImages(files)`
      - `onDeleteImage(key)`
      - `onSetMain(key)`
+  - In src/features/items/components/ItemImagesForm/ItemImagesForm.tsx:
+ 
+```ts
+  type ItemImagesFormProps = {
+    images: ItemImage[]
+    onAddImages: (files: File[]) => void
+    onDeleteImage: (key: string) => void
+    onSetMain: (key: string) => void
+  }
+
+  export function ItemImagesForm({
+    images,
+    onAddImages,
+    onDeleteImage,
+    onSetMain,
+  }: ItemImagesFormProps) {
+    // render gallery + main image using `images`
+  }
+```
+
    - In `ItemForm`, pass handlers from state to `ItemImagesForm`.
    - `onAddImages` is where you call the upload helper(s):
      - use `uploadItemImage(file)` for single-file selection
      - use `uploadItemImages(files)` for multi-file selection/drag-drop
+   - Example wiring (in `ItemForm`):
+
+```ts
+  import { useItemFormStore } from '../../state/useItemFormStore'
+  import { uploadItemImages } from '../../api/uploadItemImage'
+
+  export function ItemForm(...) {
+    const imageItems = useItemFormStore((state) => state.imageItems)
+    const setImageItems = useItemFormStore((state) => state.setImageItems)
+
+    const handleAddImages = async (files: File[]) => {
+      const uploads = await uploadItemImages(files)
+      const next = [...imageItems, ...uploads.map((u, idx) => ({
+        key: u.key,
+        url: u.url,
+        isMain: imageItems.length === 0 && idx === 0,
+      }))]
+      setImageItems(next)
+    }
+
+    const handleDelete = (key: string) => {
+      const next = imageItems.filter((img) => img.key !== key)
+      // if main deleted, promote first item
+      if (next.length > 0) {
+        next[0] = { ...next[0], isMain: true }
+      }
+      setImageItems(next)
+    }
+
+    const handleSetMain = (key: string) => {
+      const next = imageItems.map((img) => ({
+        ...img,
+        isMain: img.key === key,
+      }))
+      // move main to index 0 if you want ordering
+      next.sort((a, b) => (b.isMain ? 1 : 0) - (a.isMain ? 1 : 0))
+      setImageItems(next)
+    }
+
+    return (
+      <ItemImagesForm
+        images={imageItems}
+        onAddImages={handleAddImages}
+        onDeleteImage={handleDelete}
+        onSetMain={handleSetMain}
+      />
+    )
+  }
+```
+   - Keep values.images in sync when saving:
+  the form values you send to the backend (values.images) must stay aligned with the UI list (imageItems).
+
+    - imageItems = UI objects { key, url, isMain }
+    - values.images = keys only (string[]) sent to API
+
+  So whenever imageItems changes (add/delete/reorder), you should update values.images to match.
+
+  You can do this  in the save handler right before you build the API request.
+  That keeps values clean and avoids extra updates on every UI change.
+
+  Example (inside ItemFormActions or wherever you call createItem / updateItem):
+
+```ts
+  const imageItems = useItemFormStore((state) => state.imageItems)
+  const setField = useItemFormStore((state) => state.setField)
+
+  const handleSave = () => {
+    const imageKeys = imageItems.map((img) => img.key)
+    setField('images', imageKeys)
+
+    const validationErrors = validateItemForm(values, activeCategoryId)
+    // ... rest of your existing save logic
+  }
+```
 
 5) **Implement file picker upload**
    - Add a hidden `<input type="file" accept="image/*" multiple />`.
@@ -334,12 +428,12 @@ const setImageItems = useItemFormStore((state) => state.setImageItems)
    - Disable the Save button in `ItemFormActions` when `images.length === 0`.
    - Show inline error message under the image section if user tries to save with no images.
 
-10)  **Persist on save**
+10)   **Persist on save**
    - In create/update payloads, send:
      - `images: images.map(i => i.key)`
    - Do not send `imageUrls` in requests.
 
-11)  **Test flows**
+11)   **Test flows**
    - Create: upload 1–3 images → set main → save item → verify `imageUrls`.
    - Edit: reorder main image → delete → save → verify backend updates.
 
