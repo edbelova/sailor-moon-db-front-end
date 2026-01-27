@@ -403,6 +403,42 @@ const setImageItems = useItemFormStore((state) => state.setImageItems)
      - upload files (sequential or parallel)
      - append new `{ key, url }` to gallery
      - if gallery was empty, set first upload as main
+   - Example (inside `ItemImagesForm`):
+
+```tsx
+const inputRef = useRef<HTMLInputElement | null>(null)
+
+const handlePickClick = () => inputRef.current?.click()
+
+const handleFiles = (files: FileList | null) => {
+  if (!files || files.length === 0) return
+  props.onAddImages(Array.from(files))
+}
+
+<input
+  ref={inputRef}
+  type="file"
+  accept="image/*"
+  multiple
+  className={styles.hiddenInput}
+  onChange={(e) => {
+    handleFiles(e.target.files)
+    e.currentTarget.value = ''
+  }}
+/>
+
+<button type="button" onClick={handlePickClick} className={styles.uploadButton}>
+  Upload from computer
+</button>
+```
+
+   - CSS helper for hidden input:
+
+```css
+.hiddenInput {
+  display: none;
+}
+```
 
 6) **Implement drag-and-drop upload**
    - Add drop handlers to:
