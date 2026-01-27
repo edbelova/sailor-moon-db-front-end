@@ -1,22 +1,33 @@
+import { useState } from 'react'
 import styles from './ItemImages.module.css'
 
 type ItemImagesProps = {
-    images: string[];
+    images: string[]
+    imageUrls?: string[]
 };
 
-export function ItemImages({ images }: ItemImagesProps) {
-	const [mainImage, ...galleryImages] = images;
+export function ItemImages({ images, imageUrls }: ItemImagesProps) {
+    const displayImages = imageUrls?.length ? imageUrls : images
+    const [activeKey, setActiveKey] = useState<string | null>(null)
+    const activeIndex = activeKey ? displayImages.indexOf(activeKey) : -1
+    const safeIndex = activeIndex >= 0 ? activeIndex : 0
+    const mainImage = displayImages[safeIndex] ?? displayImages[0]
+
+    if (!mainImage) {
+        return null
+    }
 
     return (
         <div className={styles.itemImages}>
         {/* Gallery */}
         <div className={styles.gallery}>
-            {galleryImages.map((img, index) => (
+            {displayImages.map((img, index) => (
             <img
-                key={index}
+                key={`${img}-${index}`}
                 src={img}
                 alt={`Gallery image ${index + 1}`}
-                className={styles.thumb}
+                className={`${styles.thumb} ${index === safeIndex ? styles.thumbActive : ''}`}
+                onClick={() => setActiveKey(img)}
             />
             ))}
         </div>

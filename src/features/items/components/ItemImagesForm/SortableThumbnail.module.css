@@ -1,0 +1,19 @@
+.deleteBtn {
+    position: absolute;
+    left: 6px;
+    top: 6px;
+}
+
+.thumbWrap {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border: 2px solid #999;
+    overflow: hidden;
+}
+
+.thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

@@ -32,4 +32,10 @@
   height: 120px;
   object-fit: cover;
   border: 2px solid #999;
+  cursor: pointer;
+}
+
+.thumbActive {
+  border-color: #222;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15);
 }

@@ -30,21 +30,23 @@ export function ItemForm({ mode = 'create', itemId }: ItemFormProps) {
     }
 
     const handleDeleteImage = (key: string) => {
-      const next = imageItems.filter((img) => img.key !== key)
-      // if main deleted, promote first item
-      if (next.length > 0) {
-        next[0] = { ...next[0], isMain: true }
-      }
+      const next = imageItems
+        .filter((img) => img.key !== key)
+        .map((img, index) => ({ ...img, isMain: index === 0 }))
       setImageItems(next)
     }
 
     const handleSetMainImage = (key: string) => {
-      const next = imageItems.map((img) => ({
-        ...img,
-        isMain: img.key === key,
-      }))
-      // move main to index 0 if you want ordering
-      next.sort((a, b) => (b.isMain ? 1 : 0) - (a.isMain ? 1 : 0))
+      const idx = imageItems.findIndex((img) => img.key === key)
+      if (idx === -1) {
+        return
+      }
+      const moved = [...imageItems]
+      const [selected] = moved.splice(idx, 1)
+      const next = [
+        { ...selected, isMain: true },
+        ...moved.map((img) => ({ ...img, isMain: false })),
+      ]
       setImageItems(next)
     }
 

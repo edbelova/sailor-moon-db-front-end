@@ -446,12 +446,104 @@ const handleFiles = (files: FileList | null) => {
      - main image container (append + set as main)
    - Prevent default browser behavior on drag-over.
    - Add visual drop-target highlight.
+   - Example (inside `ItemImagesForm`):
+
+```tsx
+const [isDragging, setIsDragging] = useState(false)
+
+const handleDragOver = (e: React.DragEvent) => {
+  e.preventDefault()
+  setIsDragging(true)
+}
+
+const handleDragLeave = () => setIsDragging(false)
+
+const handleDrop = (e: React.DragEvent, makeMain = false) => {
+  e.preventDefault()
+  setIsDragging(false)
+
+  const files = Array.from(e.dataTransfer.files ?? []).filter((f) =>
+    f.type.startsWith('image/')
+  )
+  if (files.length === 0) return
+
+  props.onAddImages(files)
+  if (makeMain) {
+    // optional: caller can set main to first uploaded image once added
+  }
+}
+
+<div
+  className={`${styles.gallery} ${isDragging ? styles.dragActive : ''}`}
+  onDragOver={handleDragOver}
+  onDragLeave={handleDragLeave}
+  onDrop={(e) => handleDrop(e, false)}
+>
+  {/* thumbnails */}
+</div>
+
+<div
+  className={`${styles.mainImage} ${isDragging ? styles.dragActive : ''}`}
+  onDragOver={handleDragOver}
+  onDragLeave={handleDragLeave}
+  onDrop={(e) => handleDrop(e, true)}
+>
+  {/* main image */}
+</div>
+```
+
+   - Example CSS for highlight:
+
+```css
+.dragActive {
+  border-color: #444;
+  background: rgba(0, 0, 0, 0.03);
+}
+```
 
 7) **Implement drag-to-main behavior**
    - Use `@dnd-kit` sortable list for thumbnails.
    - Add a drop zone over main image:
      - when a thumbnail is dropped there, move it to index 0.
    - Optional: allow full reordering in the gallery list.
+   - Suggested approach:
+     1) Wrap the gallery in a `DndContext`.
+     2) Render thumbnails as sortable items.
+     3) Add a `MainImageDropZone` that accepts drops and calls `onSetMain(key)`.
+
+Example sketch:
+
+```tsx
+import { DndContext, DragEndEvent } from '@dnd-kit/core'
+import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable'
+
+const handleDragEnd = (event: DragEndEvent) => {
+  const { active, over } = event
+  if (!over) return
+
+  if (over.id === 'main-drop-zone') {
+    props.onSetMain(String(active.id))
+    return
+  }
+
+  // optional: reorder gallery thumbnails
+  const oldIndex = imageItems.findIndex((i) => i.key === active.id)
+  const newIndex = imageItems.findIndex((i) => i.key === over.id)
+  if (oldIndex !== -1 && newIndex !== -1 && oldIndex !== newIndex) {
+    const next = arrayMove(imageItems, oldIndex, newIndex)
+    setImageItems(next)
+  }
+}
+
+<DndContext onDragEnd={handleDragEnd}>
+  <SortableContext items={imageItems.map((i) => i.key)} strategy={verticalListSortingStrategy}>
+    {/* thumbnails */}
+  </SortableContext>
+  <div id="main-drop-zone">
+    {/* main image */}
+  </div>
+</DndContext>
+```
 
 8) **Implement delete**
    - Add a trash icon overlay (left side) shown on hover.
@@ -459,15 +551,89 @@ const handleFiles = (files: FileList | null) => {
      - remove from list
      - if deleted image was main, promote next image (index 0)
      - (optional) call backend delete to avoid orphan images (future enhancement)
+   - Detailed steps:
+     1) Add a delete button in `SortableThumbnail` and style it to appear on hover (left side).
+     2) Wire the delete button to call `onDeleteImage(key)`.
+     3) In the parent handler (`handleDeleteImage` in `ItemForm`), remove from state and reassign main if needed.
+     4) (Optional later) call a backend delete endpoint if you add one.
+
+Example `SortableThumbnail` button:
+
+```tsx
+<button
+  type="button"
+  className={styles.deleteBtn}
+  onClick={() => onDelete(img.key)}
+  aria-label="Delete image"
+>
+  🗑
+</button>
+```
+
+Example handler in `ItemForm`:
+
+```ts
+const handleDeleteImage = (key: string) => {
+  const next = imageItems.filter((img) => img.key !== key)
+  if (next.length > 0) {
+    next[0] = { ...next[0], isMain: true }
+  }
+  setImageItems(next)
+}
+```
 
 9) **Enforce “at least one image” rule**
    - Disable the Save button in `ItemFormActions` when `images.length === 0`.
    - Show inline error message under the image section if user tries to save with no images.
+   - Detailed steps:
+     1) Read `imageItems` in `ItemFormActions`.
+     2) If `imageItems.length === 0`, set an error and block save.
+     3) Pass a flag or error message down to `ItemImagesForm` to display below the gallery.
+
+Example (in `ItemFormActions`):
+
+```ts
+const imageItems = useItemFormStore((state) => state.imageItems)
+
+const handleSave = () => {
+  if (imageItems.length === 0) {
+    setErrors((prev) => ({ ...prev, images: 'Add at least one image.' }))
+    return
+  }
+
+  // existing validation + save
+}
+```
+
+Example error display (in `ItemImagesForm`):
+
+```tsx
+{errorMessage && <div className={styles.imageError}>{errorMessage}</div>}
+```
 
 10)   **Persist on save**
    - In create/update payloads, send:
      - `images: images.map(i => i.key)`
    - Do not send `imageUrls` in requests.
+   - Detailed steps:
+     1) In `ItemFormActions.handleSave`, read `imageItems` from the store.
+     2) Convert to keys and sync `values.images` **before** building payloads.
+     3) Use existing `buildCreateItemRequest` / `buildUpdateItemRequest`.
+
+Example:
+
+```ts
+const imageItems = useItemFormStore((state) => state.imageItems)
+const setField = useItemFormStore((state) => state.setField)
+
+const handleSave = () => {
+  const imageKeys = imageItems.map((img) => img.key)
+  setField('images', imageKeys)
+
+  const validationErrors = validateItemForm(values, activeCategoryId)
+  // ... continue with buildCreateItemRequest / buildUpdateItemRequest
+}
+```
 
 11)   **Test flows**
    - Create: upload 1–3 images → set main → save item → verify `imageUrls`.

@@ -5,7 +5,6 @@ import styles from './ItemCreatePage.module.css'
 
 export function ItemCreatePage() {
   const activeCategory = useCategoryUiStore((state) => state.activeCategory);
-  console.log('Active Category:', activeCategory);
 
   if (!activeCategory || !activeCategory.parent) {
     return (

@@ -7,11 +7,14 @@ import Heart from './Heart.svg'
 import Cart from './Cart.svg'
 
 export function ItemPreview( { item }: { item: ItemType }) {
+
+  const previewUrl = item.imageUrls?.[0] ?? item.images[0]
+
   return (
     <div className={styles.block}>
       <div className={styles.picContainer}>
         <div className={styles.pic}>
-          <img src={item.images[0]} alt={item.name} />
+          <img src={previewUrl} alt={item.name} />
         </div>
       </div>
       <div className={styles.title}>

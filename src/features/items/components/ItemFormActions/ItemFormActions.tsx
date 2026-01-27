@@ -44,12 +44,23 @@ export function ItemFormActions({ mode = 'create', itemId }: ItemFormActionsProp
             return
         }
 
+        if (imageItems.length === 0) {
+            setErrors((prev) => ({
+                ...prev,
+                images: 'At least one image is required.',
+            }))
+            return
+        }
+
         if (isEditing) {
             if (!itemId) {
                 return
             }
 
-            const payload = buildUpdateItemRequest(values, activeCategoryId, itemId)
+            const payload = buildUpdateItemRequest(
+                { ...values, images: imageKeys }, 
+                activeCategoryId, 
+                itemId)
 
             updateItemMutation.mutate(
                 { itemId, payload },
@@ -61,7 +72,10 @@ export function ItemFormActions({ mode = 'create', itemId }: ItemFormActionsProp
                 }
             )
         } else {
-            const payload = buildCreateItemRequest(values, activeCategoryId)
+            const payload = buildCreateItemRequest(
+                { ...values, images: imageKeys }, 
+                activeCategoryId
+            )
 
             createItemMutation.mutate(payload, {
                 onSuccess: (createdItem) => {

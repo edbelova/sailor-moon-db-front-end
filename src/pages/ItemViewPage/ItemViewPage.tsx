@@ -25,7 +25,7 @@ export function ItemViewPage() {
           </div>
           <div className={styles.itemLayout}>
             <div className={styles.itemImage}>
-              <ItemImages images={item.images} />
+              <ItemImages images={item.images} imageUrls={item.imageUrls}/>
             </div>
             <div className={styles.itemDetails}>
               <ItemDetails 

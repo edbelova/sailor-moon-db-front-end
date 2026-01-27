@@ -49,3 +49,8 @@
 .hiddenInput {
   display: none;
 }
+
+.dragActive {
+  border-color: #444;
+  background: rgba(0, 0, 0, 0.03);
+}
