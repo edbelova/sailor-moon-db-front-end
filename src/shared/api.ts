@@ -8,8 +8,12 @@ function getCsrfToken(): string | undefined {
     ?.split('=')[1]
 }
 
-function buildHeaders(options?: RequestInit['headers']) {
-  const base: Record<string, string> = { 'Content-Type': 'application/json' }
+function buildHeaders(options?: RequestInit['headers'], body?: RequestInit['body']) {
+  const base: Record<string, string> = {}
+
+  if (!(body instanceof FormData)) {
+    base['Content-Type'] = 'application/json'
+  }
 
   if (options instanceof Headers) {
     options.forEach((value, key) => {
@@ -32,7 +36,7 @@ function buildHeaders(options?: RequestInit['headers']) {
 }
 
 export async function apiFetch<T = unknown>(path: string, options: RequestInit = {}) {
-  const headers = buildHeaders(options.headers)
+  const headers = buildHeaders(options.headers, options.body)
 
   const response = await fetch(`${BASE_URL}${path}`, {
     credentials: 'include',
