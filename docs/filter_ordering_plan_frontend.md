@@ -4,7 +4,9 @@
 - Implement filter + ordering UI on main items list and category/subcategory pages.
 - Filters collapse/expand on click and apply via explicit Apply button.
 - Persist filters + ordering in URL query params.
-- Support dropdowns for Manufacturer and Country populated from all items.
+- Use free-text inputs with autosuggestions for Characters, Manufacturer, Series, Materials, Country.
+- Autosuggestions are populated from values stored on existing items (global across all items).
+- Country autosuggestions come from a predefined list, but users can still type any value.
 
 ## UI/UX structure
 1) Filters bar (collapsed/expanded)
@@ -13,15 +15,21 @@
      - Ordering dropdown
    - Expanded area contains inputs for:
      - Name (text)
-     - Characters (text)
+     - Characters (text with autosuggest, multi-value)
      - Release date from/to (two inputs)
-     - Manufacturer (select)
-     - Materials (text)
-     - Series (text)
+     - Manufacturer (text with autosuggest, multi-value)
+     - Materials (text with autosuggest, multi-value)
+     - Series (text with autosuggest, multi-value)
      - Price min/max (number inputs)
-     - Country (select)
+     - Country (text with autosuggest, multi-value)
    - Apply button triggers query param update.
    - Clicking Filters again collapses panel.
+   - Autosuggest behavior (for Characters/Manufacturer/Series/Materials/Country):
+     - Case-insensitive matching.
+     - Show suggestions after 2 characters.
+     - Show up to 8 suggestions.
+     - Multi-value inputs are comma-separated.
+     - Users can type values not present in the suggestions.
 
 2) Ordering
    - Dropdown values: Release date, Manufacturer, Series, Name, Price, Country.
@@ -41,11 +49,12 @@
    - Build query string from category + filter params.
    - Use React Query `queryKey` that includes filters to refetch when they change.
 
-2) Dropdown options
+2) Autosuggest sources
    - Add endpoint call: `/api/items/filters`.
    - Store values in a new query hook (e.g., `useItemFiltersMetadata`).
-   - Populate Manufacturer and Country selects from metadata.
-   - Always show “All”/empty option.
+   - Populate autosuggestions for Characters, Manufacturer, Series, Materials from metadata.
+   - Country autosuggestions come from a predefined list (could be served by the same endpoint or bundled client-side).
+   - Suggestions are global (not category-scoped).
 
 ## Component plan
 1) New components
@@ -128,6 +137,7 @@ export const defaultFilters: ItemFiltersState = {
 
 Explanation:
 - Use strings for inputs so they bind directly to `<input>` values.
+- Multi-value fields use comma-separated strings in state and URL (e.g., `Sailor Moon, Sailor Mars`).
 - `defaultFilters` provides consistent defaults when parsing URLs or initializing UI.
 - `orderBy`/`orderDir` defaults reflect the normal “Name A–Z” list.
 
@@ -205,21 +215,24 @@ Explanation:
 - Only non-empty values are included in URL to keep it clean.
 - `orderBy`/`orderDir` only written if different from defaults.
 
-### Step 3 — Add filter metadata API
+### Step 3 — Add filter autosuggest metadata API
 Create `frontend/src/features/items/api/fetchItemFilterOptions.ts`.
 
-Why: Manufacturer/Country dropdowns must show all system values, not just current category.
+Why: Autosuggestions must show all system values (global), not just current category.
 
 ```ts
 import { apiFetch } from '../../../shared/api'
 
 // Response shape returned by GET /api/items/filters.
 export type ItemFilterOptions = {
+  characters: string[]
   manufacturers: string[]
+  series: string[]
+  materials: string[]
   countries: string[]
 }
 
-// Fetches dropdown values for Manufacturer and Country.
+// Fetches autosuggest values for filter fields.
 export async function fetchItemFilterOptions(): Promise<ItemFilterOptions> {
   return apiFetch<ItemFilterOptions>('/api/items/filters')
 }
@@ -234,7 +247,7 @@ Why: avoid refetching on every render; leverage React Query cache.
 import { useQuery } from '@tanstack/react-query'
 import { fetchItemFilterOptions } from '../api/fetchItemFilterOptions'
 
-// React Query hook so dropdowns share cached data and avoid refetching on every render.
+// React Query hook so autosuggest values share cached data and avoid refetching on every render.
 export function useItemFilterOptions() {
   return useQuery({
     queryKey: ['item-filter-options'],
@@ -248,7 +261,7 @@ Create:
 - `frontend/src/features/items/components/ItemsFilters/ItemsFilters.tsx`
 - `frontend/src/features/items/components/ItemsFilters/ItemsFilters.module.css`
 
-Why: encapsulates expand/collapse UI, controlled inputs, and Apply button in one place. Creating the CSS and filling it now avoids the “create now, fill later” gap.
+Why: encapsulates expand/collapse UI, controlled inputs (including autosuggest), and Apply button in one place. Creating the CSS and filling it now avoids the “create now, fill later” gap.
 
 TSX (key logic):
 ```tsx
@@ -261,9 +274,12 @@ import { useItemFilterOptions } from '../../queries/useItemFilterOptions'
 
 // Filter panel used on both main and category pages.
 export function ItemsFilters() {
-  // Dropdown data for Manufacturer and Country selectors.
+  // Autosuggest data for Characters/Manufacturer/Series/Materials/Country.
   const { data } = useItemFilterOptions()
+  const characters = data?.characters ?? []
   const manufacturers = data?.manufacturers ?? []
+  const series = data?.series ?? []
+  const materials = data?.materials ?? []
   const countries = data?.countries ?? []
 
   // URL access for reading current filters and writing updated query params.
@@ -332,20 +348,16 @@ export function ItemsFilters() {
             />
           </div>
 
-          {/* Dropdown example (repeat for Country with countries array) */}
+          {/* Autosuggest example (repeat for Characters/Manufacturer/Series/Materials/Country) */}
           <div className={styles.row}>
             <label>Manufacturer</label>
-            <select
+            {/* Replace with autocomplete input that supports comma-separated values. */}
+            <input
+              type="text"
               value={filters.manufacturer}
               onChange={(e) => updateField('manufacturer', e.target.value)}
-            >
-              <option value="">All</option>
-              {manufacturers.map((value) => (
-                <option key={value} value={value}>
-                  {value}
-                </option>
-              ))}
-            </select>
+              placeholder="Type values, separated by commas"
+            />
           </div>
 
           {/* Apply button (only submit action for filters) */}
@@ -539,3 +551,4 @@ import { ItemsFilters } from '../../features/items/components/ItemsFilters/Items
 ## Notes / Edge Cases
 - Sorting empty fields last (backend enforced) — no special UI changes required.
 - Price currency ignored for sorting, but currency field should be displayed with item (if UI already shows price).
+- Autosuggest filtering (case-insensitive, 2+ chars, max 8) can be done on the client using values from `/api/items/filters`.
