@@ -1,0 +1,541 @@
+# Filter & Ordering Plan - Frontend (Detailed)
+
+## Goals
+- Implement filter + ordering UI on main items list and category/subcategory pages.
+- Filters collapse/expand on click and apply via explicit Apply button.
+- Persist filters + ordering in URL query params.
+- Support dropdowns for Manufacturer and Country populated from all items.
+
+## UI/UX structure
+1) Filters bar (collapsed/expanded)
+   - Collapsed shows row with:
+     - “Filters” toggle (chevron)
+     - Ordering dropdown
+   - Expanded area contains inputs for:
+     - Name (text)
+     - Characters (text)
+     - Release date from/to (two inputs)
+     - Manufacturer (select)
+     - Materials (text)
+     - Series (text)
+     - Price min/max (number inputs)
+     - Country (select)
+   - Apply button triggers query param update.
+   - Clicking Filters again collapses panel.
+
+2) Ordering
+   - Dropdown values: Release date, Manufacturer, Series, Name, Price, Country.
+   - “Recently added” omitted for now.
+   - Separate direction toggle (asc/desc) or include direction in dropdown.
+
+## State + URL behavior
+- Query params reflect filters + order:
+  - `name`, `characters`, `releaseDateFrom`, `releaseDateTo`, `manufacturer`, `materials`, `series`, `priceMin`, `priceMax`, `country`, `orderBy`, `orderDir`.
+- On page load, parse query params and initialize filter UI state.
+- On Apply, update query params (push/replace) and refetch items.
+- Category routes keep their path; query params append to `/categories/:id?…`.
+
+## Data fetching
+1) Items list
+   - Update `fetchItemsByCategory` to accept query params for filters/sort.
+   - Build query string from category + filter params.
+   - Use React Query `queryKey` that includes filters to refetch when they change.
+
+2) Dropdown options
+   - Add endpoint call: `/api/items/filters`.
+   - Store values in a new query hook (e.g., `useItemFiltersMetadata`).
+   - Populate Manufacturer and Country selects from metadata.
+   - Always show “All”/empty option.
+
+## Component plan
+1) New components
+   - `FiltersBar` (or `ItemsFilters`) component
+     - Manages expand/collapse UI
+     - Owns input state for filters
+     - Reads/writes query params
+     - Calls `onApply` or directly updates URL
+
+2) Integration points
+   - `MainPage` renders `FiltersBar` above `ItemsGrid`.
+   - Category/subcategory pages are the same `MainPage` route, so filters appear there too.
+   - `ItemsGrid` uses hook reading current filters (via URL or store) to fetch items.
+
+## Query param parsing
+- Create helper in `frontend/src/features/items/filters` (new module) to:
+  - Parse current URLSearchParams into typed filter state.
+  - Serialize state to URLSearchParams.
+- Validate numeric inputs (price min/max), ignore invalid values.
+- Release date inputs accept YYYY, YYYY-MM, YYYY-MM-DD.
+
+## Styling
+- Match provided layout screenshot:
+  - Filters row top with labels and input fields aligned.
+  - Expand/collapse area animates height and padding.
+  - Apply button on right/left per design.
+
+## Implementation steps (detailed, in order)
+
+### Step 1 — Define filter types (foundation for everything else)
+Create `frontend/src/features/items/filters/types.ts`.
+
+Why first: every other file depends on the filter shape. Putting this up front avoids circular updates later.
+
+```ts
+// Fields the backend can sort by (used in URL and UI).
+export type OrderBy =
+  | 'releaseDate'
+  | 'manufacturer'
+  | 'series'
+  | 'name'
+  | 'price'
+  | 'country'
+
+// Sort direction for ordering results in the UI and API (ascending or descending).
+export type OrderDir = 'asc' | 'desc'
+
+// All filter input values stored in component state and mirrored to URL query params.
+export type ItemFiltersState = {
+  name: string
+  characters: string
+  releaseDateFrom: string
+  releaseDateTo: string
+  manufacturer: string
+  materials: string
+  series: string
+  priceMin: string
+  priceMax: string
+  country: string
+  orderBy: OrderBy
+  orderDir: OrderDir
+}
+
+// Default filter values when URL query params are missing.
+export const defaultFilters: ItemFiltersState = {
+  name: '',
+  characters: '',
+  releaseDateFrom: '',
+  releaseDateTo: '',
+  manufacturer: '',
+  materials: '',
+  series: '',
+  priceMin: '',
+  priceMax: '',
+  country: '',
+  orderBy: 'name',
+  orderDir: 'asc',
+}
+```
+
+Explanation:
+- Use strings for inputs so they bind directly to `<input>` values.
+- `defaultFilters` provides consistent defaults when parsing URLs or initializing UI.
+- `orderBy`/`orderDir` defaults reflect the normal “Name A–Z” list.
+
+### Step 2 — Add URL query helpers (parse + serialize)
+Create `frontend/src/features/items/filters/queryParams.ts`.
+
+Why now: filters must persist in URL; this is the single source of truth for converting between URL and UI state.
+
+```ts
+import { defaultFilters, type ItemFiltersState } from './types'
+
+// Convert null params to empty strings and trim whitespace so filters are consistent.
+const normalize = (value: string | null) => (value ?? '').trim()
+
+// Parses location.search into a complete ItemFiltersState with defaults.
+export function parseFiltersFromSearch(search: string): ItemFiltersState {
+  const params = new URLSearchParams(search)
+  return {
+    name: normalize(params.get('name')),
+    characters: normalize(params.get('characters')),
+    releaseDateFrom: normalize(params.get('releaseDateFrom')),
+    releaseDateTo: normalize(params.get('releaseDateTo')),
+    manufacturer: normalize(params.get('manufacturer')),
+    materials: normalize(params.get('materials')),
+    series: normalize(params.get('series')),
+    priceMin: normalize(params.get('priceMin')),
+    priceMax: normalize(params.get('priceMax')),
+    country: normalize(params.get('country')),
+    orderBy:
+      (params.get('orderBy') as ItemFiltersState['orderBy']) ??
+      defaultFilters.orderBy,
+    orderDir:
+      (params.get('orderDir') as ItemFiltersState['orderDir']) ??
+      defaultFilters.orderDir,
+  }
+}
+
+// Builds a URL query string from filter state, omitting empty fields.
+export function buildSearchFromFilters(filters: ItemFiltersState): string {
+  const params = new URLSearchParams()
+
+  // Only add non-empty values so the URL stays short and readable.
+  const add = (key: string, value: string) => {
+    if (value.trim()) {
+      params.set(key, value.trim())
+    }
+  }
+
+  add('name', filters.name)
+  add('characters', filters.characters)
+  add('releaseDateFrom', filters.releaseDateFrom)
+  add('releaseDateTo', filters.releaseDateTo)
+  add('manufacturer', filters.manufacturer)
+  add('materials', filters.materials)
+  add('series', filters.series)
+  add('priceMin', filters.priceMin)
+  add('priceMax', filters.priceMax)
+  add('country', filters.country)
+
+  // Only persist ordering if it's not the default ordering.
+  if (filters.orderBy !== defaultFilters.orderBy) {
+    params.set('orderBy', filters.orderBy)
+  }
+  if (filters.orderDir !== defaultFilters.orderDir) {
+    params.set('orderDir', filters.orderDir)
+  }
+
+  const query = params.toString()
+  return query ? `?${query}` : ''
+}
+```
+
+Explanation:
+- `normalize` trims values and avoids `null`.
+- Only non-empty values are included in URL to keep it clean.
+- `orderBy`/`orderDir` only written if different from defaults.
+
+### Step 3 — Add filter metadata API
+Create `frontend/src/features/items/api/fetchItemFilterOptions.ts`.
+
+Why: Manufacturer/Country dropdowns must show all system values, not just current category.
+
+```ts
+import { apiFetch } from '../../../shared/api'
+
+// Response shape returned by GET /api/items/filters.
+export type ItemFilterOptions = {
+  manufacturers: string[]
+  countries: string[]
+}
+
+// Fetches dropdown values for Manufacturer and Country.
+export async function fetchItemFilterOptions(): Promise<ItemFilterOptions> {
+  return apiFetch<ItemFilterOptions>('/api/items/filters')
+}
+```
+
+### Step 4 — Add metadata query hook
+Create `frontend/src/features/items/queries/useItemFilterOptions.ts`.
+
+Why: avoid refetching on every render; leverage React Query cache.
+
+```ts
+import { useQuery } from '@tanstack/react-query'
+import { fetchItemFilterOptions } from '../api/fetchItemFilterOptions'
+
+// React Query hook so dropdowns share cached data and avoid refetching on every render.
+export function useItemFilterOptions() {
+  return useQuery({
+    queryKey: ['item-filter-options'],
+    queryFn: fetchItemFilterOptions,
+  })
+}
+```
+
+### Step 5 — Build filters UI component (TSX + CSS together)
+Create:
+- `frontend/src/features/items/components/ItemsFilters/ItemsFilters.tsx`
+- `frontend/src/features/items/components/ItemsFilters/ItemsFilters.module.css`
+
+Why: encapsulates expand/collapse UI, controlled inputs, and Apply button in one place. Creating the CSS and filling it now avoids the “create now, fill later” gap.
+
+TSX (key logic):
+```tsx
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import styles from './ItemsFilters.module.css'
+import { defaultFilters, type ItemFiltersState } from '../../filters/types'
+import { buildSearchFromFilters, parseFiltersFromSearch } from '../../filters/queryParams'
+import { useItemFilterOptions } from '../../queries/useItemFilterOptions'
+
+// Filter panel used on both main and category pages.
+export function ItemsFilters() {
+  // Dropdown data for Manufacturer and Country selectors.
+  const { data } = useItemFilterOptions()
+  const manufacturers = data?.manufacturers ?? []
+  const countries = data?.countries ?? []
+
+  // URL access for reading current filters and writing updated query params.
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  // Local UI state: panel open/closed and current input values.
+  const [isOpen, setIsOpen] = useState(false)
+  const [filters, setFilters] = useState<ItemFiltersState>(defaultFilters)
+
+  // Keep local filter state in sync with the URL on navigation.
+  useEffect(() => {
+    setFilters(parseFiltersFromSearch(location.search))
+  }, [location.search])
+
+  // Update one field while keeping inputs controlled.
+  const updateField = (key: keyof ItemFiltersState, value: string) => {
+    setFilters((prev) => ({ ...prev, [key]: value }))
+  }
+
+  // Apply button updates the URL, which triggers refetch via query key.
+  const handleApply = () => {
+    const search = buildSearchFromFilters(filters)
+    navigate({ search }, { replace: true })
+  }
+
+  return (
+    <section className={styles.filtersSection}>
+      <div className={styles.toolbar}>
+        <button type="button" onClick={() => setIsOpen((open) => !open)}>
+          Filters
+        </button>
+        <div className={styles.ordering}>
+          {/* Order field selection */}
+          <select
+            value={filters.orderBy}
+            onChange={(e) => updateField('orderBy', e.target.value)}
+          >
+            <option value="name">Name</option>
+            <option value="releaseDate">Release date</option>
+            <option value="manufacturer">Manufacturer</option>
+            <option value="series">Series</option>
+            <option value="price">Price</option>
+            <option value="country">Country</option>
+          </select>
+          {/* Order direction selection */}
+          <select
+            value={filters.orderDir}
+            onChange={(e) => updateField('orderDir', e.target.value)}
+          >
+            <option value="asc">Asc</option>
+            <option value="desc">Desc</option>
+          </select>
+        </div>
+      </div>
+
+      {isOpen && (
+        <div className={styles.panel}>
+          {/* Text input example (repeat for Name, Characters, Materials, Series, etc.) */}
+          <div className={styles.row}>
+            <label>Name</label>
+            <input
+              type="text"
+              value={filters.name}
+              onChange={(e) => updateField('name', e.target.value)}
+            />
+          </div>
+
+          {/* Dropdown example (repeat for Country with countries array) */}
+          <div className={styles.row}>
+            <label>Manufacturer</label>
+            <select
+              value={filters.manufacturer}
+              onChange={(e) => updateField('manufacturer', e.target.value)}
+            >
+              <option value="">All</option>
+              {manufacturers.map((value) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Apply button (only submit action for filters) */}
+          <div className={styles.actions}>
+            <button type="button" onClick={handleApply}>
+              Apply
+            </button>
+          </div>
+        </div>
+      )}
+    </section>
+  )
+}
+```
+
+CSS (same step):
+```css
+.filtersSection {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff6ef;
+}
+
+/* Top row with Filters toggle + ordering controls */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+}
+
+/* Main panel layout for filter inputs */
+.panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 12px 16px;
+  padding: 12px;
+}
+
+/* Single label + input stack */
+.row {
+  display: grid;
+  gap: 4px;
+}
+
+/* Apply button aligned to the right */
+.actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+}
+```
+
+Explanation:
+- `useEffect` syncs filters with URL — required for back/forward navigation.
+- `handleApply` updates URL only when the user clicks Apply.
+- CSS is defined at the same time to avoid an unfinished file.
+
+### Step 6 — Update items fetch API to accept filters
+Modify `frontend/src/features/items/api/fetchItemsByCategory.ts`.
+
+Why: filters + ordering must be sent to backend via query params.
+
+```ts
+import type { Item } from '../types'
+import { apiFetch } from '../../../shared/api'
+import type { ItemFiltersState } from '../filters/types'
+
+// Fetches items by category while applying filters and ordering from URL state.
+export async function fetchItemsByCategory(
+  categoryId: string | null,
+  filters: ItemFiltersState
+): Promise<Item[]> {
+  const params = new URLSearchParams()
+  if (categoryId) {
+    params.set('categoryId', categoryId)
+  }
+
+  // Add a param only if the user filled it in.
+  const add = (key: string, value: string) => {
+    if (value.trim()) {
+      params.set(key, value.trim())
+    }
+  }
+
+  add('name', filters.name)
+  add('characters', filters.characters)
+  add('releaseDateFrom', filters.releaseDateFrom)
+  add('releaseDateTo', filters.releaseDateTo)
+  add('manufacturer', filters.manufacturer)
+  add('materials', filters.materials)
+  add('series', filters.series)
+  add('priceMin', filters.priceMin)
+  add('priceMax', filters.priceMax)
+  add('country', filters.country)
+
+  // Always include ordering so the server sorts consistently even when no filters are set.
+  params.set('orderBy', filters.orderBy)
+  params.set('orderDir', filters.orderDir)
+
+  const query = params.toString()
+  const path = query ? `/api/items?${query}` : '/api/items'
+  return apiFetch<Item[]>(path)
+}
+```
+
+Explanation:
+- Reuses the same keys the backend expects.
+- Always sends orderBy/orderDir so server ordering is predictable.
+
+### Step 7 — Update React Query hook
+Modify `frontend/src/features/items/queries/useItemsByCategory.ts`.
+
+Why: need refetch when filters change.
+
+```ts
+import { useQuery } from '@tanstack/react-query'
+import { fetchItemsByCategory } from '../api/fetchItemsByCategory'
+import type { Item } from '../types'
+import type { ItemFiltersState } from '../filters/types'
+
+// React Query hook that refetches items whenever category or filters change.
+export function useItemsByCategory(categoryId: string | null, filters: ItemFiltersState) {
+  return useQuery<Item[]>({
+    queryKey: ['items', categoryId, filters],
+    queryFn: () => fetchItemsByCategory(categoryId, filters),
+  })
+}
+```
+
+### Step 8 — Use URL filters in ItemsGrid
+Modify `frontend/src/features/items/components/ItemList/ItemsGrid.tsx`.
+
+Why: ItemsGrid is where items are fetched; it must pass filters to the hook.
+
+```tsx
+import { useLocation } from 'react-router-dom'
+import styles from './ItemsGrid.module.css'
+import { ItemPreview } from '../ItemPreview/Item'
+import { useCategoryUiStore } from '../../../categories/state/useCategoryUiStore'
+import { useItemsByCategory } from '../../queries/useItemsByCategory'
+import { parseFiltersFromSearch } from '../../filters/queryParams'
+
+export function ItemsGrid() {
+  // Active category scopes results when browsing a category page.
+  const activeCategory = useCategoryUiStore((state) => state.activeCategory)
+
+  // URL query params provide current filter state.
+  const location = useLocation()
+  const filters = parseFiltersFromSearch(location.search)
+
+  // Query hook receives filters so it refetches when they change.
+  const { data: items = [] } = useItemsByCategory(activeCategory?.id ?? null, filters)
+
+  return (
+    <div className={styles.itemsContainer}>
+      {items.map((item) => (
+        <ItemPreview key={item.id} item={item} />
+      ))}
+    </div>
+  )
+}
+```
+
+### Step 9 — Render filters in MainPage
+Modify `frontend/src/pages/MainPage/MainPage.tsx`.
+
+Why: same page renders main and category routes.
+
+```tsx
+import { ItemsFilters } from '../../features/items/components/ItemsFilters/ItemsFilters'
+// Other existing imports and component code remain unchanged.
+<div className={styles.itemsSection}>
+  {isAdmin && (
+    <div className={styles.pageLinks}>
+      <Link to="/items/new">Add item</Link>
+    </div>
+  )}
+  <ItemsFilters />
+  <div className={styles.itemsContainer}>
+    <ItemsGrid />
+  </div>
+</div>
+```
+
+### Step 10 — Validate UX
+- Confirm filters stay after refresh/back.
+- Confirm category pages preserve filters.
+- Confirm Apply is the only way to change results.
+
+## Notes / Edge Cases
+- Sorting empty fields last (backend enforced) — no special UI changes required.
+- Price currency ignored for sorting, but currency field should be displayed with item (if UI already shows price).
