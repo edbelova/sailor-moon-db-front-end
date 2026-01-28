@@ -263,9 +263,9 @@ Create:
 
 Why: encapsulates expand/collapse UI, controlled inputs (including autosuggest), and Apply button in one place. Creating the CSS and filling it now avoids the “create now, fill later” gap.
 
-TSX (key logic):
+TSX (key logic, avoids setState-in-effect by remounting on URL changes):
 ```tsx
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styles from './ItemsFilters.module.css'
 import { defaultFilters, type ItemFiltersState } from '../../filters/types'
@@ -274,6 +274,15 @@ import { useItemFilterOptions } from '../../queries/useItemFilterOptions'
 
 // Filter panel used on both main and category pages.
 export function ItemsFilters() {
+  const location = useLocation()
+  return <ItemsFiltersInner key={location.search} locationSearch={location.search} />
+}
+
+type ItemsFiltersInnerProps = {
+  locationSearch: string
+}
+
+function ItemsFiltersInner({ locationSearch }: ItemsFiltersInnerProps) {
   // Autosuggest data for Characters/Manufacturer/Series/Materials/Country.
   const { data } = useItemFilterOptions()
   const characters = data?.characters ?? []
@@ -282,18 +291,14 @@ export function ItemsFilters() {
   const materials = data?.materials ?? []
   const countries = data?.countries ?? []
 
-  // URL access for reading current filters and writing updated query params.
-  const location = useLocation()
+  // URL access for writing updated query params.
   const navigate = useNavigate()
 
   // Local UI state: panel open/closed and current input values.
   const [isOpen, setIsOpen] = useState(false)
-  const [filters, setFilters] = useState<ItemFiltersState>(defaultFilters)
-
-  // Keep local filter state in sync with the URL on navigation.
-  useEffect(() => {
-    setFilters(parseFiltersFromSearch(location.search))
-  }, [location.search])
+  const [filters, setFilters] = useState<ItemFiltersState>(
+    () => parseFiltersFromSearch(locationSearch)
+  )
 
   // Update one field while keeping inputs controlled.
   const updateField = (key: keyof ItemFiltersState, value: string) => {
@@ -305,6 +310,9 @@ export function ItemsFilters() {
     const search = buildSearchFromFilters(filters)
     navigate({ search }, { replace: true })
   }
+
+  const renderOptions = (values: string[]) =>
+    values.map((value) => <option key={value} value={value} />)
 
   return (
     <section className={styles.filtersSection}>
@@ -338,7 +346,6 @@ export function ItemsFilters() {
 
       {isOpen && (
         <div className={styles.panel}>
-          {/* Text input example (repeat for Name, Characters, Materials, Series, etc.) */}
           <div className={styles.row}>
             <label>Name</label>
             <input
@@ -348,16 +355,65 @@ export function ItemsFilters() {
             />
           </div>
 
-          {/* Autosuggest example (repeat for Characters/Manufacturer/Series/Materials/Country) */}
+          {/* Autosuggest inputs (comma-separated values) */}
+          <div className={styles.row}>
+            <label>Characters</label>
+            <input
+              type="text"
+              value={filters.characters}
+              onChange={(e) => updateField('characters', e.target.value)}
+              placeholder="Type values, separated by commas"
+              list="characters-options"
+            />
+            <datalist id="characters-options">{renderOptions(characters)}</datalist>
+          </div>
+
           <div className={styles.row}>
             <label>Manufacturer</label>
-            {/* Replace with autocomplete input that supports comma-separated values. */}
             <input
               type="text"
               value={filters.manufacturer}
               onChange={(e) => updateField('manufacturer', e.target.value)}
               placeholder="Type values, separated by commas"
+              list="manufacturer-options"
             />
+            <datalist id="manufacturer-options">{renderOptions(manufacturers)}</datalist>
+          </div>
+
+          <div className={styles.row}>
+            <label>Materials</label>
+            <input
+              type="text"
+              value={filters.materials}
+              onChange={(e) => updateField('materials', e.target.value)}
+              placeholder="Type values, separated by commas"
+              list="materials-options"
+            />
+            <datalist id="materials-options">{renderOptions(materials)}</datalist>
+          </div>
+
+          <div className={styles.row}>
+            <label>Series</label>
+            <input
+              type="text"
+              value={filters.series}
+              onChange={(e) => updateField('series', e.target.value)}
+              placeholder="Type values, separated by commas"
+              list="series-options"
+            />
+            <datalist id="series-options">{renderOptions(series)}</datalist>
+          </div>
+
+          <div className={styles.row}>
+            <label>Country</label>
+            <input
+              type="text"
+              value={filters.country}
+              onChange={(e) => updateField('country', e.target.value)}
+              placeholder="Type values, separated by commas"
+              list="country-options"
+            />
+            <datalist id="country-options">{renderOptions(countries)}</datalist>
           </div>
 
           {/* Apply button (only submit action for filters) */}
