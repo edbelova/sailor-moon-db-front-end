@@ -1,0 +1,162 @@
+import { useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import styles from './ItemsFilters.module.css'
+import { type ItemFiltersState } from '../../filters/types'
+import { buildSearchFromFilters, parseFiltersFromSearch } from '../../filters/queryParams'
+import { useItemFilterOptions } from '../../queries/useItemFilterOptions'
+
+// Filter panel used on both main and category pages.
+export function ItemsFilters() {
+    const location = useLocation()
+    return <ItemsFiltersInner key={location.search} locationSearch={location.search} />
+}
+
+type ItemsFiltersInnerProps = {
+    locationSearch: string
+}
+
+function ItemsFiltersInner({ locationSearch }: ItemsFiltersInnerProps) {
+    // Autosuggest data for Characters/Manufacturer/Series/Materials/Country.
+    const { data } = useItemFilterOptions()
+    const characters = data?.characters ?? []
+    const manufacturers = data?.manufacturers ?? []
+    const series = data?.series ?? []
+    const materials = data?.materials ?? []
+    const countries = data?.countries ?? []
+
+    // URL access for writing updated query params.
+    const navigate = useNavigate()
+
+    // Local UI state: panel open/closed and current input values.
+    const [isOpen, setIsOpen] = useState(false)
+    const [filters, setFilters] = useState<ItemFiltersState>(() =>
+        parseFiltersFromSearch(locationSearch)
+    )
+
+    // Update one field while keeping inputs controlled.
+    const updateField = (key: keyof ItemFiltersState, value: string) => {
+        setFilters((prev) => ({ ...prev, [key]: value }))
+    }
+
+    // Apply button updates the URL, which triggers refetch via query key.
+    const handleApply = () => {
+        const search = buildSearchFromFilters(filters)
+        navigate({ search }, { replace: true })
+    }
+
+    const renderOptions = (values: string[]) =>
+        values.map((value) => (
+            <option key={value} value={value} />
+        ))
+
+    return (
+        <section className={styles.filtersSection}>
+            <div className={styles.toolbar}>
+                <button type="button" onClick={() => setIsOpen((open) => !open)}>
+                Filters
+                </button>
+                <div className={styles.ordering}>
+                    {/* Order field selection */}
+                    <select
+                        value={filters.orderBy}
+                        onChange={(e) => updateField('orderBy', e.target.value)}
+                    >
+                        <option value="name">Name</option>
+                        <option value="releaseDate">Release date</option>
+                        <option value="manufacturer">Manufacturer</option>
+                        <option value="series">Series</option>
+                        <option value="price">Price</option>
+                        <option value="country">Country</option>
+                    </select>
+                    {/* Order direction selection */}
+                    <select
+                        value={filters.orderDir}
+                        onChange={(e) => updateField('orderDir', e.target.value)}
+                    >
+                        <option value="asc">Asc</option>
+                        <option value="desc">Desc</option>
+                    </select>
+                </div>
+            </div>
+
+            {isOpen && (
+                <div className={styles.panel}>
+                    <div className={styles.row}>
+                        <label>Name</label>
+                        <input
+                            type="text"
+                            value={filters.name}
+                            onChange={(e) => updateField('name', e.target.value)}
+                        />
+                    </div>
+
+                    <div className={styles.row}>
+                        <label>Characters</label>
+                        <input
+                            type="text"
+                            value={filters.characters}
+                            onChange={(e) => updateField('characters', e.target.value)}
+                            placeholder="Type values, separated by commas"
+                            list="characters-options"
+                        />
+                        <datalist id="characters-options">{renderOptions(characters)}</datalist>
+                    </div>
+
+                    <div className={styles.row}>
+                        <label>Manufacturer</label>
+                        <input
+                            type="text"
+                            value={filters.manufacturer}
+                            onChange={(e) => updateField('manufacturer', e.target.value)}
+                            placeholder="Type values, separated by commas"
+                            list="manufacturer-options"
+                        />
+                        <datalist id="manufacturer-options">{renderOptions(manufacturers)}</datalist>
+                    </div>
+
+                    <div className={styles.row}>
+                        <label>Materials</label>
+                        <input
+                            type="text"
+                            value={filters.materials}
+                            onChange={(e) => updateField('materials', e.target.value)}
+                            placeholder="Type values, separated by commas"
+                            list="materials-options"
+                        />
+                        <datalist id="materials-options">{renderOptions(materials)}</datalist>
+                    </div>
+
+                    <div className={styles.row}>
+                        <label>Series</label>
+                        <input
+                            type="text"
+                            value={filters.series}
+                            onChange={(e) => updateField('series', e.target.value)}
+                            placeholder="Type values, separated by commas"
+                            list="series-options"
+                        />
+                        <datalist id="series-options">{renderOptions(series)}</datalist>
+                    </div>
+
+                    <div className={styles.row}>
+                        <label>Country</label>
+                        <input
+                            type="text"
+                            value={filters.country}
+                            onChange={(e) => updateField('country', e.target.value)}
+                            placeholder="Type values, separated by commas"
+                            list="country-options"
+                        />
+                        <datalist id="country-options">{renderOptions(countries)}</datalist>
+                    </div>
+
+                    <div className={styles.actions}>
+                        <button type="button" onClick={handleApply}>
+                            Apply
+                        </button>
+                    </div>
+                </div>
+            )}
+        </section>
+    )
+}
