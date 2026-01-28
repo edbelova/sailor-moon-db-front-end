@@ -268,7 +268,7 @@ TSX (key logic, avoids setState-in-effect by remounting on URL changes):
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styles from './ItemsFilters.module.css'
-import { defaultFilters, type ItemFiltersState } from '../../filters/types'
+import { type ItemFiltersState } from '../../filters/types'
 import { buildSearchFromFilters, parseFiltersFromSearch } from '../../filters/queryParams'
 import { useItemFilterOptions } from '../../queries/useItemFilterOptions'
 
@@ -468,7 +468,7 @@ CSS (same step):
 ```
 
 Explanation:
-- `useEffect` syncs filters with URL — required for back/forward navigation.
+- URL sync is handled by remounting on `location.search` changes (the keyed inner component), so back/forward navigation re-initializes filters without an effect.
 - `handleApply` updates URL only when the user clicks Apply.
 - CSS is defined at the same time to avoid an unfinished file.
 
