@@ -52,11 +52,6 @@ export function Header() {
           </form>
 
           <nav className={styles.nav} aria-label="Authorization">
-            {isAdmin ? (
-              <NavLink to="/items/new">
-                Add item
-              </NavLink>
-            ) : null}
             {isAuthenticated ? (
               <div className={styles.authControls}>
                 <span className={styles.username}>{user?.username}</span>

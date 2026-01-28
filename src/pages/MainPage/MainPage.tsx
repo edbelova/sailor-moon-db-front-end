@@ -7,6 +7,7 @@ import { useCategories } from '../../features/categories/queries/useCategories'
 import { useCategoryUiStore } from '../../features/categories/state/useCategoryUiStore'
 import type { Category } from '../../features/categories/types'
 import { CategoryBreadCrumbs } from '../../features/categories/components/CategoryBreadCrumbs/CategoryBreadCrumbs'
+import { ItemsFilters } from '../../features/items/components/ItemsFilters/ItemsFilters'
 
 function findCategoryById(categories: Category[], categoryId: string): Category | null {
   for (const category of categories) {
@@ -74,11 +75,12 @@ export function MainPage() {
     <div className={styles.page}>
       <CategoryBreadCrumbs />
       <div className={styles.itemsSection}>
-        {isAdmin && 
+        {isAdmin && (
           <div className={styles.pageLinks}>
             <Link to="/items/new">Add item</Link>
           </div>
-        }
+        )}
+        <ItemsFilters />
         <div className={styles.itemsContainer}>
           <ItemsGrid />
         </div>

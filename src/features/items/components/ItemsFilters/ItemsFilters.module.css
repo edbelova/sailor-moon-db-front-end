@@ -1,0 +1,135 @@
+.filtersSection {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff6ef;
+}
+
+/* Top row with Filters toggle + ordering controls */
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+}
+
+.ordering {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.orderingButton,
+.orderingActive {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    font-size: 13px;
+    color: #2b2b2b;
+    cursor: pointer;
+}
+
+.orderingActive {
+    font-weight: 600;
+    color: #0b3b63;
+}
+
+.orderingCaret {
+    margin-left: 4px;
+    display: inline-flex;
+    align-items: center;
+    color: currentColor;
+}
+
+.orderingIconAsc,
+.orderingIconDesc {
+    width: 10px;
+    height: 10px;
+    display: block;
+    background-color: currentColor;
+    mask: url('./order.svg') no-repeat center / contain;
+    -webkit-mask: url('./order.svg') no-repeat center / contain;
+}
+
+.orderingIconDesc {
+    transform: rotate(180deg);
+}
+
+.filterToggle {
+    border: 0;
+    background: transparent;
+    font-size: 13px;
+    color: #0b3b63;
+    cursor: pointer;
+    padding: 0 0 0 10px;
+}
+
+/* Main panel layout for filter inputs */
+.panel {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    gap: 12px 16px;
+    padding: 12px;
+}
+
+/* Single label + input stack */
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.row label {
+    min-width: 87px;
+    font-size: 13px;
+}
+
+.row input,
+.row select {
+    flex: 1;
+    min-width: 0;
+}
+
+.row .rangeInput {
+    flex: 0 0 70px;
+}
+
+.rangeRow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+}
+
+.rangeInput {
+    flex: 0 0 120px;
+}
+
+.rangeDivider {
+    color: #6b6b6b;
+}
+
+/* Apply button aligned to the right */
+.actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.resetButton {
+    border: 1px solid #b5b5b5;
+    background: transparent;
+    color: #2b2b2b;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.applyButton {
+    border: 1px solid #b5b5b5;
+    background: transparent;
+    color: #2b2b2b;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
