@@ -62,3 +62,32 @@ npm run build
 ```bash
 npm run lint
 ```
+
+## Deployment (backend + frontend)
+This covers the full deployment flow for both the Spring Boot API and this React frontend.
+
+Local: build backend image and frontend assets
+```bash
+cd /path/to/Capstone/webapp
+docker build -t smdb-api:latest .
+docker save smdb-api:latest > ./deploy/smdb-api.tar
+
+cd /path/to/Capstone/frontend
+npm install
+npm run build
+```
+
+Upload artifacts to the server
+```bash
+scp -i ~/Documents/smdb-key.pem /path/to/Capstone/webapp/deploy/smdb-api.tar \
+  ubuntu@44.242.4.61:~/smdb-deploy/
+
+scp -i ~/Documents/smdb-key.pem -r /path/to/Capstone/frontend/dist/* \
+  ubuntu@44.242.4.61:~/smdb-deploy/nginx/html/
+```
+
+Load the image and restart services on the server
+```bash
+ssh -i ~/Documents/smdb-key.pem ubuntu@44.242.4.61 \
+  "cd ~/smdb-deploy && docker load < smdb-api.tar && docker compose up -d app && docker compose exec nginx nginx -s reload"
+```
