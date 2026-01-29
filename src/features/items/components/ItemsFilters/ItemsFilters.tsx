@@ -64,13 +64,23 @@ function ItemsFiltersInner({ locationSearch }: ItemsFiltersInnerProps) {
         { label: 'Country', orderBy: 'country' },
     ] as const
 
-    const handleOrderClick = (orderBy: ItemFiltersState['orderBy'], orderDir?: ItemFiltersState['orderDir']) => {
-        if (filters.orderBy === orderBy) {
-            updateField('orderDir', filters.orderDir === 'asc' ? 'desc' : 'asc')
-            return
-        }
-        updateField('orderBy', orderBy)
-        updateField('orderDir', orderDir ?? 'asc')
+    const applyFilters = (nextFilters: ItemFiltersState) => {
+        const search = buildSearchFromFilters(nextFilters)
+        navigate({ search }, { replace: true })
+    }
+
+    const handleOrderClick = (
+        orderBy: ItemFiltersState['orderBy'],
+        orderDir?: ItemFiltersState['orderDir'],
+    ) => {
+        setFilters((prev) => {
+            const next =
+                prev.orderBy === orderBy
+                    ? { ...prev, orderDir: prev.orderDir === 'asc' ? 'desc' : 'asc' }
+                    : { ...prev, orderBy, orderDir: orderDir ?? 'asc' }
+            applyFilters(next)
+            return next
+        })
     }
 
     return (
