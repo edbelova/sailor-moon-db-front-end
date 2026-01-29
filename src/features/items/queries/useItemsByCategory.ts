@@ -7,6 +7,7 @@ export const itemQueryKeys = {
   all: ['items'] as const,
   byCategory: (categoryId: string | null, filters: ItemFiltersState) =>
     ['items', categoryId, filters] as const,
+  byId: (itemId: string) => ['items', 'by-id', itemId] as const,
 }
 
 export function useItemsByCategory(categoryId: string | null, filters: ItemFiltersState) {
