@@ -9,16 +9,21 @@ import Cart from './Cart.svg'
 export function ItemPreview( { item }: { item: ItemType }) {
 
   const previewUrl = item.imageUrls?.[0] ?? item.images[0]
+  const year = item.releaseDate?.slice(0, 4)
+  const titleParts = [year, item.manufacturer, item.name].filter((part) => part && part.trim())
+  const title = titleParts.join(' - ')
 
   return (
     <div className={styles.block}>
       <div className={styles.picContainer}>
         <div className={styles.pic}>
-          <img src={previewUrl} alt={item.name} />
+          <Link to={`/items/${item.id}`} className={styles.picLink}>
+            <img src={previewUrl} alt={item.name} />
+          </Link>
         </div>
       </div>
       <div className={styles.title}>
-        <Link className={styles.titleLink} to={`/items/${item.id}`}>{item.name}</Link>
+        <Link className={styles.titleLink} to={`/items/${item.id}`}>{title}</Link>
       </div>
       <div className={styles.actionBlock}>
         <img src={Check} alt="Check" className={styles.icon} />
