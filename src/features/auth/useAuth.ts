@@ -28,7 +28,14 @@ export function useAuth() {
         body: JSON.stringify({ username, password, rememberMe }),
       }),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['auth', 'me'] })
+      // Force a real fetch so a fresh CSRF cookie is minted after login.
+      // Spring rotates/clears the token on authentication, so the first POST can fail
+      // unless we trigger a GET that goes through the CSRF filter.
+      // invalidateQueries alone may not fire without active observers.
+      await queryClient.fetchQuery({
+        queryKey: ['auth', 'me'],
+        queryFn: () => apiFetch<User>('/api/auth/me'),
+      })
     },
   })
 
