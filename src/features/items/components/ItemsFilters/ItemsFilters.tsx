@@ -55,14 +55,21 @@ function ItemsFiltersInner({ locationSearch }: ItemsFiltersInnerProps) {
             <option key={value} value={value} />
         ))
 
-    const orderingOptions = [
+    type OrderingOption = {
+        label: string
+        orderBy: ItemFiltersState['orderBy']
+        orderDir?: ItemFiltersState['orderDir']
+    }
+
+    const orderingOptions: OrderingOption[] = [
+        { label: 'Recently added', orderBy: 'releaseDate', orderDir: 'desc' },
         { label: 'Release date', orderBy: 'releaseDate' },
         { label: 'Manufacturer', orderBy: 'manufacturer' },
         { label: 'Series', orderBy: 'series' },
         { label: 'Name', orderBy: 'name' },
         { label: 'Price', orderBy: 'price' },
         { label: 'Country', orderBy: 'country' },
-    ] as const
+    ]
 
     const applyFilters = (nextFilters: ItemFiltersState) => {
         const search = buildSearchFromFilters(nextFilters)
@@ -74,7 +81,7 @@ function ItemsFiltersInner({ locationSearch }: ItemsFiltersInnerProps) {
         orderDir?: ItemFiltersState['orderDir'],
     ) => {
         setFilters((prev) => {
-            const next =
+            const next: ItemFiltersState =
                 prev.orderBy === orderBy
                     ? { ...prev, orderDir: prev.orderDir === 'asc' ? 'desc' : 'asc' }
                     : { ...prev, orderBy, orderDir: orderDir ?? 'asc' }

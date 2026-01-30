@@ -6,7 +6,7 @@ import moonIcon from './Moon.svg'
 import searchIcon from './Search.svg'
 
 export function Header() {
-  const { user, isAuthenticated, isAdmin, logout } = useAuth()
+  const { user, isAuthenticated, logout } = useAuth()
   const navigate = useNavigate()
   const [q, setQ] = useState("");
 
