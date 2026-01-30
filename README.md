@@ -65,6 +65,7 @@ npm run lint
 
 ## Deployment (backend + frontend)
 This covers the full deployment flow for both the Spring Boot API and this React frontend.
+Deployment can also be run via the script `webapp/deploy-webapp.sh` (backend only), `frontend/deploy-frontend.sh` (frontend only), or `deploy-all.sh` (full).
 
 Local: build backend image and frontend assets
 ```bash
