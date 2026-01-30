@@ -62,7 +62,6 @@ function ItemsFiltersInner({ locationSearch }: ItemsFiltersInnerProps) {
     }
 
     const orderingOptions: OrderingOption[] = [
-        { label: 'Recently added', orderBy: 'releaseDate', orderDir: 'desc' },
         { label: 'Release date', orderBy: 'releaseDate' },
         { label: 'Manufacturer', orderBy: 'manufacturer' },
         { label: 'Series', orderBy: 'series' },
