@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styles from './ItemsFilters.module.css'
 import { defaultFilters, type ItemFiltersState } from '../../filters/types'
@@ -9,7 +9,7 @@ import Filter from './Filter.svg'
 // Filter panel used on both main and category pages.
 export function ItemsFilters() {
     const location = useLocation()
-    return <ItemsFiltersInner key={location.search} locationSearch={location.search} />
+    return <ItemsFiltersInner locationSearch={location.search} />
 }
 
 type ItemsFiltersInnerProps = {
@@ -34,6 +34,10 @@ function ItemsFiltersInner({ locationSearch }: ItemsFiltersInnerProps) {
         parseFiltersFromSearch(locationSearch)
     )
 
+    useEffect(() => {
+        setFilters(parseFiltersFromSearch(locationSearch))
+    }, [locationSearch])
+
     // Update one field while keeping inputs controlled.
     const updateField = (key: keyof ItemFiltersState, value: string) => {
         setFilters((prev) => ({ ...prev, [key]: value }))
@@ -43,11 +47,13 @@ function ItemsFiltersInner({ locationSearch }: ItemsFiltersInnerProps) {
     const handleApply = () => {
         const search = buildSearchFromFilters(filters)
         navigate({ search }, { replace: true })
+        setIsOpen(false)
     }
 
     const handleReset = () => {
         setFilters(defaultFilters)
         navigate({ search: '' }, { replace: true })
+        setIsOpen(true)
     }
 
     const renderOptions = (values: string[]) =>
