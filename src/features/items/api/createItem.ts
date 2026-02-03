@@ -10,6 +10,7 @@ export const createItem = async (payload: CreateItemRequest): Promise<Item> => {
     manufacturer: payload.manufacturer,
     materials: payload.materials,
     series: payload.series,
+    season: payload.season,
     price: payload.price,
     dimensions: payload.dimensions,
     countryOfOrigin: payload.countryOfOrigin,

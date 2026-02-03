@@ -6,6 +6,7 @@ export function ItemDetails({
     name,
     characters,
     releaseDate,
+    season,
     manufacturer,
     materials,
     series,
@@ -17,6 +18,7 @@ export function ItemDetails({
         <section className={styles.card} aria-label="Item details">
             <ItemAttributeView label="Name" values={name} />
             <ItemAttributeActionView label="Characters" values={characters ?? []} onAction={value => { alert(value + ' clicked! Change me later'); }} />
+            <ItemAttributeView label="Season" values={season ?? ''} />
             <ItemAttributeView label="Release Date" values={releaseDate ?? ''} />
             <ItemAttributeView label="Manufacturer" values={manufacturer ?? ''} />
             <ItemAttributeView label="Materials" values={materials ?? []} />

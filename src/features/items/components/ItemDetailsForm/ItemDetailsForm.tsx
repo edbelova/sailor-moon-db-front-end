@@ -34,6 +34,16 @@ export function ItemDetailsForm() {
                 />
             </div>
             <div className={styles.row}>
+                <label className={styles.label}>Season</label>
+                <input 
+                    type="text"
+                    name="season"
+                    value={values.season}
+                    onChange={handleChange}
+                    className={styles.input}
+                />
+            </div>
+            <div className={styles.row}>
                 <label className={styles.label}>Release Date</label>
                 <ReleaseDateInput
                     value={values.releaseDate}

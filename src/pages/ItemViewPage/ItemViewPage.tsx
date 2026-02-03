@@ -30,7 +30,8 @@ export function ItemViewPage() {
             <div className={styles.itemDetails}>
               <ItemDetails 
                 name={item.name} 
-                characters={item.characters} 
+                characters={item.characters}
+                season={item.season}
                 releaseDate={item.releaseDate} 
                 manufacturer={item.manufacturer}
                 materials={item.materials}

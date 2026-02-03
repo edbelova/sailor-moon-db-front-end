@@ -8,6 +8,7 @@ export type Item = {
   manufacturer?: string
   materials?: string[]
   series?: string
+  season?: string
   price?: number
   dimensions?: string
   countryOfOrigin?: string

@@ -6,6 +6,7 @@ const listSeparator = /[,\n]+/g
 export const getDefaultItemFormValues = (): ItemFormValues => ({
   name: '',
   characters: '',
+  season: '',
   releaseDate: '',
   manufacturer: '',
   materials: '',
@@ -37,6 +38,7 @@ export const buildCreateItemRequest = (
     manufacturer: values.manufacturer.trim() || undefined,
     materials: values.materials.trim() ? toTrimmedList(values.materials) : undefined,
     series: values.series.trim() || undefined,
+    season: values.season.trim() || undefined,
     price: Number.isFinite(priceNumber) ? priceNumber : undefined,
     dimensions: values.dimensions.trim() || undefined,
     countryOfOrigin: values.countryOfOrigin.trim() || undefined,
@@ -64,6 +66,7 @@ export const buildUpdateItemRequest = (
     manufacturer: values.manufacturer.trim() || undefined,
     materials: values.materials.trim() ? toTrimmedList(values.materials) : undefined,
     series: values.series.trim() || undefined,
+    season: values.season.trim() || undefined,
     price: Number.isFinite(priceNumber) ? priceNumber : undefined,
     dimensions: values.dimensions.trim() || undefined,
     countryOfOrigin: values.countryOfOrigin.trim() || undefined,
@@ -75,6 +78,7 @@ export const buildUpdateItemRequest = (
 export const buildItemFormValues = (item: Item): ItemFormValues => ({
   name: item.name ?? '',
   characters: joinList(item.characters),
+  season: item.season ?? '',
   releaseDate: item.releaseDate ?? '',
   manufacturer: item.manufacturer ?? '',
   materials: joinList(item.materials),
