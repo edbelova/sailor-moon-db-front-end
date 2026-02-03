@@ -13,12 +13,11 @@ export function CategoryList() {
   )
   const navigate = useNavigate()
   const [expandedParentId, setExpandedParentId] = useState<string | null>(null)
-  const firstParentId = categories[0]?.id ?? null
   const resolvedExpandedParentId = expandedParentId
     ? categories.some((category) => category.id === expandedParentId)
       ? expandedParentId
-      : firstParentId
-    : firstParentId
+      : null
+    : null
 
   const renderCategory = (category: Category, level = 0) => {
     const isActive = category.id === (activeCategory?.id ?? null)
@@ -46,9 +45,7 @@ export function CategoryList() {
             setActiveCategory(category)
             navigate(`/${encodeURIComponent(category.id)}`)
             if (!isChild && hasChildren) {
-              if (resolvedExpandedParentId !== category.id) {
-                setExpandedParentId(category.id)
-              }
+              setExpandedParentId((prev) => (prev === category.id ? null : category.id))
             }
           }}
         >
