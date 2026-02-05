@@ -1,10 +1,10 @@
 import styles from './Item.module.css'
 import type { Item as ItemType } from '../../types'
 import { Link } from 'react-router-dom'
-import Star from './Star.svg'
-import Check from './Check.svg'
-import Heart from './Heart.svg'
-import Cart from './Cart.svg'
+// import Star from './Star.svg'
+// import Check from './Check.svg'
+// import Heart from './Heart.svg'
+// import Cart from './Cart.svg'
 
 export function ItemPreview( { item }: { item: ItemType }) {
 
@@ -25,13 +25,13 @@ export function ItemPreview( { item }: { item: ItemType }) {
       <div className={styles.title}>
         <Link className={styles.titleLink} to={`/items/${item.id}`}>{title}</Link>
       </div>
+      {/* //TODO: add to favorites, add to cart, add review, mark as owned
       <div className={styles.actionBlock}>
         <img src={Check} alt="Check" className={styles.icon} />
         <img src={Heart} alt="Heart" className={styles.icon} />
         <img src={Star} alt="Star" className={styles.icon} />
         <img src={Cart} alt="Cart" className={styles.icon} />
-      </div>
+      </div> */}
     </div>
   );
-  // return <Link to={`/items/${item.id}`}>View item #{item.name}</Link>
 }
