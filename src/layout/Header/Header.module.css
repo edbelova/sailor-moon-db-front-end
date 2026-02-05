@@ -17,6 +17,10 @@
   line-height: 1.05;
 }
 
+.brandIcon {
+  width: 260px;
+}
+
 .brandTop {
   font-size: 12px;
   letter-spacing: 0.04em;

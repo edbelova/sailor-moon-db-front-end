@@ -1,14 +1,15 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../features/auth/useAuth'
 import styles from './Header.module.css'
-import { useState } from 'react'
+// import { useState } from 'react'
 import moonIcon from './Moon.svg'
-import searchIcon from './Search.svg'
+import sailorMoonLogo from './SailorMoonLogo.jpg'
+// import searchIcon from './Search.svg'
 
 export function Header() {
   const { user, isAuthenticated, logout } = useAuth()
   const navigate = useNavigate()
-  const [q, setQ] = useState("");
+  // const [q, setQ] = useState("");
 
   const handleLogout = async () => {
     try {
@@ -18,20 +19,21 @@ export function Header() {
     }
   }
 
-    const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: hook into your search page/filters later
-    // navigate(`/items?search=${encodeURIComponent(q)}`);
-  };
+  // const handleSearchSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   // TODO: hook into your search page/filters later
+  //   // navigate(`/items?search=${encodeURIComponent(q)}`);
+  // };
 
   return (
     <header className={styles.header}>
       <div className={styles.headerInner}>
 
         <NavLink to="/" end className={styles.brand} aria-label="Home">
-          <div className={styles.brandTop}>Pretty Guardian</div>
+          {/* <div className={styles.brandTop}>Pretty Guardian</div>
           <div className={styles.brandMain}>SAILOR MOON</div>
-          <div className={styles.brandSub}>MUSEUM DB</div>
+          <div className={styles.brandSub}>MUSEUM DB</div> */}
+          <img src={sailorMoonLogo} alt="Sailor Moon" className={styles.brandIcon} />
         </NavLink>
 
         <div className={styles.controls} />
