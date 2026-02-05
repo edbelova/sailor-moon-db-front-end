@@ -5,21 +5,38 @@ import { ItemImages } from '../../features/items/components/ItemImages/ItemImage
 import { ItemDetails } from '../../features/items/components/ItemDetails/ItemDetails'
 import { ItemDescription } from '../../features/items/components/ItemDescription/ItemDescription'
 import { useItemById } from '../../features/items/queries/useItemById'
+import { CategoryBreadCrumbs } from '../../features/categories/components/CategoryBreadCrumbs/CategoryBreadCrumbs'
+import { useCategoryUiStore } from '../../features/categories/state/useCategoryUiStore'
+import { useEffect } from 'react'
+import { useCategories } from '../../features/categories/queries/useCategories'
+import type { Category } from '../../features/categories/types'
 
 export function ItemViewPage() {
   const { itemId } = useParams<{ itemId: string}>()
   const { isAdmin } = useAuth()
   const { data: item, isLoading, isError } = useItemById(itemId)
+  const { data: categories = [], isLoading: isCategoriesLoading, isError: isCategoriesError } = useCategories()
+  const setActiveCategory = useCategoryUiStore(
+      (state) => state.setActiveCategory,
+    )
+  
+  useEffect(() => {
+    if (!item?.categoryId || categories.length === 0) {
+      return
+    }
+    const category = findCategoryById(categories, item.categoryId)
+    if (category) {
+      setActiveCategory(category)
+    }
+  }, [item?.categoryId, setActiveCategory, categories])
 
   return (
-    <div className={styles.page}>
-      {isLoading ? <div>Loading item...</div> : null}
-      {isError ? <div>Failed to load item.</div> : null}
+    <div className={styles.itemPage}>
+      {(isLoading || isCategoriesLoading) ? <div>Loading item...</div> : null}
+      {(isError || isCategoriesError) ? <div>Failed to load item.</div> : null}
       {!item ? null : (
         <>
-          <div className={styles.directory}>
-            <h1 className={styles.title}>Figures / Wonder Statue Work of Art eternal Sailor Moon</h1>
-          </div>
+          <CategoryBreadCrumbs />
           <div className={styles.pageLinks}>
             {itemId && isAdmin ? <Link to={`/items/${itemId}/edit`}>Edit this item</Link> : null}
           </div>
@@ -49,4 +66,19 @@ export function ItemViewPage() {
       )}
     </div>
   )
+}
+
+function findCategoryById(categories: Category[], id: string): Category | null {
+  for (const category of categories) {
+    if (category.id === id) {
+      return category
+    }
+    if (category.children?.length) {
+      const match = findCategoryById(category.children, id)
+      if (match) {
+        return match
+      }
+    }
+  }
+  return null
 }
