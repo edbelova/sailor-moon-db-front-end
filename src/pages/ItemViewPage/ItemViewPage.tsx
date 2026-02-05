@@ -10,6 +10,7 @@ import { useCategoryUiStore } from '../../features/categories/state/useCategoryU
 import { useEffect } from 'react'
 import { useCategories } from '../../features/categories/queries/useCategories'
 import type { Category } from '../../features/categories/types'
+import { ItemViewActions } from '../../features/items/components/ItemViewActions/ItemViewActions'
 
 export function ItemViewPage() {
   const { itemId } = useParams<{ itemId: string}>()
@@ -37,26 +38,31 @@ export function ItemViewPage() {
       {!item ? null : (
         <>
           <CategoryBreadCrumbs />
-          <div className={styles.pageLinks}>
+          {/* <div className={styles.pageLinks}>
             {itemId && isAdmin ? <Link to={`/items/${itemId}/edit`}>Edit this item</Link> : null}
-          </div>
+          </div> */}
           <div className={styles.itemLayout}>
             <div className={styles.itemImage}>
               <ItemImages images={item.images} imageUrls={item.imageUrls}/>
             </div>
-            <div className={styles.itemDetails}>
-              <ItemDetails 
-                name={item.name} 
-                characters={item.characters}
-                season={item.season}
-                releaseDate={item.releaseDate} 
-                manufacturer={item.manufacturer}
-                materials={item.materials}
-                series={item.series} 
-                price={item.price}
-                dimensions={item.dimensions}
-                country={item.countryOfOrigin}
-                />
+            <div className={styles.itemDetailsActions}>
+              <div className={styles.itemDetails}>
+                <ItemDetails 
+                  name={item.name} 
+                  characters={item.characters}
+                  season={item.season}
+                  releaseDate={item.releaseDate} 
+                  manufacturer={item.manufacturer}
+                  materials={item.materials}
+                  series={item.series} 
+                  price={item.price}
+                  dimensions={item.dimensions}
+                  country={item.countryOfOrigin}
+                  />
+              </div>
+              <div className={styles.itemActions}>
+                {itemId && isAdmin ? <ItemViewActions itemId={itemId} /> : null}
+              </div>
             </div>
             <div className={styles.itemDescription}>
               <ItemDescription description={item.description} />

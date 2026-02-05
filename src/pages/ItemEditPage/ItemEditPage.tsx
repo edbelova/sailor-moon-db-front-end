@@ -36,7 +36,7 @@ export function ItemEditPage() {
       return
     }
 
-    const match = findCategory(categories, item.categoryId)
+    const match = findCategoryById(categories, item.categoryId)
     setActiveCategory(match ?? null)
   }, [categories, item, setActiveCategory])
 
@@ -80,7 +80,7 @@ export function ItemEditPage() {
 
   return (
     <div className={styles.page}>
-      <h1 className={styles.title}>Edit item</h1>
+      {/* <h1 className={styles.title}>Edit item</h1> */}
       <ItemForm mode="edit" itemId={itemId} />
       <div className={styles.pageLinks}>
         {itemId ? <Link to={`/items/${itemId}`}>View this item</Link> : null}
@@ -90,13 +90,13 @@ export function ItemEditPage() {
   )
 }
 
-const findCategory = (categories: Category[], categoryId: string): Category | null => {
+const findCategoryById = (categories: Category[], id: string): Category | null => {
   for (const category of categories) {
-    if (category.id === categoryId) {
+    if (category.id === id) {
       return category
     }
     if (category.children) {
-      const match = findCategory(category.children, categoryId)
+      const match = findCategoryById(category.children, id)
       if (match) {
         return match
       }
