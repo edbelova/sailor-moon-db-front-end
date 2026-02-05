@@ -1,15 +1,15 @@
 .itemPage {
   display: block;
   padding-right: 24px;
-  padding-left: 24px;
+  padding-left: 20px;
 }
 
 .itemLayout {
   display: grid;
   grid-template-columns: auto 1fr; /* images | details */
   grid-template-rows: auto auto;
-  column-gap: 32px;
-  row-gap: 32px;
+  column-gap: 30px;
+  row-gap: 30px;
   align-items: start;
   margin-top: 10px;
 }
