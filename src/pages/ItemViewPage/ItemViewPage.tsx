@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import styles from './ItemViewPage.module.css'
 import { useAuth } from '../../features/auth/useAuth'
 import { ItemImages } from '../../features/items/components/ItemImages/ItemImages'
