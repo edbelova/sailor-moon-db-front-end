@@ -2,6 +2,7 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import styles from './SortableThumbnail.module.css'
 import type { ItemImage } from '../ItemForm/types'
+import TrashBin from './trash-bin.svg'
 
 export function SortableThumbnail({
     img,
@@ -33,7 +34,7 @@ export function SortableThumbnail({
                 className={styles.deleteBtn}
                 aria-label="Delete image"
             >
-                🗑
+                <img src={TrashBin} alt="Delete"/>
             </button>
         </div>
     )
