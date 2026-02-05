@@ -35,6 +35,7 @@ export function Header() {
         </NavLink>
 
         <div className={styles.controls} />
+          {/* TODO: add search later 
           <form className={styles.search} role="search" onSubmit={handleSearchSubmit}>
             <img
               src={searchIcon}
@@ -49,7 +50,7 @@ export function Header() {
               placeholder="SEARCH"
               aria-label="Search"
             />
-          </form>
+          </form> */}
 
           <nav className={styles.nav} aria-label="Authorization">
             {isAuthenticated ? (
