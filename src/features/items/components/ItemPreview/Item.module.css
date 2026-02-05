@@ -5,6 +5,7 @@
     flex-direction: column;
     width: clamp(160px, 100%, 220px);
     justify-self: center;
+    height: 100%;
 }
 
 .picContainer
@@ -46,6 +47,8 @@
     background-color: #8C8C8C;
     display: flex;
     justify-content: center;
+    flex: 1;
+    align-items: center;
 }
 
 .titleLink
