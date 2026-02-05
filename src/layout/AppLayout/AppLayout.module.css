@@ -1,3 +1,18 @@
+.pageBg {
+    min-height: 100vh;
+    background: url('./bg-main.png') center / cover no-repeat fixed;
+    display: flex;
+    justify-content: center;
+  }
+
+.pageFrame {
+    width: min(1300px, 100%);
+    background: white;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
 .appShell {
   min-height: 100vh;
   display: flex;

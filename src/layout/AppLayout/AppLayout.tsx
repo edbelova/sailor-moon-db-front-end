@@ -6,15 +6,19 @@ import styles from './AppLayout.module.css'
 
 export function AppLayout() {
   return (
-    <div className={styles.appShell}>
-      <Header />
-      <div className={styles.appBody}>
-        <CategoryList />
-        <main className={styles.appContent}>
-          <Outlet />
-        </main>
+    <div className={styles.pageBg}>
+      <div className={styles.pageFrame}>
+        <div className={styles.appShell}>
+          <Header />
+          <div className={styles.appBody}>
+            <CategoryList />
+            <main className={styles.appContent}>
+              <Outlet />
+            </main>
+          </div>
+          <Footer />
+        </div>
       </div>
-      <Footer />
     </div>
   )
 }
