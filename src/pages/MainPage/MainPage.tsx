@@ -32,8 +32,8 @@ export function MainPage() {
   )
   const activeCategoryId = activeCategory?.id ?? null
   const navigate = useNavigate()
-
   const { categoryId } = useParams<{ categoryId: string }>()
+  const isLeafCategory = Boolean(activeCategory && !activeCategory.children?.length)
 
   useEffect(() => {
     if (categoryId === undefined) {
@@ -75,7 +75,7 @@ export function MainPage() {
     <div className={styles.page}>
       <CategoryBreadCrumbs />
       <div className={styles.itemsSection}>
-        {isAdmin && (
+        {isAdmin && isLeafCategory && (
           <div className={styles.pageLinks}>
             <Link to="/items/new">Add item</Link>
           </div>
