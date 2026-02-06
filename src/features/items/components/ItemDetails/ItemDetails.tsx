@@ -1,6 +1,9 @@
 import { ItemAttributeView, ItemAttributeActionView } from '../ItemAttributeView'
+import { defaultFilters, type ItemFiltersState } from '../../filters/types'
+import { buildSearchFromFilters } from '../../filters/queryParams'
 import styles from './ItemDetails.module.css'
 import type { ItemDetailsProps } from "./types";
+import { useNavigate } from 'react-router-dom'
 
 export function ItemDetails({
     name,
@@ -14,18 +17,28 @@ export function ItemDetails({
     dimensions,
     country,
 }: ItemDetailsProps) {
+    const navigate = useNavigate()
+
+    const goWithFilter = (field: keyof ItemFiltersState, value: string) => {
+        const search = buildSearchFromFilters({
+            ...defaultFilters,
+            [field]: value,
+        })
+        navigate({ pathname: '/', search })
+    }
+
     return (
         <section className={styles.card} aria-label="Item details">
             <ItemAttributeView label="Name" values={name} />
-            <ItemAttributeActionView label="Characters" values={characters ?? []} onAction={value => { alert(value + ' clicked! Change me later'); }} />
+            <ItemAttributeActionView label="Characters" values={characters ?? []} onAction={value => goWithFilter('characters', value)} />
             <ItemAttributeView label="Season" values={season ?? ''} />
             <ItemAttributeView label="Release Date" values={releaseDate ?? ''} />
-            <ItemAttributeView label="Manufacturer" values={manufacturer ?? ''} />
+            <ItemAttributeActionView label="Manufacturer" values={manufacturer ?? ''} onAction={value => goWithFilter('manufacturer', value)} />
             <ItemAttributeView label="Materials" values={materials ?? []} />
-            <ItemAttributeView label="Series" values={series ?? ''} />
+            <ItemAttributeActionView label="Series" values={series ?? ''} onAction={value => goWithFilter('series', value)} />
             <ItemAttributeView label="Manufacturer price" values={typeof price === "number" ? `${price}Y` : ''} />
             <ItemAttributeView label="Dimensions" values={dimensions ?? ''} />
-            <ItemAttributeActionView label="Country" values={country ?? []} onAction={value => { alert(value + ' clicked! Change me later'); }} />
+            <ItemAttributeActionView label="Country" values={country ?? []} onAction={value => goWithFilter('country', value)} />
         </section>
     );
 }
