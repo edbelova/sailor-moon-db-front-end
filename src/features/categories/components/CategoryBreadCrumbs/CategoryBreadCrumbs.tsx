@@ -1,5 +1,5 @@
 import { useCategoryUiStore } from "../../state/useCategoryUiStore"
-
+import { Link } from 'react-router-dom'
 import styles from './CategoryBreadCrumbs.module.css'
 
 export function CategoryBreadCrumbs() {
@@ -9,15 +9,19 @@ export function CategoryBreadCrumbs() {
         return null;
     }
 
-    return (
+      return (
         <div className={styles.directory}>
-            {activeCategory.parent && (
-                <>
-                    <h1 className={styles.breadCrumbs}>{activeCategory.parent.name}</h1>
-                    <h1 className={styles.breadCrumbs}> / </h1>
-                </>
-            )}
-            <h1 className={styles.breadCrumbs}>{activeCategory.name}</h1>
+        {activeCategory.parent && (
+            <>
+            <Link className={styles.breadCrumbsLink} to={`/${activeCategory.parent.id}`}>
+                {activeCategory.parent.name}
+            </Link>
+            <span className={styles.separator}> / </span>
+            </>
+        )}
+        <Link className={styles.breadCrumbsLink} to={`/${activeCategory.id}`}>
+            {activeCategory.name}
+        </Link>
         </div>
     )
 }

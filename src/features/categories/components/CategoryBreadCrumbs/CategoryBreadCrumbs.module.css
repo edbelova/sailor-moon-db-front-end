@@ -4,7 +4,15 @@
     gap: 10px;
 }
 
-.breadCrumbs {
+.breadCrumbsLink {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 2px 0 0;
+    color: #302A4E;
+    text-decoration: none;
+}
+
+.separator {
     font-size: 14px;
     font-weight: 400;
     margin: 2px 0 0;
