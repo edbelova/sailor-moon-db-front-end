@@ -6,10 +6,11 @@
 .mainImage {
   width: 400px;
   height: 500px;
-  border: 3px solid #999;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #F5F5F5;
 }
 
 .mainImage img {
@@ -30,12 +31,13 @@
 .thumb {
   width: 120px;
   height: 120px;
-  object-fit: cover;
-  border: 2px solid #999;
+  object-fit: contain;
   cursor: pointer;
+  background: #F5F5F5;
+  border-radius: 10px;
 }
 
 .thumbActive {
-  border-color: #222;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15);
+  border: 1px solid #999;
+  border-radius: 10px;
 }
