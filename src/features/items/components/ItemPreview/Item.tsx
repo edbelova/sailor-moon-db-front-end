@@ -3,7 +3,8 @@ import type { Item as ItemType } from '../../types'
 import { Link } from 'react-router-dom'
 // import Star from './Star.svg'
 // import Check from './Check.svg'
-// import Heart from './Heart.svg'
+import Heart from './Heart.svg'
+import Bookmark from './Bookmark.svg'
 // import Cart from './Cart.svg'
 
 export function ItemPreview( { item }: { item: ItemType }) {
@@ -20,10 +21,22 @@ export function ItemPreview( { item }: { item: ItemType }) {
           <Link to={`/items/${item.id}`} className={styles.picLink}>
             <img src={previewUrl} alt={item.name} />
           </Link>
+          <button type="button" className={styles.likeBtn} aria-label="Like">
+            <img src={Heart} alt="" />
+          </button>
         </div>
       </div>
       <div className={styles.title}>
         <Link className={styles.titleLink} to={`/items/${item.id}`}>{title}</Link>
+      </div>
+      <div className={styles.tagsRow}>
+        <div className={styles.tags}>
+          {item.season ? <span className={styles.tag}>{item.season}</span> : null}
+          {item.series ? <span className={styles.tag}>{item.series}</span> : null}
+        </div>
+        <button type="button" className={styles.bookmarkBtn} aria-label="Bookmark">
+          <img src={Bookmark} alt="" />
+        </button>
       </div>
       {/* //TODO: add to favorites, add to cart, add review, mark as owned
       <div className={styles.actionBlock}>

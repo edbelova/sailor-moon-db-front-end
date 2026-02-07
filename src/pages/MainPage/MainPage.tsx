@@ -73,14 +73,22 @@ export function MainPage() {
   const { isAdmin } = useAuth()
   return (
     <div className={styles.page}>
-      <CategoryBreadCrumbs />
+      <div className={styles.topArea}>
+        <div className={styles.topBar}>
+          <CategoryBreadCrumbs />
+          <ItemsFilters
+            trailingControl={
+              isAdmin && isLeafCategory ? (
+                <Link to="/items/new" className={styles.addItemButton}>
+                  Add Item
+                </Link>
+              ) : null
+            }
+          />
+        </div>
+      </div>
+
       <div className={styles.itemsSection}>
-        {isAdmin && isLeafCategory && (
-          <div className={styles.pageLinks}>
-            <Link to="/items/new">Add item</Link>
-          </div>
-        )}
-        <ItemsFilters />
         <div className={styles.itemsContainer}>
           <ItemsGrid />
         </div>

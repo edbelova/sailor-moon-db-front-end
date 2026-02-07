@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 export function CategoryList() {
   const { data: categories = [], isLoading, isError } = useCategories()
   const activeCategory = useCategoryUiStore((state) => state.activeCategory)
+  const isAllActive = activeCategory === null
   const setActiveCategory = useCategoryUiStore(
     (state) => state.setActiveCategory,
   )
@@ -23,7 +24,10 @@ export function CategoryList() {
     const isActive = category.id === (activeCategory?.id ?? null)
     const isChild = level > 0
     const hasChildren = Boolean(category.children?.length)
-    const isExpanded = !isChild && resolvedExpandedParentId === category.id
+    const isExpanded =
+      !isChild &&
+      activeCategory !== null &&
+      resolvedExpandedParentId === category.id
 
     const buttonClassName = [
       styles.categoryButton,
@@ -63,7 +67,6 @@ export function CategoryList() {
   return (
     <aside className={styles.sidenav}>
       <div className={styles.sidenavSection}>
-        <h2 className={styles.sidenavHeading}>Category</h2>
         {isLoading ? (
           <div className={styles.sidenavPlaceholder}>
             Loading categories...
@@ -75,9 +78,21 @@ export function CategoryList() {
           </div>
         ) : null}
         {!isLoading && !isError ? (
-          <ul className={styles.categoryTree}>
-            {categories.map((category) => renderCategory(category))}
-          </ul>
+            <ul className={styles.categoryTree}>
+              <li>
+                <button
+                  type="button"
+                  className={`${styles.categoryButton} ${styles.headingButton} ${isAllActive ? styles.isActive : ''}  `}
+                  onClick={() => {
+                    setActiveCategory(null)
+                    navigate('/')
+                  }}
+                >
+                  All categories
+                </button>
+              </li>
+              {categories.map((category) => renderCategory(category))}
+            </ul>
         ) : null}
       </div>
     </aside>

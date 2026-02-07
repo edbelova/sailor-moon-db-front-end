@@ -3,7 +3,7 @@ import { useAuth } from '../../features/auth/useAuth'
 import styles from './Header.module.css'
 // import { useState } from 'react'
 import moonIcon from './Moon.svg'
-import sailorMoonLogo from './SailorMoonLogo.jpg'
+import Logo from './Logo.png'
 // import searchIcon from './Search.svg'
 
 export function Header() {
@@ -33,7 +33,7 @@ export function Header() {
           {/* <div className={styles.brandTop}>Pretty Guardian</div>
           <div className={styles.brandMain}>SAILOR MOON</div>
           <div className={styles.brandSub}>MUSEUM DB</div> */}
-          <img src={sailorMoonLogo} alt="Sailor Moon" className={styles.brandIcon} />
+          <img src={Logo} alt="Sailor Moon" className={styles.brandIcon} />
         </NavLink>
 
         <div className={styles.controls} />

@@ -1,8 +1,6 @@
 .sidenav {
   width: 230px;
   padding: 12px;
-  border-right: 1px solid var(--border-color);
-  background: #fff7f0;
 }
 
 .sidenav ul {
@@ -12,9 +10,13 @@
   margin-top: 4px;
 }
 
-.sidenavSection {
-  margin-top: 16px;
-}
+  .sidenavSection {
+    background: rgba(255, 255, 255, 0.4); /* slightly transparent */
+    backdrop-filter: blur(6px); /* glass effect */
+    border-radius: 18px;
+    padding: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  }
 
 .sidenavHeading {
   font-size: 14px;
@@ -48,18 +50,17 @@
   width: 100%;
   text-align: left;
   padding: 6px 10px;
-  border-radius: 8px;
-  border: 1px solid #f1d9c6;
-  background: #fff;
+  border-radius: 6px;
+  border: none;
   color: #433126;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+  background: transparent;
 }
 
 .categoryButton:hover {
-  border-color: #e8cbb4;
-  background: #fffaf6;
+  border-color: transparent;
+  background: rgba(235, 225, 223, 0.3);
 }
 
 .isChild {
@@ -73,8 +74,10 @@
 }
 
 .isActive {
-  color: #2f57d2;
-  border-color: #c6d4ff;
-  background: #f4f7ff;
-  font-weight: 700;
+  background: rgba(235, 225, 223, 0.8);
+  color: #4a3a2c;
+}
+
+.isActive:hover {
+  background: rgba(235, 225, 223, 0.95);
 }
