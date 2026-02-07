@@ -1,20 +1,35 @@
 .directory {
-    border-bottom: 1px solid #D9D9D9;
     display: flex;
-    gap: 10px;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .breadCrumbsLink {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 400;
-    margin: 2px 0 0;
-    color: #302A4E;
+    color: #2f3e56;
     text-decoration: none;
+    line-height: 1;
 }
 
 .separator {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 400;
-    margin: 2px 0 0;
-    color: #302A4E;
+    color: #727789;
+    line-height: 1;
+}
+
+@media (max-width: 1280px) {
+    .breadCrumbsLink,
+    .separator {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 960px) {
+    .breadCrumbsLink,
+    .separator {
+        font-size: 16px;
+    }
 }

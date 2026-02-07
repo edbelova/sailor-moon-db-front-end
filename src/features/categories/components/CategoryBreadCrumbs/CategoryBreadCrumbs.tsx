@@ -4,24 +4,27 @@ import styles from './CategoryBreadCrumbs.module.css'
 
 export function CategoryBreadCrumbs() {
     const activeCategory = useCategoryUiStore((state) => state.activeCategory)
+    const parentCategory = activeCategory?.parent
 
-    if (!activeCategory) {
-        return null;
-    }
-
-      return (
+    return (
         <div className={styles.directory}>
-        {activeCategory.parent && (
+        <Link className={styles.breadCrumbsLink} to="/">
+            All items
+        </Link>
+        {activeCategory && <span className={styles.separator}> &gt; </span>}
+        {parentCategory && (
             <>
-            <Link className={styles.breadCrumbsLink} to={`/${activeCategory.parent.id}`}>
-                {activeCategory.parent.name}
+            <Link className={styles.breadCrumbsLink} to={`/${parentCategory.id}`}>
+                {parentCategory.name}
             </Link>
-            <span className={styles.separator}> / </span>
+            <span className={styles.separator}> &gt; </span>
             </>
         )}
-        <Link className={styles.breadCrumbsLink} to={`/${activeCategory.id}`}>
-            {activeCategory.name}
-        </Link>
+        {activeCategory && (
+            <Link className={styles.breadCrumbsLink} to={`/${activeCategory.id}`}>
+                {activeCategory.name}
+            </Link>
+        )}
         </div>
     )
 }
