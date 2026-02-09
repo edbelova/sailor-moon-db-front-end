@@ -12,6 +12,7 @@ export type OrderDir = 'asc' | 'desc'
 
 // All filter input values stored in component state and mirrored to URL query params.
 export type ItemFiltersState = {
+    search: string
     name: string
     characters: string
     releaseDateFrom: string
@@ -24,10 +25,12 @@ export type ItemFiltersState = {
     country: string
     orderBy: OrderBy
     orderDir: OrderDir
+    hasExplicitOrder: boolean
 }
 
 // Default filter values when URL query params are missing.
 export const defaultFilters: ItemFiltersState = {
+    search: '',
     name: '',
     characters: '',
     releaseDateFrom: '',
@@ -40,4 +43,5 @@ export const defaultFilters: ItemFiltersState = {
     country: '',
     orderBy: 'name',
     orderDir: 'asc',
+    hasExplicitOrder: false,
 }

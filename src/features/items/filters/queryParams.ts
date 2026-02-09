@@ -6,7 +6,9 @@ const normalize = (value: string | null) => (value ?? '').trim()
 // Parses location.search into a complete ItemFiltersState with defaults.
 export function parseFiltersFromSearch(search: string): ItemFiltersState {
     const params = new URLSearchParams(search)
+    const hasExplicitOrder = params.has('orderBy') || params.has('orderDir')
     return {
+        search: normalize(params.get('search')),
         name: normalize(params.get('name')),
         characters: normalize(params.get('characters')),
         releaseDateFrom: normalize(params.get('releaseDateFrom')),
@@ -23,6 +25,7 @@ export function parseFiltersFromSearch(search: string): ItemFiltersState {
         orderDir:
             (params.get('orderDir') as ItemFiltersState['orderDir']) ??
             defaultFilters.orderDir,
+        hasExplicitOrder,
     }
 }
 
@@ -37,6 +40,7 @@ export function buildSearchFromFilters(filters: ItemFiltersState): string {
     }
   }
 
+  add('search', filters.search)
   add('name', filters.name)
   add('characters', filters.characters)
   add('releaseDateFrom', filters.releaseDateFrom)
@@ -49,10 +53,8 @@ export function buildSearchFromFilters(filters: ItemFiltersState): string {
   add('country', filters.country)
 
   // Only persist ordering if it's not the default ordering.
-  if (filters.orderBy !== defaultFilters.orderBy) {
+  if (filters.hasExplicitOrder) {
     params.set('orderBy', filters.orderBy)
-  }
-  if (filters.orderDir !== defaultFilters.orderDir) {
     params.set('orderDir', filters.orderDir)
   }
 

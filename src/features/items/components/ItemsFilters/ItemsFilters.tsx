@@ -40,7 +40,7 @@ function ItemsFiltersInner({ locationSearch, trailingControl }: ItemsFiltersInne
     }, [locationSearch])
 
     // Update one field while keeping inputs controlled.
-    const updateField = (key: keyof ItemFiltersState, value: string) => {
+    const updateField = (key: keyof Omit<ItemFiltersState, 'hasExplicitOrder'>, value: string) => {
         setFilters((prev) => ({ ...prev, [key]: value }))
     }
 
@@ -89,19 +89,25 @@ function ItemsFiltersInner({ locationSearch, trailingControl }: ItemsFiltersInne
         setFilters((prev) => {
             const next: ItemFiltersState =
                 prev.orderBy === orderBy
-                    ? { ...prev, orderDir: prev.orderDir === 'asc' ? 'desc' : 'asc' }
-                    : { ...prev, orderBy, orderDir: orderDir ?? 'asc' }
+                    ? {
+                        ...prev,
+                        orderDir: prev.orderDir === 'asc' ? 'desc' : 'asc',
+                        hasExplicitOrder: true,
+                    }
+                    : { ...prev, orderBy, orderDir: orderDir ?? 'asc', hasExplicitOrder: true }
             applyFilters(next)
             return next
         })
     }
+
+    const usesImplicitRelevance = filters.search.trim().length > 0 && !filters.hasExplicitOrder
 
     return (
         <section className={styles.filtersSection}>
             <div className={styles.toolbar}>
                 <div className={styles.ordering}>
                     {orderingOptions.map((option) => {
-                        const isActive = filters.orderBy === option.orderBy
+                        const isActive = !usesImplicitRelevance && filters.orderBy === option.orderBy
                         const showDir = isActive
                         return (
                             <button
@@ -125,6 +131,9 @@ function ItemsFiltersInner({ locationSearch, trailingControl }: ItemsFiltersInne
                             </button>
                         )
                     })}
+                    {usesImplicitRelevance && (
+                        <span className={styles.orderingHint}>Relevance</span>
+                    )}
                 </div>
                 <button
                     type="button"
@@ -141,6 +150,16 @@ function ItemsFiltersInner({ locationSearch, trailingControl }: ItemsFiltersInne
             {isOpen && (
                 <div className={styles.panel}>
                     <div className={styles.fieldsGrid}>
+                        <div className={styles.field}>
+                            <label>Search</label>
+                            <input
+                                type="text"
+                                value={filters.search}
+                                onChange={(e) => updateField('search', e.target.value)}
+                                placeholder="Search across all fields"
+                            />
+                        </div>
+
                         <div className={styles.field}>
                             <label>Name</label>
                             <input

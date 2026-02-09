@@ -16,9 +16,10 @@ export async function fetchItemsByCategory(
   // Add a param only if the user filled it in.
   const add = (key: string, value: string) => {
     if (value.trim()) {
-      params.set(key, value)
+      params.set(key, value.trim())
     }
   }
+  add('q', filters.search)
   add('name', filters.name)
   add('characters', filters.characters)
   add('releaseDateFrom', filters.releaseDateFrom)
@@ -30,9 +31,11 @@ export async function fetchItemsByCategory(
   add('priceMax', filters.priceMax)
   add('country', filters.country)
 
-  // Always include ordering so the server sorts consistently even when no filters are set.
-  params.set('orderBy', filters.orderBy)
-  params.set('orderDir', filters.orderDir)
+  const hasQuery = filters.search.trim().length > 0
+  if (!hasQuery || filters.hasExplicitOrder) {
+    params.set('orderBy', filters.orderBy)
+    params.set('orderDir', filters.orderDir)
+  }
 
   const query = params.toString()
   const path = query ? `/api/items?${query}` : '/api/items'

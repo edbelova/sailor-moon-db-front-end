@@ -1,15 +1,22 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useEffect, useState, type FormEvent } from 'react'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../features/auth/useAuth'
 import styles from './Header.module.css'
-// import { useState } from 'react'
 import moonIcon from './Moon.svg'
 import Logo from './Logo.png'
-// import searchIcon from './Search.svg'
+import searchIcon from './Search.svg'
 
 export function Header() {
   const { user, isAuthenticated, logout } = useAuth()
   const navigate = useNavigate()
-  // const [q, setQ] = useState("");
+  const location = useLocation()
+  const [search, setSearch] = useState('')
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search)
+    const searchFromUrl = (params.get('search') ?? '').trim()
+    setSearch(searchFromUrl)
+  }, [location.search])
 
   const handleLogout = async () => {
     try {
@@ -19,11 +26,12 @@ export function Header() {
     }
   }
 
-  // const handleSearchSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   // TODO: hook into your search page/filters later
-  //   // navigate(`/items?search=${encodeURIComponent(q)}`);
-  // };
+  const handleSearchSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    const term = search.trim()
+    const query = term ? `?search=${encodeURIComponent(term)}` : ''
+    navigate({ pathname: '/', search: query })
+  }
 
   return (
     <header className={styles.header}>
@@ -36,8 +44,7 @@ export function Header() {
           <img src={Logo} alt="Sailor Moon" className={styles.brandIcon} />
         </NavLink>
 
-        <div className={styles.controls} />
-          {/* TODO: add search later 
+        <div className={styles.controls}>
           <form className={styles.search} role="search" onSubmit={handleSearchSubmit}>
             <img
               src={searchIcon}
@@ -47,12 +54,12 @@ export function Header() {
             />
             <input
               className={styles.searchInput}
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder="SEARCH"
-              aria-label="Search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search all items"
+              aria-label="Search all items"
             />
-          </form> */}
+          </form>
 
           <nav className={styles.nav} aria-label="Authorization">
             {isAuthenticated ? (
@@ -73,6 +80,7 @@ export function Header() {
               </NavLink>
             )}
           </nav>
+        </div>
 
       </div>
     </header>

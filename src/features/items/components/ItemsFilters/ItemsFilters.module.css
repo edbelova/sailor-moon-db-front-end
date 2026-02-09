@@ -19,6 +19,12 @@
   gap: 20px;
 }
 
+.orderingHint {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2f3e56;
+}
+
 .orderingButton,
 .orderingActive {
   border: 0;
@@ -172,7 +178,8 @@
 
 @media (max-width: 1280px) {
   .orderingButton,
-  .orderingActive {
+  .orderingActive,
+  .orderingHint {
     font-size: 18px;
   }
 
@@ -193,7 +200,8 @@
   }
 
   .orderingButton,
-  .orderingActive {
+  .orderingActive,
+  .orderingHint {
     font-size: 13px;
   }
 

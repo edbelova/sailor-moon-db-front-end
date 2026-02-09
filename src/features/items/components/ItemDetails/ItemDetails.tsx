@@ -1,5 +1,5 @@
 import { ItemAttributeView, ItemAttributeActionView } from '../ItemAttributeView'
-import { defaultFilters, type ItemFiltersState } from '../../filters/types'
+import { defaultFilters } from '../../filters/types'
 import { buildSearchFromFilters } from '../../filters/queryParams'
 import styles from './ItemDetails.module.css'
 import type { ItemDetailsProps } from "./types";
@@ -18,8 +18,20 @@ export function ItemDetails({
     country,
 }: ItemDetailsProps) {
     const navigate = useNavigate()
+    type FilterStringField =
+        | 'search'
+        | 'name'
+        | 'characters'
+        | 'releaseDateFrom'
+        | 'releaseDateTo'
+        | 'manufacturer'
+        | 'materials'
+        | 'series'
+        | 'priceMin'
+        | 'priceMax'
+        | 'country'
 
-    const goWithFilter = (field: keyof ItemFiltersState, value: string) => {
+    const goWithFilter = (field: FilterStringField, value: string) => {
         const search = buildSearchFromFilters({
             ...defaultFilters,
             [field]: value,
