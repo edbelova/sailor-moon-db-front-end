@@ -30,6 +30,6 @@
 @media (max-width: 960px) {
     .breadCrumbsLink,
     .separator {
-        font-size: 16px;
+        font-size: 13px;
     }
 }

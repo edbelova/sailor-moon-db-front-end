@@ -147,7 +147,7 @@ function ItemsFiltersInner({ locationSearch, trailingControl }: ItemsFiltersInne
                                 type="text"
                                 value={filters.name}
                                 onChange={(e) => updateField('name', e.target.value)}
-                                placeholder="Name"
+                                placeholder=""
                             />
                         </div>
 
@@ -157,7 +157,7 @@ function ItemsFiltersInner({ locationSearch, trailingControl }: ItemsFiltersInne
                                 type="text"
                                 value={filters.characters}
                                 onChange={(e) => updateField('characters', e.target.value)}
-                                placeholder="Characters"
+                                placeholder=""
                                 list="characters-options"
                             />
                             <datalist id="characters-options">{renderOptions(characters)}</datalist>
@@ -169,7 +169,7 @@ function ItemsFiltersInner({ locationSearch, trailingControl }: ItemsFiltersInne
                                 type="text"
                                 value={filters.manufacturer}
                                 onChange={(e) => updateField('manufacturer', e.target.value)}
-                                placeholder="Manufacturer"
+                                placeholder=""
                                 list="manufacturer-options"
                             />
                             <datalist id="manufacturer-options">{renderOptions(manufacturers)}</datalist>
@@ -181,7 +181,7 @@ function ItemsFiltersInner({ locationSearch, trailingControl }: ItemsFiltersInne
                                 type="text"
                                 value={filters.materials}
                                 onChange={(e) => updateField('materials', e.target.value)}
-                                placeholder="Materials"
+                                placeholder=""
                                 list="materials-options"
                             />
                             <datalist id="materials-options">{renderOptions(materials)}</datalist>
@@ -193,7 +193,7 @@ function ItemsFiltersInner({ locationSearch, trailingControl }: ItemsFiltersInne
                                 type="text"
                                 value={filters.series}
                                 onChange={(e) => updateField('series', e.target.value)}
-                                placeholder="Series"
+                                placeholder=""
                                 list="series-options"
                             />
                             <datalist id="series-options">{renderOptions(series)}</datalist>
@@ -205,7 +205,7 @@ function ItemsFiltersInner({ locationSearch, trailingControl }: ItemsFiltersInne
                                 type="text"
                                 value={filters.country}
                                 onChange={(e) => updateField('country', e.target.value)}
-                                placeholder="Country"
+                                placeholder=""
                                 list="country-options"
                             />
                             <datalist id="country-options">{renderOptions(countries)}</datalist>

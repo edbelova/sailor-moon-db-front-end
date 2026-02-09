@@ -154,7 +154,7 @@
   border-radius: 999px;
   padding: 8px 16px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -194,7 +194,7 @@
 
   .orderingButton,
   .orderingActive {
-    font-size: 16px;
+    font-size: 13px;
   }
 
   .fieldsGrid {
