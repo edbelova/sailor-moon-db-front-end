@@ -22,11 +22,28 @@
 
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
 }
 
-.linkLike {
-    color: var(--color-link);
-    text-decoration: underline;
-    text-underline-offset: 2px;
+.filterChip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 10px;
+    border-radius: 999px;
+    background: #cceeff;
+    color: #0c5f86;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 20px;
+    transition: filter 0.15s ease;
+}
+
+.filterChip:hover {
+    filter: brightness(0.95);
+}
+
+.filterChip:focus-visible {
+    outline: 2px solid #0c5f86;
+    outline-offset: 2px;
 }
