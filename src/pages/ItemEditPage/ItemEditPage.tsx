@@ -7,6 +7,7 @@ import { buildItemFormValues } from '../../features/items/components/ItemForm/va
 import { ItemForm } from '../../features/items/components/ItemForm/ItemForm'
 import { useCategories } from '../../features/categories/queries/useCategories'
 import { useCategoryUiStore } from '../../features/categories/state/useCategoryUiStore'
+import { CategoryBreadCrumbs } from '../../features/categories/components/CategoryBreadCrumbs/CategoryBreadCrumbs'
 import type { Category } from '../../features/categories/types'
 
 export function ItemEditPage() {
@@ -80,12 +81,12 @@ export function ItemEditPage() {
 
   return (
     <div className={styles.page}>
-      {/* <h1 className={styles.title}>Edit item</h1> */}
-      <ItemForm mode="edit" itemId={itemId} />
-      <div className={styles.pageLinks}>
-        {itemId ? <Link to={`/items/${itemId}`}>View this item</Link> : null}
-        <Link to="/">Back to main</Link>
+      <div className={styles.topArea}>
+        <div className={styles.topBar}>
+          <CategoryBreadCrumbs />
+        </div>
       </div>
+      <ItemForm mode="edit" itemId={itemId} />
     </div>
   )
 }

@@ -6,8 +6,12 @@
     display: grid;
     grid-template-columns: 140px 1fr;
     column-gap: 24px;
-    padding: 12px 0;
+    padding: 8px 0;
     align-items: start;
+}
+
+.row:first-child {
+    padding-top: 0;
 }
 
 .label {
@@ -22,5 +26,5 @@
     font-size: 14px;
     background: #fff;
     font-family: inherit;
-    height: 32px;
+    height: 30px;
 }

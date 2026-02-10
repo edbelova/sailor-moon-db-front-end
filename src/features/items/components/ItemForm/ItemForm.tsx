@@ -2,7 +2,6 @@ import { ItemImagesForm } from '../ItemImagesForm/ItemImagesForm'
 import { ItemDetailsForm } from '../ItemDetailsForm/ItemDetailsForm'
 import { ItemDescriptionForm } from '../ItemDescriptionForm/ItemDescriptionForm'
 import { ItemFormActions } from '../ItemFormActions/ItemFormActions'
-import { CategoryBreadCrumbs } from '../../../categories/components/CategoryBreadCrumbs/CategoryBreadCrumbs'
 import { useItemFormStore } from '../../state/useItemFormStore'
 import { uploadItemImages } from '../../api/uploadItemImage'
 
@@ -52,7 +51,6 @@ export function ItemForm({ mode = 'create', itemId }: ItemFormProps) {
 
   return (
     <div className={styles.itemForm}>
-      <CategoryBreadCrumbs />
       <div className={styles.itemLayout}>
         <div className={styles.itemImage}>
           <ItemImagesForm 
