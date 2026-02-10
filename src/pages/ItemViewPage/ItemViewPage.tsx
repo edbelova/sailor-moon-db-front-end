@@ -37,7 +37,11 @@ export function ItemViewPage() {
       {(isError || isCategoriesError) ? <div>Failed to load item.</div> : null}
       {!item ? null : (
         <>
-          <CategoryBreadCrumbs />
+          <div className={styles.topArea}>
+            <div className={styles.topBar}>
+              <CategoryBreadCrumbs />
+            </div>
+          </div>
           {/* <div className={styles.pageLinks}>
             {itemId && isAdmin ? <Link to={`/items/${itemId}/edit`}>Edit this item</Link> : null}
           </div> */}

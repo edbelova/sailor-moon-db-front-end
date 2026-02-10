@@ -3,6 +3,17 @@
   padding-right: 16px;
 }
 
+.topArea {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.topBar {
+  min-height: 37px;
+  display: flex;
+  align-items: center;
+}
+
 .itemLayout {
   display: grid;
   grid-template-columns: auto 1fr; /* images | details */
