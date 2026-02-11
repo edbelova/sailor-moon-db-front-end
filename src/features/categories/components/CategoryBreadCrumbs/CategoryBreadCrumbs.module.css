@@ -2,7 +2,12 @@
     display: flex;
     gap: 8px;
     align-items: center;
+    min-height: 40px;
     flex-wrap: wrap;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .breadCrumbsLink {
@@ -11,6 +16,7 @@
     color: #2f3e56;
     text-decoration: none;
     line-height: 1;
+    white-space: nowrap;
 }
 
 .separator {
@@ -18,13 +24,7 @@
     font-weight: 400;
     color: #727789;
     line-height: 1;
-}
-
-@media (max-width: 1280px) {
-    .breadCrumbsLink,
-    .separator {
-        font-size: 18px;
-    }
+    white-space: nowrap;
 }
 
 @media (max-width: 960px) {

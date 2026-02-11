@@ -15,6 +15,7 @@
 .ordering {
   display: flex;
   align-items: center;
+  min-height: 40px;
   flex-wrap: wrap;
   gap: 20px;
 }
@@ -80,6 +81,14 @@
 .filterIcon {
   width: 15px;
   height: 15px;
+}
+
+.actionControls {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .trailingControl {
@@ -177,12 +186,6 @@
 }
 
 @media (max-width: 1280px) {
-  .orderingButton,
-  .orderingActive,
-  .orderingHint {
-    font-size: 18px;
-  }
-
   .fieldsGrid {
     grid-template-columns: repeat(3, minmax(160px, 1fr));
   }
@@ -193,10 +196,6 @@
     grid-column: 1;
     grid-row: 2;
     justify-content: flex-start;
-  }
-
-  .ordering {
-    gap: 14px;
   }
 
   .orderingButton,
@@ -215,15 +214,18 @@
   }
 }
 
-@media (max-width: 640px) {
-  .toolbar {
-    gap: 12px;
-  }
-
+@media (max-width: 760px) {
   .ordering {
-    gap: 10px;
+    flex: 1 0 100%;
+    order: 1;
   }
 
+  .actionControls {
+    order: 2;
+  }
+}
+
+@media (max-width: 640px) {
   .fieldsGrid {
     grid-template-columns: 1fr;
   }

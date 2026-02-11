@@ -135,16 +135,18 @@ function ItemsFiltersInner({ locationSearch, trailingControl }: ItemsFiltersInne
                         <span className={styles.orderingHint}>Relevance</span>
                     )}
                 </div>
-                <button
-                    type="button"
-                    onClick={() => setIsOpen((open) => !open)}
-                    className={styles.filterToggle}
-                    aria-expanded={isOpen}
-                >
-                    Filter
-                    <img src={Filter} alt="" aria-hidden="true" className={styles.filterIcon} />
-                </button>
-                {trailingControl && <div className={styles.trailingControl}>{trailingControl}</div>}
+                <div className={styles.actionControls}>
+                    <button
+                        type="button"
+                        onClick={() => setIsOpen((open) => !open)}
+                        className={styles.filterToggle}
+                        aria-expanded={isOpen}
+                    >
+                        Filter
+                        <img src={Filter} alt="" aria-hidden="true" className={styles.filterIcon} />
+                    </button>
+                    {trailingControl && <div className={styles.trailingControl}>{trailingControl}</div>}
+                </div>
             </div>
 
             {isOpen && (
