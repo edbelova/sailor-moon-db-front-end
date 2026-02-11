@@ -7,7 +7,7 @@
 
 .pageFrame {
     width: min(1300px, 100%);
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
     box-shadow: 0 6px 24px rgba(0,0,0,0.12);
     border-radius: 8px;
     overflow: hidden;
