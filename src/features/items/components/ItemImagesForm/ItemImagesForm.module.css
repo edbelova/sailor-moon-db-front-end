@@ -2,20 +2,28 @@
   display: flex;
   gap: 16px;
   width: 536px;
+  border-radius: 12px;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .mainImage {
   width: 100%;
   height: 500px;
   border-radius: 10px;
+  box-shadow: inset 0 0 0 1px transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #F5F5F5;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .itemImages:has(.gallery) .mainImage {
   width: 400px;
+}
+
+.mainImageEmpty {
+  border: 1px dashed #999;
 }
 
 .uploadContainer {
@@ -42,9 +50,33 @@
   gap: 12px;
   width: 120px;
   flex: 0 0 120px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px transparent;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
 
   max-height: 500px; /* same as main image */
   overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(120, 120, 120, 0.35) transparent;
+}
+
+.gallery::-webkit-scrollbar {
+  width: 8px;
+}
+
+.gallery::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.gallery::-webkit-scrollbar-thumb {
+  background-color: rgba(120, 120, 120, 0.35);
+  border-radius: 999px;
+  border: 0;
+}
+
+.gallery::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(89, 89, 89, 0.5);
 }
 
 .thumb {
@@ -56,9 +88,11 @@
 }
 
 .addTile {
-  width: 120px;
+  width: 100%;
   height: 120px;
+  flex: 0 0 120px;
   border: 1px dashed #999;
+  box-sizing: border-box;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -71,5 +105,11 @@
 }
 
 .dragActive {
-  border-color: #666;
+  background-color: #f0f7ff;
+  box-shadow: 0 0 0 1px rgba(22, 119, 255, 0.85);
+}
+
+.dragActiveGroup {
+  background-color: #f0f7ff;
+  box-shadow: 0 0 0 1px rgba(22, 119, 255, 0.85);
 }

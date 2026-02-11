@@ -18,8 +18,10 @@
 
 .thumbWrap {
     position: relative;
-    width: 120px;
+    width: 100%;
+    box-sizing: border-box;
     height: 120px;
+    flex: 0 0 120px;
     border-radius: 10px;
     overflow: hidden;
 }

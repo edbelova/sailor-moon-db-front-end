@@ -20,7 +20,7 @@ type ItemImagesFormProps = {
 
 export function ItemImagesForm(props: ItemImagesFormProps) {
 
-    const [isDragging, setIsDragging] = useState(false);
+    const [activeDropZone, setActiveDropZone] = useState<'main' | 'gallery' | null>(null);
     const [activeId, setActiveId] = useState<string | null>(null);
     const setImageItems = useItemFormStore(state => state.setImageItems);
     const sensors = useSensors(useSensor(PointerSensor));
@@ -37,6 +37,7 @@ export function ItemImagesForm(props: ItemImagesFormProps) {
     }, [setMainDroppableRef]);
     const mainImage = props.images.find((img) => img.isMain) ?? props.images[0]
     const galleryImages = props.images
+    const hasThumbnails = props.images.length > 0
 
     const handlePickClick = () => {
         inputRef.current?.click();
@@ -55,9 +56,9 @@ export function ItemImagesForm(props: ItemImagesFormProps) {
         lastDelta.current = { x: 0, y: 0 };
     }
 
-    const handleDragOver = (e: React.DragEvent) => {
+    const handleDragOver = (e: React.DragEvent, zone: 'main' | 'gallery') => {
         e.preventDefault()
-        setIsDragging(true)
+        setActiveDropZone(zone)
     }
 
     const handleDnDKitDragOver = (event: DragOverEvent) => {
@@ -74,11 +75,16 @@ export function ItemImagesForm(props: ItemImagesFormProps) {
         }
     }
 
-    const handleDragLeave = () => setIsDragging(false)
+    const handleDragLeave = (e: React.DragEvent, zone: 'main' | 'gallery') => {
+        const relatedTarget = e.relatedTarget as Node | null
+        if (!relatedTarget || !e.currentTarget.contains(relatedTarget)) {
+            setActiveDropZone((current) => (current === zone ? null : current))
+        }
+    }
 
     const handleDrop = (e: React.DragEvent) => {
         e.preventDefault()
-        setIsDragging(false)
+        setActiveDropZone(null)
 
         const files = Array.from(e.dataTransfer.files ?? []).filter(file => file.type.startsWith('image/'))
         if (files.length === 0) return
@@ -152,7 +158,7 @@ export function ItemImagesForm(props: ItemImagesFormProps) {
     };
 
     return (
-        <div className={styles.itemImages}>
+        <div className={`${styles.itemImages} ${hasThumbnails && activeDropZone ? styles.dragActiveGroup : ''}`}>
             
             {/* Hidden file input for uploads */}
             <input
@@ -183,11 +189,9 @@ export function ItemImagesForm(props: ItemImagesFormProps) {
                     {/* Gallery thumbnails */}
                     {props.images.length > 0 && (
                         <div
-                            className={`${styles.gallery} ${
-                                isDragging && props.images.length === 0 ? styles.dragActive : ''
-                            }`}
-                            onDragOver={handleDragOver}
-                            onDragLeave={handleDragLeave}
+                            className={styles.gallery}
+                            onDragOver={(e) => handleDragOver(e, 'gallery')}
+                            onDragLeave={(e) => handleDragLeave(e, 'gallery')}
                             onDrop={handleDrop}
                         >
                             {galleryImages.map((img) => (
@@ -214,9 +218,9 @@ export function ItemImagesForm(props: ItemImagesFormProps) {
 
                 {/* Main image */}
                 <div
-                    className={`${styles.mainImage} ${isDragging ? styles.dragActive : ''}`}
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLeave}
+                    className={`${styles.mainImage} ${!hasThumbnails ? styles.mainImageEmpty : ''} ${!hasThumbnails && activeDropZone === 'main' ? styles.dragActive : ''}`}
+                    onDragOver={(e) => handleDragOver(e, 'main')}
+                    onDragLeave={(e) => handleDragLeave(e, 'main')}
                     onDrop={handleDrop}
                     ref={setMainRef}
                     id="main-drop-zone"
