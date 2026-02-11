@@ -1,6 +1,6 @@
 .pageBg {
     min-height: 100vh;
-    background: url('./bg-main.png') center / auto no-repeat fixed;
+    background: url('./bg-main.webp') center / auto no-repeat fixed;
     display: flex;
     justify-content: center;
   }
