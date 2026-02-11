@@ -6,7 +6,7 @@
 }
 
 .breadCrumbsLink {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 400;
     color: #2f3e56;
     text-decoration: none;
@@ -14,7 +14,7 @@
 }
 
 .separator {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 400;
     color: #727789;
     line-height: 1;
@@ -30,6 +30,6 @@
 @media (max-width: 960px) {
     .breadCrumbsLink,
     .separator {
-        font-size: 13px;
+        font-size: 14px;
     }
 }

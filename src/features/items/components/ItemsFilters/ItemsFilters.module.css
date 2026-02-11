@@ -20,7 +20,7 @@
 }
 
 .orderingHint {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   color: #2f3e56;
 }
@@ -30,7 +30,7 @@
   border: 0;
   background: transparent;
   padding: 0;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   color: #2f3e56;
   cursor: pointer;
@@ -67,7 +67,7 @@
   background: #ffffff;
   border-radius: 999px;
   padding: 10px 18px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: #303042;
   cursor: pointer;
@@ -111,7 +111,7 @@
 }
 
 .field label {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: #3f4052;
 }
@@ -145,7 +145,7 @@
 
 .rangeDivider {
   color: #7c7f93;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .actions {
@@ -160,7 +160,7 @@
   border-radius: 999px;
   padding: 8px 16px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -202,7 +202,7 @@
   .orderingButton,
   .orderingActive,
   .orderingHint {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .fieldsGrid {

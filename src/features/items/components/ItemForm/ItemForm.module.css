@@ -5,7 +5,7 @@
 
 .itemLayout {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 536px minmax(0, 1fr);
   grid-template-rows: auto auto;
   column-gap: 30px;
   row-gap: 30px;
@@ -30,6 +30,7 @@
 
 .itemDetails {
   flex: 1;
+  min-width: 0;
 }
 
 .itemActions {

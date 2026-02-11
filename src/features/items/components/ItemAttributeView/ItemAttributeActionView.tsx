@@ -4,7 +4,9 @@ import styles from "./ItemAttributeView.module.css";
 
 
 export function ItemAttributeActionView({ label, values, onAction }: ItemAttributeActionViewProps) {
-    const valuesAsArray = Array.isArray(values) ? values : [values];
+    const valuesAsArray = (Array.isArray(values) ? values : [values])
+        .map((value) => value.trim())
+        .filter((value) => value.length > 0);
 
     return (
         <div className={styles.row}>
