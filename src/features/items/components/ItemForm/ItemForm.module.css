@@ -19,6 +19,12 @@
   grid-row: 1;
 }
 
+.uploadError {
+  margin-top: 8px;
+  color: #bf1f1f;
+  font-size: 14px;
+}
+
 /* RIGHT TOP */
 .itemDetailsActions {
   grid-column: 2;
