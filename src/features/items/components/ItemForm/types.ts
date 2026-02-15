@@ -19,6 +19,6 @@ export type ItemImage = {
   isMain: boolean
 }
 
-export type ItemFormErrors = Partial<Record<keyof ItemFormValues | 'categoryId', string>>
+export type ItemFormErrors = Partial<Record<keyof ItemFormValues | 'categoryId' | 'images', string>>
 
 export type { CreateItemRequest } from '../../types'

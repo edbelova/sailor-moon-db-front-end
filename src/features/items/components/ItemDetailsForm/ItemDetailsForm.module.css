@@ -19,6 +19,12 @@
     font-size: 14px;
 }
 
+.fieldCol {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
 .input {
     padding: 6px 10px;
     border: 1px solid var(--border-color);
@@ -27,4 +33,10 @@
     background: #fff;
     font-family: inherit;
     height: 30px;
+}
+
+.errorText {
+    color: #bf1f1f;
+    font-size: 12px;
+    line-height: 1.3;
 }

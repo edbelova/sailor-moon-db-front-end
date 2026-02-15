@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCategories } from '../../queries/useCategories'
 import { useCategoryUiStore } from '../../state/useCategoryUiStore'
 import type { Category } from '../../types'
@@ -14,6 +14,22 @@ export function CategoryList() {
   )
   const navigate = useNavigate()
   const [expandedParentId, setExpandedParentId] = useState<string | null>(null)
+  useEffect(() => {
+    if (activeCategory === null) {
+      setExpandedParentId(null)
+      return
+    }
+
+    if (activeCategory.parent) {
+      setExpandedParentId(activeCategory.parent.id)
+      return
+    }
+
+    if (activeCategory.children?.length) {
+      setExpandedParentId(activeCategory.id)
+    }
+  }, [activeCategory])
+
   const resolvedExpandedParentId = expandedParentId
     ? categories.some((category) => category.id === expandedParentId)
       ? expandedParentId

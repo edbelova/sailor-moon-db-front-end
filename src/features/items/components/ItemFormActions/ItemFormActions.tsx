@@ -1,12 +1,10 @@
 import styles from './ItemFormActions.module.css'
 import SaveIcon from './Save.svg'
 import DeleteIcon from './TrashBin.svg'
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCategoryUiStore } from '../../../categories/state/useCategoryUiStore'
 import { useItemFormStore } from '../../state/useItemFormStore'
 import { buildCreateItemRequest, buildUpdateItemRequest, validateItemForm } from '../ItemForm/validation'
-import type { ItemFormErrors } from '../ItemForm/types'
 import { useCreateItem } from '../../queries/useCreateItem'
 import { useUpdateItem } from '../../queries/useUpdateItem'
 import { useDeleteItem } from '../../queries/useDeleteItem'
@@ -17,17 +15,18 @@ type ItemFormActionsProps = {
 }
 
 export function ItemFormActions({ mode = 'create', itemId }: ItemFormActionsProps) {
-    const [errors, setErrors] = useState<ItemFormErrors>({})
     const activeCategory = useCategoryUiStore((state) => state.activeCategory)
     const activeCategoryId = activeCategory?.id ?? null
     const values = useItemFormStore((state) => state.values)
+    const formErrors = useItemFormStore((state) => state.formErrors)
+    const setFormErrors = useItemFormStore((state) => state.setFormErrors)
     const reset = useItemFormStore((state) => state.reset)
     const createItemMutation = useCreateItem()
     const updateItemMutation = useUpdateItem()
     const deleteItemMutation = useDeleteItem()
     const navigate = useNavigate()
     const errorMessage =
-        errors.name ?? errors.categoryId ?? errors.price ?? undefined
+        formErrors.name ?? formErrors.categoryId ?? formErrors.price ?? undefined
 
     const isEditing = mode === 'edit'
     const isSaving = createItemMutation.isPending || updateItemMutation.isPending || deleteItemMutation.isPending
@@ -38,17 +37,17 @@ export function ItemFormActions({ mode = 'create', itemId }: ItemFormActionsProp
         const imageKeys = imageItems.map((img) => img.key)
         setField('images', imageKeys)
         const validationErrors = validateItemForm(values, activeCategoryId)
-        setErrors(validationErrors)
+        setFormErrors(validationErrors)
 
         if (Object.keys(validationErrors).length > 0 || !activeCategoryId) {
             return
         }
 
         if (imageItems.length === 0) {
-            setErrors((prev) => ({
-                ...prev,
+            setFormErrors({
+                ...validationErrors,
                 images: 'At least one image is required.',
-            }))
+            })
             return
         }
 
@@ -66,7 +65,7 @@ export function ItemFormActions({ mode = 'create', itemId }: ItemFormActionsProp
                 { itemId, payload },
                 {
                     onSuccess: (updatedItem) => {
-                        setErrors({})
+                        setFormErrors({})
                         navigate(`/items/${updatedItem.id}`)
                     },
                 }
@@ -80,7 +79,7 @@ export function ItemFormActions({ mode = 'create', itemId }: ItemFormActionsProp
             createItemMutation.mutate(payload, {
                 onSuccess: (createdItem) => {
                     reset()
-                    setErrors({})
+                    setFormErrors({})
                     navigate(`/items/${createdItem.id}`)
                 },
             })
@@ -97,7 +96,7 @@ export function ItemFormActions({ mode = 'create', itemId }: ItemFormActionsProp
         deleteItemMutation.mutate(itemId, {
             onSuccess: () => {
                 reset()
-                setErrors({})
+                setFormErrors({})
                 navigate(`/${activeCategoryId}`)
             },
         })

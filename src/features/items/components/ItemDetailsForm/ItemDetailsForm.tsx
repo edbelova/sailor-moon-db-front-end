@@ -4,24 +4,33 @@ import { useItemFormStore } from '../../state/useItemFormStore'
 
 export function ItemDetailsForm() {
     const values = useItemFormStore((state) => state.values)
+    const formErrors = useItemFormStore((state) => state.formErrors)
+    const setFormErrors = useItemFormStore((state) => state.setFormErrors)
     const setField = useItemFormStore((state) => state.setField)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setField(name as keyof typeof values, value)
+        if (name === 'name' && formErrors.name) {
+            setFormErrors({ ...formErrors, name: undefined })
+        }
     }
 
     return (
         <section className={styles.detailsInputBlock} aria-label="Item details input form">
             <div className={styles.row}>
                 <label className={styles.label}>Name</label>
-                <input 
-                    type="text"
-                    name="name"
-                    value={values.name}
-                    onChange={handleChange}
-                    className={styles.input}
-                />
+                <div className={styles.fieldCol}>
+                    <input 
+                        type="text"
+                        name="name"
+                        value={values.name}
+                        onChange={handleChange}
+                        className={styles.input}
+                        aria-invalid={Boolean(formErrors.name)}
+                    />
+                    {formErrors.name && <div className={styles.errorText}>{formErrors.name}</div>}
+                </div>
             </div>
             <div className={styles.row}>
                 <label className={styles.label}>Characters</label>
