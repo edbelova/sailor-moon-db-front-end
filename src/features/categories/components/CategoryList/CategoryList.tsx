@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useCategories } from '../../queries/useCategories'
 import { useCategoryUiStore } from '../../state/useCategoryUiStore'
 import type { Category } from '../../types'
@@ -13,28 +13,26 @@ export function CategoryList() {
     (state) => state.setActiveCategory,
   )
   const navigate = useNavigate()
-  const [expandedParentId, setExpandedParentId] = useState<string | null>(null)
-  useEffect(() => {
-    if (activeCategory === null) {
-      setExpandedParentId(null)
-      return
-    }
-
+  const [collapsedParentId, setCollapsedParentId] = useState<string | null>(null)
+  let expandedParentId: string | null = null
+  if (activeCategory !== null) {
     if (activeCategory.parent) {
-      setExpandedParentId(activeCategory.parent.id)
-      return
+      expandedParentId = activeCategory.parent.id
+    } else if (activeCategory.children?.length) {
+      expandedParentId = activeCategory.id
     }
+  }
 
-    if (activeCategory.children?.length) {
-      setExpandedParentId(activeCategory.id)
-    }
-  }, [activeCategory])
+  let resolvedExpandedParentId = expandedParentId
+  if (resolvedExpandedParentId === collapsedParentId) {
+    resolvedExpandedParentId = null
+  }
 
-  const resolvedExpandedParentId = expandedParentId
-    ? categories.some((category) => category.id === expandedParentId)
-      ? expandedParentId
+  const validatedExpandedParentId =
+    resolvedExpandedParentId !== null &&
+    categories.some((category) => category.id === resolvedExpandedParentId)
+      ? resolvedExpandedParentId
       : null
-    : null
 
   const renderCategory = (category: Category, level = 0) => {
     const isActive = category.id === (activeCategory?.id ?? null)
@@ -43,7 +41,7 @@ export function CategoryList() {
     const isExpanded =
       !isChild &&
       activeCategory !== null &&
-      resolvedExpandedParentId === category.id
+      validatedExpandedParentId === category.id
 
     const buttonClassName = [
       styles.categoryButton,
@@ -65,7 +63,9 @@ export function CategoryList() {
             setActiveCategory(category)
             navigate(`/${encodeURIComponent(category.id)}`)
             if (!isChild && hasChildren) {
-              setExpandedParentId((prev) => (prev === category.id ? null : category.id))
+              setCollapsedParentId(
+                validatedExpandedParentId === category.id ? category.id : null,
+              )
             }
           }}
         >
