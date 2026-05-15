@@ -1,7 +1,23 @@
 :root {
-  --font-family-base: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-family-base: 'Plus Jakarta Sans', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  
+  /* Brand Colors from Stitch */
+  --color-primary: #006686;
+  --color-primary-container: #139ecd;
+  --color-secondary: #605980;
+  --color-secondary-container: #dbd1ff;
+  --gradient-magical: linear-gradient(120deg, #dfb3ff 0%, #ffb2a6 100%);
+
+  /* Surface & Glass */
+  --color-background: #faf9f9;
+  --color-on-surface: #1a1c1c;
+  --color-on-surface-variant: #3e484e;
+  --glass-card-bg: rgba(255, 255, 255, 0.45);
+  --glass-card-border: rgba(255, 255, 255, 0.3);
+  --glass-blur: 12px;
+
+  /* Legacy Compat */
   --color-text: #213547;
-  --color-background: #ffffff;
   --color-link: #139ECD;
   --color-link-hover: #535bf2;
   --border-color: rgba(0, 0, 0, 0.12);

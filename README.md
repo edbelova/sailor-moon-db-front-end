@@ -51,11 +51,21 @@ Login page is `/login`. Auth uses cookies + CSRF (`XSRF-TOKEN` cookie and `X-XSR
 Credentials are managed by the backend database seed/configuration, not an in-memory frontend list.
 
 ## Project structure (high level)
+- `src/app/desktop` Desktop SPA entry point and layout
+- `src/app/mobile` Mobile SPA entry point and layout
+- `src/features/*` feature modules (auth, categories, items) - **Shared by both SPAs**
 - `src/pages` route pages
-- `src/features/*` feature modules (auth, categories, items)
 - `src/router` route definitions and admin guard
 - `src/shared` API client and shared styles
 - `src/layout` application shell (header/footer/layout)
+- `index.html` Desktop entry point
+- `mobile.html` Mobile entry point
+
+## Mobile Support (Multi-Entry SPA)
+This project uses a "Shared Core / Separate View" architecture to provide a dedicated mobile experience without compromising on desktop features or duplicating business logic.
+- **User Agent Switching:** The production server (Nginx) is configured to detect mobile devices and serve `mobile.html` instead of `index.html` on the same URL.
+- **Dedicated Mobile UX:** We use a separate React tree in `src/app/mobile` to allow for mobile-native interactions (drawers, tab bars, swipe) without bloating the desktop version.
+- **Shared Logic:** Both SPAs share the same `features/` directory for all data fetching (TanStack Query) and API interactions.
 
 ## API integration details
 The API client is `src/shared/api.ts`.
