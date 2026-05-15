@@ -9,7 +9,7 @@ import { SupportUsPage } from '../pages/SupportUsPage/SupportUsPage'
 import { AboutPage } from '../pages/AboutPage/AboutPage'
 import { ContactPage } from '../pages/ContactPage/ContactPage'
 import { LoginPage } from '../pages/LoginPage/LoginPage'
-import { RequireAdmin } from './requireAdmin'
+import { RequireAdmin } from '../../../shared/components/RequireAdmin'
 
 export const router = createBrowserRouter([
   {

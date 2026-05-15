@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../features/auth/useAuth'
-import Logo from '../../../../layout/Header/Logo.png'
+import Logo from '../../../desktop/layout/Header/Logo.png'
 import styles from './LoginPage.module.css'
 
 export function MobileLoginPage() {

@@ -17,11 +17,17 @@ The project follows a modular, feature-based architecture in `src/features/`.
 
 ### 2. Multi-Entry SPA (Mobile Support)
 The application is structured as two distinct Single Page Applications (SPAs) sharing a common feature core.
-- **Desktop Entry:** `src/app/desktop/` (served via `index.html`)
-- **Mobile Entry:** `src/app/mobile/` (served via `mobile.html`)
-- **Shared Features:** `src/features/` contains all API logic, TanStack Query hooks, and business types.
-- **Routing:** Handled separately in each entry point to allow for platform-specific navigation patterns.
-- **UA Switching:** The server (Nginx) is configured to detect mobile devices and serve `mobile.html` instead of `index.html` on the same URL.
+- **Desktop SPA:** `src/app/desktop/`
+  - `pages/`: Desktop-specific route components.
+  - `layout/`: Desktop-specific layout components (Header, Footer, Sidebar).
+  - `router/`: Desktop-specific route definitions.
+- **Mobile SPA:** `src/app/mobile/`
+  - `pages/`: Mobile-specific route components.
+  - `layout/`: Mobile-specific layout components (Tabs, Drawers).
+  - `router/`: Mobile-specific route definitions.
+- **Shared Features:** `src/features/` contains all API logic, TanStack Query hooks, and business types shared by both platforms.
+- **Shared Core:** `src/shared/` contains common API clients, styles, and cross-platform components (e.g., `RequireAdmin`).
+- **UA Switching:** The server (Nginx) and Vite dev server are configured to detect mobile devices and serve the appropriate entry point on the same URL.
 
 ### 3. API Integration
 All API calls must use `apiFetch` from `src/shared/api.ts`.

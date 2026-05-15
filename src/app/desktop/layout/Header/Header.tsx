@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../features/auth/useAuth'
+import { useAuth } from '../../../../features/auth/useAuth'
 import styles from './Header.module.css'
 import moonIcon from './Moon.svg'
 import Logo from './Logo.png'

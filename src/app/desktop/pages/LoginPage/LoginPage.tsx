@@ -1,7 +1,7 @@
 import type { ChangeEvent, FormEvent } from 'react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../features/auth/useAuth'
+import { useAuth } from '../../../../features/auth/useAuth'
 import styles from './LoginPage.module.css'
 
 export function LoginPage() {

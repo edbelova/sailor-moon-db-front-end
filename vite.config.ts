@@ -6,7 +6,7 @@ import { resolve } from 'path'
 const mobileSwitchPlugin = (): Plugin => ({
   name: 'mobile-switch',
   configureServer(server) {
-    server.middlewares.use((req, res, next) => {
+    server.middlewares.use((req, _res, next) => {
       const ua = req.headers['user-agent'] || ''
       const isMobile = /mobile|android|iphone|ipad|phone/i.test(ua)
       

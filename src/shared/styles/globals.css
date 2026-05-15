@@ -19,7 +19,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-image: url('../../layout/AppLayout/bg-main.webp');
+  background-image: url('../../app/desktop/layout/AppLayout/bg-main.webp');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

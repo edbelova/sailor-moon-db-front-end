@@ -1,5 +1,5 @@
-import { useCategoryUiStore } from '../../features/categories/state/useCategoryUiStore'
-import { ItemForm } from '../../features/items/components/ItemForm/ItemForm'
+import { useCategoryUiStore } from '../../../../features/categories/state/useCategoryUiStore'
+import { ItemForm } from '../../../../features/items/components/ItemForm/ItemForm'
 
 import styles from './ItemCreatePage.module.css'
 

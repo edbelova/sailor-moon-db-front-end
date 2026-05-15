@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import styles from './MainPage.module.css'
-import { ItemsGrid } from '../../features/items/components/ItemList/ItemsGrid'
-import { useAuth } from '../../features/auth/useAuth'
-import { useCategories } from '../../features/categories/queries/useCategories'
-import { useCategoryUiStore } from '../../features/categories/state/useCategoryUiStore'
-import type { Category } from '../../features/categories/types'
-import { CategoryBreadCrumbs } from '../../features/categories/components/CategoryBreadCrumbs/CategoryBreadCrumbs'
-import { ItemsFilters } from '../../features/items/components/ItemsFilters/ItemsFilters'
+import { ItemsGrid } from '../../../../features/items/components/ItemList/ItemsGrid'
+import { useAuth } from '../../../../features/auth/useAuth'
+import { useCategories } from '../../../../features/categories/queries/useCategories'
+import { useCategoryUiStore } from '../../../../features/categories/state/useCategoryUiStore'
+import type { Category } from '../../../../features/categories/types'
+import { CategoryBreadCrumbs } from '../../../../features/categories/components/CategoryBreadCrumbs/CategoryBreadCrumbs'
+import { ItemsFilters } from '../../../../features/items/components/ItemsFilters/ItemsFilters'
 
 function findCategoryById(categories: Category[], categoryId: string): Category | null {
   for (const category of categories) {
