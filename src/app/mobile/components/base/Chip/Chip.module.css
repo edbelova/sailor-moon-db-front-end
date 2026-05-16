@@ -9,6 +9,9 @@
   font-weight: var(--font-weight-medium);
   cursor: pointer;
   border: 1px solid var(--border-divider);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .active {

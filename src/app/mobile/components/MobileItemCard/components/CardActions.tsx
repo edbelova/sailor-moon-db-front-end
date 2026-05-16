@@ -1,29 +1,32 @@
 import styles from '../MobileItemCard.module.css'
-import { IconButton } from '../../base/IconButton/IconButton'
+import { ActionIconButton, ActionVariant } from '../../base/ActionIconButton/ActionIconButton'
 
 type CardActionsProps = {
   onFavorite?: () => void
   onBookmark?: () => void
+  isFavorite?: boolean
+  isBookmarked?: boolean
 }
 
-export function CardActions({ onFavorite, onBookmark }: CardActionsProps) {
+export function CardActions({ 
+  onFavorite, 
+  onBookmark, 
+  isFavorite = false, 
+  isBookmarked = false 
+}: CardActionsProps) {
   return (
     <div className={styles.actions}>
-      <IconButton 
+      <ActionIconButton 
         icon="favorite" 
-        onClick={(e) => {
-          e.stopPropagation()
-          onFavorite?.()
-        }}
-        className={styles.actionBtn}
+        variant={ActionVariant.HEART}
+        active={isFavorite}
+        onClick={onFavorite}
       />
-      <IconButton 
+      <ActionIconButton 
         icon="bookmark" 
-        onClick={(e) => {
-          e.stopPropagation()
-          onBookmark?.()
-        }}
-        className={styles.actionBtn}
+        variant={ActionVariant.BOOKMARK}
+        active={isBookmarked}
+        onClick={onBookmark}
       />
     </div>
   )

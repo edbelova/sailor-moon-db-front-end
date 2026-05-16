@@ -1,7 +1,13 @@
 import type { ReactNode, ButtonHTMLAttributes } from 'react'
 import styles from './PillButton.module.css'
 
-type PillButtonVariant = 'magical' | 'outline' | 'neutral'
+export const PillButtonVariant = {
+  MAGICAL: 'magical',
+  OUTLINE: 'outline',
+  NEUTRAL: 'neutral',
+} as const
+
+export type PillButtonVariant = typeof PillButtonVariant[keyof typeof PillButtonVariant]
 
 interface PillButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
@@ -9,9 +15,10 @@ interface PillButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string
 }
 
+
 export function PillButton({ 
   children, 
-  variant = 'neutral', 
+  variant = PillButtonVariant.NEUTRAL, 
   className = '', 
   ...props 
 }: PillButtonProps) {

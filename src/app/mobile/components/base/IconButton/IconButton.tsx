@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes } from 'react'
+import type { ButtonHTMLAttributes, CSSProperties } from 'react'
 import styles from './IconButton.module.css'
 
 interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -13,12 +13,16 @@ export function IconButton({
   iconSize = 20, 
   ...props 
 }: IconButtonProps) {
+  // Use a CSS variable for the dynamic size to keep the JSX clean
+  const variableStyle = { '--icon-size': `${iconSize}px` } as CSSProperties
+
   return (
-    <button className={`${styles.button} ${className}`.trim()} {...props}>
-      <span 
-        className="material-symbols-outlined" 
-        style={{ fontSize: `${iconSize}px` }}
-      >
+    <button 
+      className={`${styles.button} ${className}`.trim()} 
+      style={variableStyle}
+      {...props}
+    >
+      <span className="material-symbols-outlined">
         {icon}
       </span>
     </button>

@@ -1,0 +1,30 @@
+.button {
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(var(--glass-layout-blur));
+  -webkit-backdrop-filter: blur(var(--glass-layout-blur));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 32px;
+  height: 32px;
+  color: var(--color-on-surface-variant);
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.heartActive {
+  color: var(--color-heart);
+}
+
+.heartActive span {
+  font-variation-settings: "FILL" 1;
+}
+
+.bookmarkActive {
+  color: var(--color-bookmark);
+}
+
+.bookmarkActive span {
+  font-variation-settings: "FILL" 1;
+}

@@ -1,5 +1,5 @@
 import styles from '../MobileItemCard.module.css'
-import { Chip } from '../../base/Chip/Chip'
+import { Chip, ChipVariant } from '../../base/Chip/Chip'
 
 type CardTagsProps = {
   tags: string[]
@@ -11,7 +11,7 @@ export function CardTags({ tags }: CardTagsProps) {
   return (
     <div className={styles.tags}>
       {tags.map((tag) => (
-        <Chip key={tag} variant="neutral">
+        <Chip key={tag} variant={ChipVariant.NEUTRAL} className={styles.tag}>
           {tag}
         </Chip>
       ))}

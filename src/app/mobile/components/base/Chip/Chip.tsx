@@ -1,7 +1,13 @@
 import type { ReactNode, HTMLAttributes } from 'react'
 import styles from './Chip.module.css'
 
-type ChipVariant = 'active' | 'accent' | 'neutral'
+export const ChipVariant = {
+  ACTIVE: 'active',
+  ACCENT: 'accent',
+  NEUTRAL: 'neutral',
+} as const
+
+export type ChipVariant = typeof ChipVariant[keyof typeof ChipVariant]
 
 interface ChipProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
@@ -10,9 +16,10 @@ interface ChipProps extends HTMLAttributes<HTMLDivElement> {
   hasArrow?: boolean
 }
 
+
 export function Chip({ 
   children, 
-  variant = 'neutral', 
+  variant = ChipVariant.NEUTRAL, 
   className = '', 
   hasArrow = false,
   ...props 

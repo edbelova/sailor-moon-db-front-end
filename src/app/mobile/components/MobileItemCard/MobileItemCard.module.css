@@ -4,7 +4,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 320px;
+  height: 250px;
   position: relative;
   box-shadow: var(--shadow-card);
   transition: transform 0.2s ease;
@@ -16,13 +16,14 @@
 }
 
 .imageContainer {
-  height: 66.666%; /* h-2/3 */
+  height: 55%;
   background-color: var(--color-surface);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-md) 0;
   overflow: hidden;
+  position: relative;
 }
 
 .image {
@@ -32,8 +33,8 @@
 }
 
 .content {
-  height: 33.333%; /* h-1/3 */
-  padding: var(--spacing-md);
+  height: 45%;
+  padding: 4px var(--spacing-sm) var(--spacing-sm);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -61,19 +62,19 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-xs);
+  overflow: hidden;
+}
+
+.tag {
+  max-width: 80px;
 }
 
 .actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
   display: flex;
-  gap: var(--spacing-sm);
-  align-items: center;
-}
-
-.actionBtn {
-  color: var(--color-on-surface-variant);
-  transition: color 0.2s ease;
-}
-
-.actionBtn:hover {
-  color: var(--color-primary);
+  flex-direction: column;
+  gap: 4px;
+  z-index: 20;
 }
