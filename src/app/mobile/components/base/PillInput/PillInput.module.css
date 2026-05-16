@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background-color: #ffffff;
+  border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.12));
+}
+
+.container span {
+  font-size: 18px;
+  color: var(--color-on-surface-variant);
+}
+
+.input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  padding: 0 8px;
+  font-size: 12px;
+  outline: none;
+  color: var(--color-on-surface);
+}
+
+.input::placeholder {
+  color: rgba(62, 72, 78, 0.5);
+}

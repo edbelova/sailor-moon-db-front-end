@@ -11,19 +11,6 @@
   max-width: 400px;
 }
 
-.glassCard {
-  background: var(--glass-card-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-card-border);
-  border-radius: 2rem;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0 8px 32px 0 rgba(125, 95, 153, 0.3);
-}
-
 .logoSection {
   margin-bottom: 24px;
   width: 100%;
@@ -56,29 +43,6 @@
   margin-left: 12px;
 }
 
-.input {
-  width: 100%;
-  height: 48px;
-  padding: 0 24px;
-  border-radius: 999px;
-  border: 1px solid rgba(227, 227, 232, 0.5);
-  background-color: rgba(255, 255, 255, 0.6);
-  font-size: 12px;
-  color: var(--color-on-surface);
-  transition: all 0.2s ease;
-}
-
-.input::placeholder {
-  color: rgba(62, 72, 78, 0.5);
-}
-
-.input:focus {
-  background-color: #ffffff;
-  border-color: #dfb3ff;
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(223, 179, 255, 0.2);
-}
-
 .rememberMeGroup {
   display: flex;
   align-items: center;
@@ -101,27 +65,11 @@
   user-select: none;
 }
 
-.magicalBtn {
-  width: 100%;
+.submitBtn {
+  margin-top: 24px;
   height: 56px;
-  border-radius: 999px;
-  border: none;
-  background: var(--gradient-magical);
-  color: #ffffff;
   font-size: 14px;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 24px;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.magicalBtn:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
 }
 
 .error {

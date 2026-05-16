@@ -2,6 +2,9 @@ import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../features/auth/useAuth'
 import Logo from '../../../desktop/layout/Header/Logo.png'
+import { GlassCard } from '../../components/base/GlassCard/GlassCard'
+import { PillInput } from '../../components/base/PillInput/PillInput'
+import { PillButton } from '../../components/base/PillButton/PillButton'
 import styles from './LoginPage.module.css'
 
 export function MobileLoginPage() {
@@ -26,7 +29,7 @@ export function MobileLoginPage() {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <div className={styles.glassCard}>
+        <GlassCard>
           <div className={styles.logoSection}>
             <img
               alt="Sailor Moon Museum Logo"
@@ -40,8 +43,7 @@ export function MobileLoginPage() {
               <label className={styles.label} htmlFor="username">
                 Username
               </label>
-              <input
-                className={styles.input}
+              <PillInput
                 id="username"
                 name="username"
                 placeholder="Enter your collector ID"
@@ -56,8 +58,7 @@ export function MobileLoginPage() {
               <label className={styles.label} htmlFor="password">
                 Password
               </label>
-              <input
-                className={styles.input}
+              <PillInput
                 id="password"
                 name="password"
                 placeholder="••••••••"
@@ -84,11 +85,11 @@ export function MobileLoginPage() {
               </label>
             </div>
 
-            <button className={styles.magicalBtn} type="submit">
+            <PillButton variant="magical" type="submit" className={styles.submitBtn}>
               Log In
-            </button>
+            </PillButton>
           </form>
-        </div>
+        </GlassCard>
       </main>
     </div>
   )
