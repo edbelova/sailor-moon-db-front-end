@@ -1,0 +1,19 @@
+.gallerySection {
+  flex: 1;
+  padding: 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: var(--color-on-surface-variant);
+  font-weight: 500;
+}
