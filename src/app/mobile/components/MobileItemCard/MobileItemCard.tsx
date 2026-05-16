@@ -47,7 +47,9 @@ export function MobileItemCard({
       </CardImage>
       <div className={styles.content}>
         <CardTitle title={name} />
-        <CardTags tags={tags} />
+        <div className={styles.footer}>
+          <CardTags tags={tags} />
+        </div>
       </div>
     </div>
   )

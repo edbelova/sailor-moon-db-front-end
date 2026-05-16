@@ -1,0 +1,20 @@
+.tag {
+  flex-shrink: 1;
+  min-width: 0;
+  height: 20px;
+  padding: 0 var(--spacing-sm);
+  background-color: var(--color-surface-variant);
+  color: var(--color-on-surface-variant);
+  font-size: var(--font-size-xs);
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  border: 1px solid var(--border-divider);
+}
+
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

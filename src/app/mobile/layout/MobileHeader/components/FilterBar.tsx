@@ -1,5 +1,5 @@
 import { PillButton, PillButtonVariant } from '../../../components/base/PillButton/PillButton'
-import { Chip, ChipVariant } from '../../../components/base/Chip/Chip'
+import { FilterButton } from '../../../components/base/FilterButton/FilterButton'
 import styles from '../MobileHeader.module.css'
 
 type FilterBarProps = {
@@ -14,12 +14,12 @@ export function FilterBar({ onFilterClick }: FilterBarProps) {
         <span>Filter</span>
       </PillButton>
       <div className={styles.chipsContainer}>
-        <Chip variant={ChipVariant.ACTIVE} hasArrow>Release date</Chip>
-        <Chip variant={ChipVariant.ACCENT}>Manufacturer</Chip>
-        <Chip variant={ChipVariant.ACCENT}>Series</Chip>
-        <Chip variant={ChipVariant.ACCENT}>Price</Chip>
-        <Chip variant={ChipVariant.ACCENT}>Country</Chip>
-        <Chip variant={ChipVariant.ACCENT}>Name</Chip>
+        <FilterButton active hasArrow>Release date</FilterButton>
+        <FilterButton>Manufacturer</FilterButton>
+        <FilterButton>Series</FilterButton>
+        <FilterButton>Price</FilterButton>
+        <FilterButton>Country</FilterButton>
+        <FilterButton>Name</FilterButton>
       </div>
     </div>
   )

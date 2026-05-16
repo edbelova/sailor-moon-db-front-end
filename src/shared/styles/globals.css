@@ -19,6 +19,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  /* Prevent blue highlight on tap for all elements */
+  -webkit-tap-highlight-color: transparent;
+
   background-image: url('../../app/desktop/layout/AppLayout/bg-main.webp');
   background-size: cover;
   background-position: center;

@@ -1,4 +1,4 @@
-.chip {
+.button {
   flex-shrink: 0;
   height: 36px;
   padding: 0 var(--spacing-lg);
@@ -9,8 +9,16 @@
   font-weight: var(--font-weight-medium);
   cursor: pointer;
   border: 1px solid var(--border-divider);
-  overflow: hidden;
-  text-overflow: ellipsis;
+  background-color: var(--color-accent);
+  color: var(--color-on-surface-variant);
+  transition: transform 0.1s ease;
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.label {
   white-space: nowrap;
 }
 
@@ -18,21 +26,6 @@
   background-color: var(--color-active-pill);
   color: var(--color-text-category);
   font-weight: var(--font-weight-bold);
-}
-
-.accent {
-  background-color: var(--color-accent);
-  color: var(--color-on-surface-variant);
-}
-
-.neutral {
-  background-color: var(--color-surface-variant);
-  color: var(--color-on-surface-variant);
-  height: 20px;
-  padding: 0 var(--spacing-xs);
-  font-size: var(--font-size-xs);
-  border-radius: var(--radius-xs);
-  border: none;
 }
 
 .arrow {
