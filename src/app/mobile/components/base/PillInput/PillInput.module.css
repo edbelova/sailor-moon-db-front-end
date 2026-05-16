@@ -2,10 +2,10 @@
   display: flex;
   align-items: center;
   height: 40px;
-  padding: 0 12px;
-  border-radius: 999px;
-  background-color: #ffffff;
-  border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.12));
+  padding: 0 var(--spacing-md);
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface);
+  border: 1px solid var(--border-subtle);
 }
 
 .container span {
@@ -17,8 +17,8 @@
   border: none;
   background: transparent;
   width: 100%;
-  padding: 0 8px;
-  font-size: 12px;
+  padding: 0 var(--spacing-sm);
+  font-size: var(--font-size-md);
   outline: none;
   color: var(--color-on-surface);
 }

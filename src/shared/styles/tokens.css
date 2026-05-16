@@ -1,22 +1,75 @@
 :root {
+  /* --- Typography --- */
   --font-family-base: 'Plus Jakarta Sans', system-ui, Avenir, Helvetica, Arial, sans-serif;
   
-  /* Brand Colors from Stitch */
+  --font-size-xs: 10px;  /* Tag captions */
+  --font-size-sm: 11px;  /* Label medium, chips */
+  --font-size-md: 12px;  /* Body standard, input */
+  --font-size-lg: 13px;  /* Item card titles */
+  --font-size-xl: 14px;  /* Heading main, buttons */
+  --font-size-2xl: 26px; /* Brand display */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* --- Palette --- */
   --color-primary: #006686;
   --color-primary-container: #139ecd;
   --color-secondary: #605980;
   --color-secondary-container: #dbd1ff;
-  --gradient-magical: linear-gradient(120deg, #dfb3ff 0%, #ffb2a6 100%);
-
-  /* Surface & Glass */
+  --color-error: #ba1a1a;
+  
   --color-background: #faf9f9;
+  --color-surface: #ffffff;
+  --color-surface-variant: #eeeeee;
+  --color-accent: #f2f2f6;
+  --color-active-pill: rgba(235, 225, 223, 0.8);
+
   --color-on-surface: #1a1c1c;
   --color-on-surface-variant: #3e484e;
+  --color-on-primary: #ffffff;
+  --color-text-category: #433126;
+
+  --gradient-magical: linear-gradient(120deg, #dfb3ff 0%, #ffb2a6 100%);
+
+  /* --- Borders & Glass --- */
+  --border-divider: #e3e3e8;
+  --border-subtle: rgba(0, 0, 0, 0.12);
+  --border-outline: #bdc8cf;
+
   --glass-card-bg: rgba(255, 255, 255, 0.45);
   --glass-card-border: rgba(255, 255, 255, 0.3);
   --glass-blur: 12px;
+  --glass-layout-bg: rgba(255, 255, 255, 0.2);
+  --glass-layout-blur: 4px;
 
-  /* Legacy Compat */
+  /* --- Spacing --- */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 18px;
+  --spacing-xl: 24px;
+  
+  --grid-margin: 24px;
+  --grid-gutter: 16px;
+
+  /* --- Radius --- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 16px;  /* 1rem */
+  --radius-lg: 32px;  /* 2rem */
+  --radius-full: 9999px;
+
+  /* --- Shadows --- */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-glass: 0 8px 32px 0 rgba(125, 95, 153, 0.1);
+  --shadow-header: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  /* --- Legacy Compat (Avoid touching desktop for now) --- */
   --color-text: #213547;
   --color-link: #139ECD;
   --color-link-hover: #535bf2;

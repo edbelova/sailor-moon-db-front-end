@@ -3,9 +3,9 @@
   top: 0;
   z-index: 30;
   background-color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--shadow-header);
   display: flex;
   flex-direction: column;
 }
@@ -14,8 +14,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 24px;
-  gap: 12px;
+  padding: var(--spacing-md) var(--grid-margin);
+  gap: var(--spacing-md);
 }
 
 .logo {
@@ -40,14 +40,14 @@
 .row2 {
   display: flex;
   align-items: center;
-  padding: 8px 24px;
-  gap: 12px;
+  padding: var(--spacing-sm) var(--grid-margin);
+  gap: var(--spacing-md);
 }
 
 .breadcrumbs {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--spacing-xs);
   overflow-x: auto;
   white-space: nowrap;
 }
@@ -57,26 +57,26 @@
 }
 
 .crumb {
-  font-size: 11px;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   color: var(--color-on-surface-variant);
 }
 
 .activeCrumb {
   color: var(--color-primary);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 .breadcrumbs span {
-  font-size: 14px;
-  color: var(--outline-variant, #bdc8cf);
+  font-size: var(--font-size-xl);
+  color: var(--border-outline);
 }
 
 .row3 {
   display: flex;
   align-items: center;
-  padding: 4px 24px 12px;
-  gap: 12px;
+  padding: var(--spacing-xs) var(--grid-margin) var(--spacing-md);
+  gap: var(--spacing-md);
   overflow: hidden;
 }
 
@@ -87,7 +87,7 @@
 
 .chipsContainer {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-sm);
   overflow-x: auto;
   padding-bottom: 2px;
 }

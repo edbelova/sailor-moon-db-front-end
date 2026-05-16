@@ -1,39 +1,39 @@
 .chip {
   flex-shrink: 0;
   height: 36px;
-  padding: 0 18px;
-  border-radius: 999px;
+  padding: 0 var(--spacing-lg);
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
-  font-size: 11px;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   cursor: pointer;
-  border: 1px solid var(--border-divider, #E3E3E8);
+  border: 1px solid var(--border-divider);
 }
 
 .active {
-  background-color: var(--active-pill, rgba(235, 225, 223, 0.8));
-  color: var(--text-category, #433126);
-  font-weight: 700;
+  background-color: var(--color-active-pill);
+  color: var(--color-text-category);
+  font-weight: var(--font-weight-bold);
 }
 
 .accent {
-  background-color: var(--bg-accent, #F2F2F6);
+  background-color: var(--color-accent);
   color: var(--color-on-surface-variant);
 }
 
 .neutral {
-  background-color: var(--surface-container, #eeeeee);
+  background-color: var(--color-surface-variant);
   color: var(--color-on-surface-variant);
   height: 20px;
-  padding: 0 6px;
-  font-size: 10px;
-  border-radius: 4px;
+  padding: 0 var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  border-radius: var(--radius-xs);
   border: none;
 }
 
 .arrow {
-  font-size: 10px;
-  margin-left: 4px;
+  font-size: var(--font-size-xs);
+  margin-left: var(--spacing-xs);
   opacity: 0.7;
 }
