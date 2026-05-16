@@ -1,4 +1,6 @@
-const BASE_URL = import.meta.env.PROD ? 'https://api.sailormoonmuseum.com' : 'http://localhost:8080'
+const BASE_URL = (import.meta.env.PROD || import.meta.env.MODE === 'prod_api')
+  ? 'https://api.sailormoonmuseum.com'
+  : 'http://localhost:8080'
 
 function getCsrfToken(): string | undefined {
   return document.cookie
