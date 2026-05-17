@@ -1,3 +1,4 @@
+import { Header } from '../../../../../shared/components/Header/Header'
 import { PillButton, PillButtonVariant } from '../../../components/base/PillButton/PillButton'
 import { FilterButton } from '../../../components/base/FilterButton/FilterButton'
 import styles from '../MobileHeader.module.css'
@@ -8,7 +9,7 @@ type FilterBarProps = {
 
 export function FilterBar({ onFilterClick }: FilterBarProps) {
   return (
-    <div className={styles.row3}>
+    <Header.CustomRow className={styles.row3}>
       <PillButton variant={PillButtonVariant.OUTLINE} onClick={onFilterClick} className={styles.filterBtn}>
         <span className="material-symbols-outlined">tune</span>
         <span>Filter</span>
@@ -21,6 +22,6 @@ export function FilterBar({ onFilterClick }: FilterBarProps) {
         <FilterButton>Country</FilterButton>
         <FilterButton>Name</FilterButton>
       </div>
-    </div>
+    </Header.CustomRow>
   )
 }

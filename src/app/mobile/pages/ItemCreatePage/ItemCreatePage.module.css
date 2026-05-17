@@ -6,6 +6,36 @@
   gap: var(--spacing-xl);
 }
 
+.rightActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.cancelBtn {
+  border: none;
+  background: transparent;
+  color: var(--color-primary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  padding: var(--spacing-sm) 0;
+  font-family: var(--font-family-base);
+}
+
+.cancelBtn:disabled {
+  opacity: 0.5;
+}
+
+.saveBtn {
+  color: var(--color-primary);
+  transition: transform 0.1s ease;
+}
+
+.saveBtn:active {
+  transform: scale(0.95);
+}
+
 .fields {
   display: flex;
   flex-direction: column;

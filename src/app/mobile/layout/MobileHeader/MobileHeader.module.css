@@ -1,20 +1,3 @@
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  display: flex;
-  flex-direction: column;
-  /* Glass styles moved to global .glassHeader */
-}
-
-.row1 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--spacing-md) var(--grid-margin);
-  gap: var(--spacing-md);
-}
-
 .logo {
   height: 32px;
   width: auto;
@@ -25,6 +8,8 @@
 .searchContainer {
   flex: 1;
   max-width: 200px;
+  display: flex;
+  justify-content: center;
 }
 
 .username {
@@ -32,13 +17,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.row2 {
-  display: flex;
-  align-items: center;
-  padding: var(--spacing-sm) var(--grid-margin);
-  gap: var(--spacing-md);
 }
 
 .breadcrumbs {
@@ -77,10 +55,7 @@
 }
 
 .row3 {
-  display: flex;
-  align-items: center;
   padding: var(--spacing-xs) var(--grid-margin) var(--spacing-md);
-  gap: var(--spacing-md);
   overflow: hidden;
 }
 

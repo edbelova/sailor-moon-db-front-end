@@ -1,3 +1,4 @@
+import { Header } from '../../../../shared/components/Header/Header'
 import styles from './MobileHeader.module.css'
 import { AuthButton } from './components/AuthButton'
 import { Breadcrumbs } from './components/Breadcrumbs'
@@ -13,22 +14,22 @@ type MobileHeaderProps = {
 
 export function MobileHeader({ onMenuClick, onFilterClick }: MobileHeaderProps) {
   return (
-    <header className={`${styles.header} glassHeader`}>
+    <Header>
       {/* Row 1: Logo, Search, Profile */}
-      <div className={styles.row1}>
-        <Logo />
-        <SearchBox />
-        <AuthButton />
-      </div>
+      <Header.StandardRow
+        left={<Logo />}
+        center={<div className={styles.searchContainer}><SearchBox /></div>}
+        right={<AuthButton />}
+      />
 
       {/* Row 2: Menu & Breadcrumbs */}
-      <div className={styles.row2}>
+      <Header.CustomRow>
         <IconButton icon="menu" onClick={onMenuClick} />
         <Breadcrumbs />
-      </div>
+      </Header.CustomRow>
 
       {/* Row 3: Filter & Sort Chips */}
       <FilterBar onFilterClick={onFilterClick} />
-    </header>
+    </Header>
   )
 }

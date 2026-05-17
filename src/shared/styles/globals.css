@@ -32,7 +32,7 @@ body {
   overflow: hidden;
 }
 
-.glassHeader {
+.glass {
   background-color: var(--glass-card-bg);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));

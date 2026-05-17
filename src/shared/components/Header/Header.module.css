@@ -1,0 +1,42 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--grid-margin);
+  width: 100%;
+}
+
+.standardRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--spacing-sm) var(--grid-margin);
+  gap: var(--spacing-md);
+  /* The children will handle positioning if center or right is missing,
+     because flex layout with space-between will naturally push them apart. */
+}
+
+/* If there's a center item, we want it to be centered. If we only have left and right, space-between works well.
+   Let's create specific wrappers for left, center, right to ensure proper flex behavior if needed, 
+   but typical space-between works fine if there's only 2 items. */
+.standardRowLeft, .standardRowRight {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.standardRowCenter {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

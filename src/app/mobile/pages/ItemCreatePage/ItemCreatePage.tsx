@@ -5,7 +5,8 @@ import { useCategories } from '../../../../features/categories/queries/useCatego
 import { useItemFormStore } from '../../../../features/items/state/useItemFormStore'
 import { uploadItemImages } from '../../../../features/items/api/uploadItemImage'
 import { MobileAppLayout } from '../../layout/MobileAppLayout/MobileAppLayout'
-import { MobileAdminHeader } from '../../components/MobileAdminHeader/MobileAdminHeader'
+import { Header } from '../../../../shared/components/Header/Header'
+import { IconButton } from '../../components/base/IconButton/IconButton'
 import { MobileMediaManager } from '../../components/MobileMediaManager/MobileMediaManager'
 import { MobileFormField } from '../../components/MobileFormField/MobileFormField'
 import { PillInput } from '../../components/base/PillInput/PillInput'
@@ -77,11 +78,30 @@ export function MobileItemCreatePage() {
   return (
     <MobileAppLayout
       header={
-        <MobileAdminHeader 
-          onCancel={() => navigate('/')} 
-          onSave={handleSave}
-          isSaving={createMutation.isPending || isUploading}
-        />
+        <Header>
+          <Header.StandardRow
+            left={
+              <button 
+                className={styles.cancelBtn} 
+                onClick={() => navigate('/')} 
+                disabled={createMutation.isPending || isUploading}
+              >
+                Cancel
+              </button>
+            }
+            right={
+              <div className={styles.rightActions}>
+                <IconButton 
+                  icon={createMutation.isPending || isUploading ? 'sync' : 'save'} 
+                  onClick={handleSave}
+                  disabled={createMutation.isPending || isUploading}
+                  className={styles.saveBtn}
+                  iconSize={24}
+                />
+              </div>
+            }
+          />
+        </Header>
       }
     >
       <main className={styles.main}>

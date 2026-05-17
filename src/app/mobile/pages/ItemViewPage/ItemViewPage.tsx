@@ -14,6 +14,7 @@ import { buildSearchFromFilters } from '../../../../features/items/filters/query
 import { defaultFilters } from '../../../../features/items/filters/types'
 import { Breadcrumbs } from '../../layout/MobileHeader/components/Breadcrumbs'
 import { findCategoryById } from '../../../../features/categories/utils'
+import { Header } from '../../../../shared/components/Header/Header'
 
 export function MobileItemViewPage() {
   const { itemId } = useParams<{ itemId: string }>()
@@ -45,14 +46,18 @@ export function MobileItemViewPage() {
   return (
     <MobileAppLayout
       header={
-        <header className={`${styles.header} glassHeader`}>
-          <IconButton 
-            icon="arrow_back" 
-            onClick={handleBack} 
-            className={styles.backBtn}
+        <Header>
+          <Header.StandardRow
+            left={
+              <IconButton 
+                icon="arrow_back" 
+                onClick={handleBack} 
+                className={styles.backBtn}
+              />
+            }
+            right={<ItemViewActions itemId={item.id} />}
           />
-          <ItemViewActions itemId={item.id} />
-        </header>
+        </Header>
       }
     >
       <div className={styles.content}>
