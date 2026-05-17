@@ -12,6 +12,11 @@ This project is the React-based frontend for the Sailor Moon Museum database. It
 
 ## Architecture & Conventions
 
+### 0. Core Mandate: Instruction Adherence
+- **Strict Implementation:** Never add UI elements, text, features, or 'proactive' improvements that were not explicitly requested by the user.
+- **No Assumptions:** If a design requirement is ambiguous, ask for clarification instead of guessing or 'filling in the gaps.'
+- **Surgical Execution:** Implementation must be strictly limited to the scope defined in the user's directive.
+
 ### 1. Feature-Based Structure
 The project follows a modular, feature-based architecture in `src/features/`. 
 
@@ -46,9 +51,10 @@ Follow the "Modern Museum" aesthetic defined in `DESIGN.md`:
 - Use CSS Modules for isolation.
 - Keep components small and focused. Feature components go in `src/features/*/components`, while cross-cutting components go in `src/shared`.
 
-### 5. Authentication & Authorization
-- Auth is managed via `src/features/auth/useAuth.ts`.
-- Routes are protected using the `RequireAdmin` wrapper in `src/router/router.tsx`.
+### 6. Testing & Visual Verification
+- **Test Artifacts:** Always save screenshots, snapshots, or temporary test data into the `.playwright-mcp/` directory.
+- **Git Safety:** This directory is ignored by Git; never attempt to stage or commit files from this folder.
+- **Cleanup:** Periodically clean up this folder to keep the workspace lean.
 
 ## Key Commands
 

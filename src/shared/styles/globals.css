@@ -28,6 +28,10 @@ body {
   background-attachment: fixed;
 }
 
+.bodyLocked {
+  overflow: hidden;
+}
+
 a {
   font-weight: 500;
   color: var(--color-link);
