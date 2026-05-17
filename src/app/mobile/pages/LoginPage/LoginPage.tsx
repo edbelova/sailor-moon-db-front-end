@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../features/auth/useAuth'
 import Logo from '../../../desktop/layout/Header/Logo.png'
 import { GlassCard } from '../../components/base/GlassCard/GlassCard'
@@ -31,11 +31,13 @@ export function MobileLoginPage() {
       <main className={styles.main}>
         <GlassCard>
           <div className={styles.logoSection}>
-            <img
-              alt="Sailor Moon Museum Logo"
-              className={styles.logo}
-              src={Logo}
-            />
+            <Link to="/">
+              <img
+                alt="Sailor Moon Museum Logo"
+                className={styles.logo}
+                src={Logo}
+              />
+            </Link>
           </div>
 
           <form className={styles.form} onSubmit={handleSubmit}>
