@@ -9,6 +9,9 @@ import { ItemMetadataPanel } from '../../components/ItemMetadataPanel/ItemMetada
 import { MobileItemDescription } from '../../components/MobileItemDescription/MobileItemDescription'
 import styles from './ItemViewPage.module.css'
 import type { Category } from '../../../../features/categories/types'
+import { buildSearchFromFilters } from '../../../../features/items/filters/queryParams'
+import { defaultFilters } from '../../../../features/items/filters/types'
+import { Breadcrumbs } from '../../layout/MobileHeader/components/Breadcrumbs'
 
 export function MobileItemViewPage() {
   const { itemId } = useParams<{ itemId: string }>()
@@ -19,8 +22,16 @@ export function MobileItemViewPage() {
   if (isLoading) return <div className={styles.loading}>Opening Museum Archive...</div>
   if (isError || !item) return <div className={styles.error}>Item not found in the archives.</div>
 
-  // Find category path for breadcrumbs
-  const categoryPath = buildCategoryPath(categories, item.categoryId)
+  // Find the specific category object for the breadcrumbs without setting it globally
+  const itemCategory = item.categoryId ? findCategoryById(categories, item.categoryId) : null
+
+  const handleAttributeClick = (field: string, value: string) => {
+    const search = buildSearchFromFilters({
+      ...defaultFilters,
+      [field as keyof typeof defaultFilters]: value,
+    })
+    navigate({ pathname: '/', search })
+  }
 
   return (
     <MobileAppLayout
@@ -37,9 +48,12 @@ export function MobileItemViewPage() {
       <div className={styles.content}>
         <MobileImageGallery imageUrls={item.imageUrls ?? []} />
         
+        <div className={styles.breadcrumbWrapper}>
+          <Breadcrumbs category={itemCategory} />
+        </div>
+
         <ItemDetailTitle 
           name={item.name} 
-          categoryPath={categoryPath} 
         />
 
         <ItemMetadataPanel
@@ -52,6 +66,7 @@ export function MobileItemViewPage() {
           dimensions={item.dimensions}
           country={item.countryOfOrigin}
           characters={item.characters}
+          onAttributeClick={handleAttributeClick}
         />
 
         <MobileItemDescription description={item.description} />
@@ -60,18 +75,17 @@ export function MobileItemViewPage() {
   )
 }
 
-function buildCategoryPath(categories: Category[], id: string): string {
-  const findPath = (cats: Category[], targetId: string, path: string[] = []): string[] | null => {
-    for (const cat of cats) {
-      if (cat.id === targetId) return [...path, cat.name]
-      if (cat.children) {
-        const found = findPath(cat.children, targetId, [...path, cat.name])
-        if (found) return found
+function findCategoryById(categories: Category[], id: string): Category | null {
+  for (const category of categories) {
+    if (category.id === id) {
+      return category
+    }
+    if (category.children?.length) {
+      const match = findCategoryById(category.children, id)
+      if (match) {
+        return match
       }
     }
-    return null
   }
-
-  const pathArray = findPath(categories, id)
-  return pathArray ? pathArray.join(' > ') : 'General Collection'
+  return null
 }

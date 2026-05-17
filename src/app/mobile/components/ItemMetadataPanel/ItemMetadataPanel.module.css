@@ -47,6 +47,19 @@
   font-weight: var(--font-weight-bold);
 }
 
+.clickable {
+  color: var(--color-primary);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.clickableTag {
+  cursor: pointer;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
 .charactersSection {
   border-top: 1px solid var(--color-surface-variant);
   padding-top: var(--spacing-md);

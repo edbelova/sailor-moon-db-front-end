@@ -17,4 +17,5 @@
   color: var(--color-on-surface-variant);
   text-align: justify;
   margin: 0;
+  white-space: pre-wrap; /* Preserve line breaks */
 }

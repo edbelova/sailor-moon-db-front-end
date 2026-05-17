@@ -8,7 +8,7 @@ export function MobileItemDescription({ description }: MobileItemDescriptionProp
   if (!description) return null
   return (
     <section className={styles.container}>
-      <h2 className={styles.heading}>Item History & Features</h2>
+      <h2 className={styles.heading}>Item Description</h2>
       <p className={styles.text}>{description}</p>
     </section>
   )

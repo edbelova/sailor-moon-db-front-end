@@ -1,21 +1,39 @@
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useCategoryUiStore } from '../../../../../features/categories/state/useCategoryUiStore'
 import type { Category } from '../../../../../features/categories/types'
 import styles from '../MobileHeader.module.css'
 
-export function Breadcrumbs() {
-  const { activeCategory, setActiveCategory } = useCategoryUiStore()
+type BreadcrumbsProps = {
+  category?: Category | null
+}
+
+export function Breadcrumbs({ category }: BreadcrumbsProps) {
+  const { activeCategory: storeCategory, setActiveCategory } = useCategoryUiStore()
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  // Use the passed category if available (detail page), otherwise use the store (gallery)
+  const currentCategory = category !== undefined ? category : storeCategory
+
+  const handleNavigation = () => {
+    if (location.pathname !== '/') {
+      navigate('/')
+    }
+  }
 
   const handleReset = () => {
     setActiveCategory(null)
+    handleNavigation()
   }
 
-  const handleCategoryClick = (category: Category) => {
-    setActiveCategory(category)
+  const handleCategoryClick = (cat: Category) => {
+    setActiveCategory(cat)
+    handleNavigation()
   }
 
   // Build the trail of categories
   const trail: Category[] = []
-  let current = activeCategory
+  let current = currentCategory
   while (current) {
     trail.unshift(current)
     current = current.parent
@@ -25,7 +43,7 @@ export function Breadcrumbs() {
     <nav className={styles.breadcrumbs}>
       {/* Root Breadcrumb */}
       <span 
-        className={`${styles.crumb} ${!activeCategory ? styles.activeCrumb : ''}`} 
+        className={`${styles.crumb} ${!currentCategory ? styles.activeCrumb : ''}`} 
         onClick={handleReset}
       >
         All categories

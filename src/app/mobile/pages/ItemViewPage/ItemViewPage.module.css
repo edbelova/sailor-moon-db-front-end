@@ -25,6 +25,11 @@
   padding-bottom: var(--spacing-xl);
 }
 
+.breadcrumbWrapper {
+  padding: 0 var(--grid-margin);
+  margin-top: var(--spacing-md);
+}
+
 .loading, .error {
   min-height: 100vh;
   display: flex;
