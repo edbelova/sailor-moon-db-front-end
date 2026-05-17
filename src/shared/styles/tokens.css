@@ -26,6 +26,11 @@
   --color-background: #faf9f9;
   --color-surface: #ffffff;
   --color-surface-variant: #eeeeee;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f4f3f3;
+  --color-surface-container: #eeeeee;
+  --color-surface-container-high: #e8e8e8;
+  --color-surface-container-highest: #e2e2e2;
   --color-accent: #f2f2f6;
   --color-active-pill: rgba(235, 225, 223, 0.8);
 

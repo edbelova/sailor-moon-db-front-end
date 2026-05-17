@@ -9,8 +9,8 @@ import { MobileAdminHeader } from '../../components/MobileAdminHeader/MobileAdmi
 import { MobileMediaManager } from '../../components/MobileMediaManager/MobileMediaManager'
 import { MobileFormField } from '../../components/MobileFormField/MobileFormField'
 import { PillInput } from '../../components/base/PillInput/PillInput'
-import { PillSelect } from '../../components/base/PillSelect/PillSelect'
 import { TagInput } from '../../components/base/TagInput/TagInput'
+import { MobileCategorySelector } from '../../components/MobileCategorySelector/MobileCategorySelector'
 import { validateItemForm, buildCreateItemRequest } from '../../../../features/items/components/ItemForm/validation'
 import styles from './ItemCreatePage.module.css'
 
@@ -38,9 +38,10 @@ export function MobileItemCreatePage() {
       return
     }
 
+    const imageKeysActual = imageItems.map((img) => img.key)
     try {
       const newItem = await createMutation.mutateAsync(
-        buildCreateItemRequest({ ...values, images: imageKeys }, values.categoryId)
+        buildCreateItemRequest({ ...values, images: imageKeysActual }, values.categoryId)
       )
       navigate(`/items/${newItem.id}`, { replace: true })
     } catch (err) {
@@ -100,32 +101,21 @@ export function MobileItemCreatePage() {
             />
           </MobileFormField>
 
-          <div className={styles.row}>
-            <MobileFormField label="Category" error={formErrors.categoryId}>
-              <PillSelect 
-                value={values.categoryId} 
-                onChange={(e) => setField('categoryId', e.target.value)}
-              >
-                <option value="">Select category...</option>
-                {categories.map(parent => (
-                  <optgroup key={parent.id} label={parent.name}>
-                    <option value={parent.id}>{parent.name} (General)</option>
-                    {parent.children?.map(child => (
-                      <option key={child.id} value={child.id}>{child.name}</option>
-                    ))}
-                  </optgroup>
-                ))}
-              </PillSelect>
-            </MobileFormField>
-            
-            <MobileFormField label="Price (¥)" error={formErrors.price}>
-              <PillInput 
-                type="text"
-                value={values.price} 
-                onChange={(e) => setField('price', e.target.value)}
-              />
-            </MobileFormField>
-          </div>
+          <MobileFormField label="Category" error={formErrors.categoryId}>
+            <MobileCategorySelector 
+              value={values.categoryId} 
+              categories={categories}
+              onChange={(id) => setField('categoryId', id)}
+            />
+          </MobileFormField>
+          
+          <MobileFormField label="Price (¥)" error={formErrors.price}>
+            <PillInput 
+              type="text"
+              value={values.price} 
+              onChange={(e) => setField('price', e.target.value)}
+            />
+          </MobileFormField>
 
           <MobileFormField label="Release Date">
             <PillInput 
