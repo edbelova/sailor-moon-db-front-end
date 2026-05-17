@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useCategories } from '../../../../../../features/categories/queries/useCategories'
 import { useCategoryUiStore } from '../../../../../../features/categories/state/useCategoryUiStore'
 import type { Category } from '../../../../../../features/categories/types'
@@ -10,11 +11,12 @@ type MobileCategoryMenuProps = {
 
 export function MobileCategoryMenu({ onCategorySelect }: MobileCategoryMenuProps) {
   const { data: categories = [] } = useCategories()
-  const { activeCategory, setActiveCategory } = useCategoryUiStore()
+  const { activeCategory } = useCategoryUiStore()
   const [expandedId, setExpandedId] = useState<string | null>(null)
+  const navigate = useNavigate()
 
   const handleParentSelect = (category: Category) => {
-    setActiveCategory(category)
+    navigate(`/${category.id}`)
     onCategorySelect() // Close drawer on selection
   }
 
@@ -24,7 +26,7 @@ export function MobileCategoryMenu({ onCategorySelect }: MobileCategoryMenuProps
   }
 
   const handleChildClick = (category: Category) => {
-    setActiveCategory(category)
+    navigate(`/${category.id}`)
     onCategorySelect()
   }
 
@@ -34,13 +36,12 @@ export function MobileCategoryMenu({ onCategorySelect }: MobileCategoryMenuProps
       <div 
         className={`${styles.parentItem} ${!activeCategory ? styles.parentActive : ''}`} 
         onClick={() => {
-          setActiveCategory(null)
+          navigate('/')
           onCategorySelect()
         }}
       >
         <span className={styles.parentTitle}>All categories</span>
       </div>
-
       {categories.map((parent: Category) => {
         const isExpanded = expandedId === parent.id
         const isActive = activeCategory?.id === parent.id

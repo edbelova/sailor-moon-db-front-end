@@ -8,6 +8,7 @@ export function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MobileMainPage />} />
+        <Route path="/:categoryId" element={<MobileMainPage />} />
         <Route path="/login" element={<MobileLoginPage />} />
         <Route path="/items/:itemId" element={<MobileItemViewPage />} />
         <Route path="*" element={<MobileMainPage />} />

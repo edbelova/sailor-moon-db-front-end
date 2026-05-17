@@ -9,10 +9,10 @@ import { ItemMetadataPanel } from '../../components/ItemMetadataPanel/ItemMetada
 import { MobileItemDescription } from '../../components/MobileItemDescription/MobileItemDescription'
 import { ItemViewActions } from '../../components/ItemViewActions/ItemViewActions'
 import styles from './ItemViewPage.module.css'
-import type { Category } from '../../../../features/categories/types'
 import { buildSearchFromFilters } from '../../../../features/items/filters/queryParams'
 import { defaultFilters } from '../../../../features/items/filters/types'
 import { Breadcrumbs } from '../../layout/MobileHeader/components/Breadcrumbs'
+import { findCategoryById } from '../../../../features/categories/utils'
 
 export function MobileItemViewPage() {
   const { itemId } = useParams<{ itemId: string }>()
@@ -75,19 +75,4 @@ export function MobileItemViewPage() {
       </div>
     </MobileAppLayout>
   )
-}
-
-function findCategoryById(categories: Category[], id: string): Category | null {
-  for (const category of categories) {
-    if (category.id === id) {
-      return category
-    }
-    if (category.children?.length) {
-      const match = findCategoryById(category.children, id)
-      if (match) {
-        return match
-      }
-    }
-  }
-  return null
 }
