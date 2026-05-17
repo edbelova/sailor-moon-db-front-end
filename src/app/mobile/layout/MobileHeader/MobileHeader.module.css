@@ -60,6 +60,13 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-on-surface-variant);
+  cursor: pointer;
+}
+
+.crumbGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
 }
 
 .activeCrumb {

@@ -13,7 +13,13 @@ export function MobileCategoryMenu({ onCategorySelect }: MobileCategoryMenuProps
   const { activeCategory, setActiveCategory } = useCategoryUiStore()
   const [expandedId, setExpandedId] = useState<string | null>(null)
 
-  const handleParentClick = (id: string) => {
+  const handleParentSelect = (category: Category) => {
+    setActiveCategory(category)
+    onCategorySelect() // Close drawer on selection
+  }
+
+  const toggleExpand = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation()
     setExpandedId(expandedId === id ? null : id)
   }
 
@@ -26,27 +32,41 @@ export function MobileCategoryMenu({ onCategorySelect }: MobileCategoryMenuProps
     <nav className={styles.nav}>
       {/* All Categories Option */}
       <div 
-        className={styles.parentItem} 
-        onClick={() => handleChildClick({ id: '', name: 'All categories', parent: null, children: null })}
+        className={`${styles.parentItem} ${!activeCategory ? styles.parentActive : ''}`} 
+        onClick={() => {
+          setActiveCategory(null)
+          onCategorySelect()
+        }}
       >
-        <span>All categories</span>
+        <span className={styles.parentTitle}>All categories</span>
       </div>
 
       {categories.map((parent: Category) => {
         const isExpanded = expandedId === parent.id
+        const isActive = activeCategory?.id === parent.id
         const hasChildren = parent.children && parent.children.length > 0
 
         return (
           <div key={parent.id} className={styles.parentGroup}>
             <div 
-              className={styles.parentItem} 
-              onClick={() => handleParentClick(parent.id)}
+              className={`${styles.parentItem} ${isActive ? styles.parentActive : ''}`} 
             >
-              <span>{parent.name}</span>
+              <span 
+                className={styles.parentTitle}
+                onClick={() => handleParentSelect(parent)}
+              >
+                {parent.name}
+              </span>
+              
               {hasChildren && (
-                <span className="material-symbols-outlined">
-                  {isExpanded ? 'expand_less' : 'expand_more'}
-                </span>
+                <button 
+                  className={styles.expandBtn}
+                  onClick={(e) => toggleExpand(e, parent.id)}
+                >
+                  <span className="material-symbols-outlined">
+                    {isExpanded ? 'expand_less' : 'expand_more'}
+                  </span>
+                </button>
               )}
             </div>
 
