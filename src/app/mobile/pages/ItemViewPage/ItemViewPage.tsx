@@ -7,6 +7,7 @@ import { MobileImageGallery } from '../../components/MobileImageGallery/MobileIm
 import { ItemDetailTitle } from '../../components/ItemDetailTitle/ItemDetailTitle'
 import { ItemMetadataPanel } from '../../components/ItemMetadataPanel/ItemMetadataPanel'
 import { MobileItemDescription } from '../../components/MobileItemDescription/MobileItemDescription'
+import { ItemViewActions } from '../../components/ItemViewActions/ItemViewActions'
 import styles from './ItemViewPage.module.css'
 import type { Category } from '../../../../features/categories/types'
 import { buildSearchFromFilters } from '../../../../features/items/filters/queryParams'
@@ -42,6 +43,7 @@ export function MobileItemViewPage() {
             onClick={() => navigate(-1)} 
             className={styles.backBtn}
           />
+          <ItemViewActions itemId={item.id} />
         </header>
       }
     >

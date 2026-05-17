@@ -8,6 +8,7 @@ import { MobileHeader } from '../../layout/MobileHeader/MobileHeader'
 import { MobileAppLayout } from '../../layout/MobileAppLayout/MobileAppLayout'
 import { Drawer } from '../../components/base/Drawer/Drawer'
 import { MobileCategoryMenu } from '../../features/categories/components/MobileCategoryMenu/MobileCategoryMenu'
+import { AddFab } from '../../components/AddFab/AddFab'
 import styles from './MainPage.module.css'
 
 export function MobileMainPage() {
@@ -69,6 +70,8 @@ export function MobileMainPage() {
       >
         <MobileCategoryMenu onCategorySelect={handleCategorySelect} />
       </Drawer>
+
+      <AddFab />
     </>
   )
 }
