@@ -59,7 +59,7 @@
 .crumb {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--color-on-surface-variant);
+  color: var(--color-on-surface); /* Darker text */
   cursor: pointer;
 }
 
@@ -76,7 +76,7 @@
 
 .breadcrumbs span {
   font-size: var(--font-size-xl);
-  color: var(--border-outline);
+  color: var(--color-on-surface-variant); /* Darker separators */
 }
 
 .row3 {
