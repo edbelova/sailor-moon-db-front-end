@@ -34,14 +34,14 @@ export function ItemViewActions({ itemId }: ItemViewActionsProps) {
   return (
     <div className={styles.container}>
       <IconButton 
-        icon="edit" 
-        onClick={handleEdit} 
+        icon="delete" 
+        onClick={handleDelete} 
         className={styles.actionBtn}
         iconSize={24}
       />
       <IconButton 
-        icon="delete" 
-        onClick={handleDelete} 
+        icon="edit" 
+        onClick={handleEdit} 
         className={styles.actionBtn}
         iconSize={24}
       />

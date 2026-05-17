@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useItemById } from '../../../../features/items/queries/useItemById'
 import { useUpdateItem } from '../../../../features/items/queries/useUpdateItem'
+import { useDeleteItem } from '../../../../features/items/queries/useDeleteItem'
 import { useCategories } from '../../../../features/categories/queries/useCategories'
 import { useItemFormStore } from '../../../../features/items/state/useItemFormStore'
 import { uploadItemImages } from '../../../../features/items/api/uploadItemImage'
@@ -21,6 +22,7 @@ export function MobileItemEditPage() {
   const { data: item, isLoading } = useItemById(itemId)
   const { data: categories = [] } = useCategories()
   const updateMutation = useUpdateItem()
+  const deleteMutation = useDeleteItem()
 
   const { values, imageItems, formErrors, setField, setValues, setImageItems, setFormErrors, reset } = useItemFormStore()
   const [isUploading, setIsUploading] = useState(false)
@@ -105,6 +107,18 @@ export function MobileItemEditPage() {
     setImageItems(next)
   }
 
+  const handleDelete = async () => {
+    if (window.confirm('Are you sure you want to remove this item from the museum archives?')) {
+      try {
+        await deleteMutation.mutateAsync(itemId!)
+        navigate('/', { replace: true })
+      } catch (err) {
+        console.error('Delete failed', err)
+        alert('Failed to delete item. Please try again.')
+      }
+    }
+  }
+
   if (isLoading) return <div className={styles.loading}>Loading item...</div>
 
   return (
@@ -113,7 +127,8 @@ export function MobileItemEditPage() {
         <MobileAdminHeader 
           onCancel={() => navigate(`/items/${itemId}`)} 
           onSave={handleSave}
-          isSaving={updateMutation.isPending || isUploading}
+          onDelete={handleDelete}
+          isSaving={updateMutation.isPending || deleteMutation.isPending || isUploading}
         />
       }
     >

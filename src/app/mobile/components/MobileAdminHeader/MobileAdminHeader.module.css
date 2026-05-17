@@ -10,6 +10,12 @@
   /* Glass styles moved to global .glassHeader */
 }
 
+.rightActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
 .cancelBtn {
   border: none;
   background: transparent;
