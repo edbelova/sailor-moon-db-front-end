@@ -76,6 +76,7 @@
 .dragHandle {
   color: var(--border-outline);
   cursor: grab;
+  touch-action: none; /* Critical: stops screen scrolling while dragging handle */
 }
 
 .thumbImg {

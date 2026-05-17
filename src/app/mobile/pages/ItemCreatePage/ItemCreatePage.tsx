@@ -71,15 +71,6 @@ export function MobileItemCreatePage() {
     setImageItems(next)
   }
 
-  const handleSetMainImage = (key: string) => {
-    const idx = imageItems.findIndex((img) => img.key === key)
-    if (idx === -1) return
-    const moved = [...imageItems]
-    const [selected] = moved.splice(idx, 1)
-    const next = [{ ...selected, isMain: true }, ...moved.map(m => ({ ...m, isMain: false }))]
-    setImageItems(next)
-  }
-
   return (
     <MobileAppLayout
       header={
@@ -95,7 +86,7 @@ export function MobileItemCreatePage() {
           images={imageItems}
           onAddImages={handleAddImages}
           onDeleteImage={handleDeleteImage}
-          onSetMainImage={handleSetMainImage}
+          onReorderImages={setImageItems}
         />
 
         <section className={styles.fields}>
