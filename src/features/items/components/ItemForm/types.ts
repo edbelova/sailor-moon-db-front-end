@@ -1,5 +1,6 @@
 export type ItemFormValues = {
   name: string
+  categoryId: string
   characters: string
   season: string
   releaseDate: string

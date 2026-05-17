@@ -5,14 +5,10 @@
   right: 0;
   z-index: 50;
   height: 64px;
-  background-color: var(--glass-card-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  box-shadow: var(--shadow-header);
-  border-bottom: 1px solid var(--border-divider);
   display: flex;
   align-items: center;
   padding: 0 var(--grid-margin);
+  /* Glass styles moved to global .glassHeader */
 }
 
 .backBtn {

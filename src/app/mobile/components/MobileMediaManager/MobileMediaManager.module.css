@@ -1,0 +1,132 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.heroContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: var(--color-surface);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-divider);
+}
+
+.heroImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.emptyHero {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--border-outline);
+}
+
+.emptyHero span {
+  font-size: 48px;
+}
+
+.coverBadge {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background-color: var(--glass-sidebar);
+  backdrop-filter: blur(var(--glass-blur));
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  box-shadow: var(--shadow-sm);
+}
+
+.thumbnails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.thumbRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  background-color: var(--color-surface);
+  padding: var(--spacing-sm);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-divider);
+}
+
+.dragHandle {
+  color: var(--border-outline);
+  cursor: grab;
+}
+
+.thumbImg {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+}
+
+.thumbInfo {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.fileName {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-surface-variant);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.deleteBtn {
+  color: var(--color-error);
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: var(--spacing-md);
+  background-color: var(--glass-frame);
+  border: 2px dashed var(--border-outline);
+  border-radius: 10px;
+  color: var(--color-primary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.addBtn:hover {
+  background-color: var(--color-surface);
+}
+
+.hiddenInput {
+  display: none;
+}

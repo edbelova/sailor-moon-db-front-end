@@ -32,6 +32,14 @@ body {
   overflow: hidden;
 }
 
+.glassHeader {
+  background-color: var(--glass-card-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--border-divider);
+  box-shadow: var(--shadow-header);
+}
+
 a {
   font-weight: 500;
   color: var(--color-link);

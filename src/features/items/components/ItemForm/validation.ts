@@ -5,6 +5,7 @@ const listSeparator = /[,\n]+/g
 
 export const getDefaultItemFormValues = (): ItemFormValues => ({
   name: '',
+  categoryId: '',
   characters: '',
   season: '',
   releaseDate: '',
@@ -77,6 +78,7 @@ export const buildUpdateItemRequest = (
 
 export const buildItemFormValues = (item: Item): ItemFormValues => ({
   name: item.name ?? '',
+  categoryId: item.categoryId ?? '',
   characters: joinList(item.characters),
   season: item.season ?? '',
   releaseDate: item.releaseDate ?? '',

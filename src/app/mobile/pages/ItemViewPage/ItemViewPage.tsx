@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useItemById } from '../../../../features/items/queries/useItemById'
 import { useCategories } from '../../../../features/categories/queries/useCategories'
+import { useCategoryUiStore } from '../../../../features/categories/state/useCategoryUiStore'
 import { MobileAppLayout } from '../../layout/MobileAppLayout/MobileAppLayout'
 import { IconButton } from '../../components/base/IconButton/IconButton'
 import { MobileImageGallery } from '../../components/MobileImageGallery/MobileImageGallery'
@@ -19,9 +20,16 @@ export function MobileItemViewPage() {
   const navigate = useNavigate()
   const { data: item, isLoading, isError } = useItemById(itemId)
   const { data: categories = [] } = useCategories()
+  const activeCategory = useCategoryUiStore((state) => state.activeCategory)
 
   if (isLoading) return <div className={styles.loading}>Opening Museum Archive...</div>
   if (isError || !item) return <div className={styles.error}>Item not found in the archives.</div>
+
+  const handleBack = () => {
+    // Navigate to the current filter state in the store
+    const path = activeCategory ? `/${activeCategory.id}` : '/'
+    navigate(path)
+  }
 
   // Find the specific category object for the breadcrumbs without setting it globally
   const itemCategory = item.categoryId ? findCategoryById(categories, item.categoryId) : null
@@ -37,10 +45,10 @@ export function MobileItemViewPage() {
   return (
     <MobileAppLayout
       header={
-        <header className={styles.header}>
+        <header className={`${styles.header} glassHeader`}>
           <IconButton 
             icon="arrow_back" 
-            onClick={() => navigate(-1)} 
+            onClick={handleBack} 
             className={styles.backBtn}
           />
           <ItemViewActions itemId={item.id} />

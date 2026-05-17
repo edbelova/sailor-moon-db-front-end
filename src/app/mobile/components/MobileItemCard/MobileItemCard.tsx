@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styles from './MobileItemCard.module.css'
 import { CardActions } from './components/CardActions'
 import { CardImage } from './components/CardImage'
@@ -6,24 +7,29 @@ import { CardTags } from './components/CardTags'
 import { CardTitle } from './components/CardTitle'
 
 type MobileItemCardProps = {
+  id: string
   name: string
   imageUrl: string
   tags?: string[]
   onFavorite?: () => void
   onBookmark?: () => void
-  onClick?: () => void
 }
 
 export function MobileItemCard({
+  id,
   name,
   imageUrl,
   tags = [],
   onFavorite,
   onBookmark,
-  onClick,
 }: MobileItemCardProps) {
   const [isFavorite, setIsFavorite] = useState(false)
   const [isBookmarked, setIsBookmarked] = useState(false)
+  const navigate = useNavigate()
+
+  const handleCardClick = () => {
+    navigate(`/items/${id}`)
+  }
 
   const handleFavorite = () => {
     setIsFavorite(!isFavorite)
@@ -36,7 +42,7 @@ export function MobileItemCard({
   }
 
   return (
-    <div className={styles.card} onClick={onClick}>
+    <div className={styles.card} onClick={handleCardClick}>
       <CardImage imageUrl={imageUrl} alt={name}>
         <CardActions 
           onFavorite={handleFavorite} 

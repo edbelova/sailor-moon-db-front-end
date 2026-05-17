@@ -1,0 +1,37 @@
+.main {
+  flex: 1;
+  padding: var(--grid-margin);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.textarea {
+  width: 100%;
+  background-color: var(--color-surface);
+  border: 1px solid var(--border-divider);
+  border-radius: 8px;
+  padding: var(--spacing-md);
+  font-size: var(--font-size-md);
+  font-family: var(--font-family-base);
+  color: var(--color-on-surface);
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.textarea:focus {
+  border-color: var(--color-primary);
+}

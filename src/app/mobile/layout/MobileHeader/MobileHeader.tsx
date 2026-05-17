@@ -13,7 +13,7 @@ type MobileHeaderProps = {
 
 export function MobileHeader({ onMenuClick, onFilterClick }: MobileHeaderProps) {
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} glassHeader`}>
       {/* Row 1: Logo, Search, Profile */}
       <div className={styles.row1}>
         <Logo />
