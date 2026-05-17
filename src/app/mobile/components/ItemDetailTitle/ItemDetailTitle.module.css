@@ -1,0 +1,21 @@
+.container {
+  padding: 0 var(--grid-margin);
+  margin-top: var(--spacing-lg);
+}
+
+.categoryPath {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-surface-variant);
+  margin-bottom: var(--spacing-xs);
+}
+
+.title {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-on-surface);
+  line-height: 1.2;
+  margin: 0;
+  letter-spacing: -0.02em;
+}

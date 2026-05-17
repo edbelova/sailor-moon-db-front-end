@@ -1,0 +1,41 @@
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: 64px;
+  background-color: var(--glass-card-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--shadow-header);
+  border-bottom: 1px solid var(--border-divider);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--grid-margin);
+}
+
+.backBtn {
+  color: var(--color-primary);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--spacing-xl);
+}
+
+.loading, .error {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--grid-margin);
+  color: var(--color-on-surface-variant);
+  font-weight: var(--font-weight-semibold);
+  background-color: var(--color-background);
+}
+
+.error {
+  color: var(--color-error);
+}

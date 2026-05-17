@@ -9,6 +9,13 @@
   gap: 16px;
 }
 
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  min-width: 0; /* Critical for grid item shrinking */
+}
+
 .loading {
   display: flex;
   justify-content: center;

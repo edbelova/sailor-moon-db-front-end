@@ -1,0 +1,20 @@
+.container {
+  padding: 0 var(--grid-margin);
+  margin-top: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+}
+
+.heading {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-on-surface);
+  margin-bottom: var(--spacing-sm);
+}
+
+.text {
+  font-size: var(--font-size-md);
+  line-height: 1.6;
+  color: var(--color-on-surface-variant);
+  text-align: justify;
+  margin: 0;
+}
