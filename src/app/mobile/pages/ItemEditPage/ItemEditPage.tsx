@@ -53,14 +53,16 @@ export function MobileItemEditPage() {
   }, [item, setValues, setImageItems, reset])
 
   const handleSave = async () => {
-    const errors = validateItemForm(values, values.categoryId)
+    const imageKeys = imageItems.map((img) => img.key)
+    const errors = validateItemForm({ ...values, images: imageKeys }, values.categoryId)
+
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors)
       if (errors.categoryId) alert(errors.categoryId)
+      else if (errors.images) alert(errors.images)
       return
     }
 
-    const imageKeys = imageItems.map((img) => img.key)
     try {
       const payload = buildUpdateItemRequest(
         { ...values, images: imageKeys }, 

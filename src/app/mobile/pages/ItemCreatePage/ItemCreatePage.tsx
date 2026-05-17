@@ -27,15 +27,17 @@ export function MobileItemCreatePage() {
   }, [reset])
 
   const handleSave = async () => {
-    const errors = validateItemForm(values, values.categoryId)
+    const imageKeys = imageItems.map((img) => img.key)
+    const errors = validateItemForm({ ...values, images: imageKeys }, values.categoryId)
+    
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors)
-      // Provide immediate feedback for the most common mistake
+      // Provide immediate feedback for common mistakes
       if (errors.categoryId) alert(errors.categoryId)
+      else if (errors.images) alert(errors.images)
       return
     }
 
-    const imageKeys = imageItems.map((img) => img.key)
     try {
       const newItem = await createMutation.mutateAsync(
         buildCreateItemRequest({ ...values, images: imageKeys }, values.categoryId)

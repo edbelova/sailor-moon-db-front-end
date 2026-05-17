@@ -110,5 +110,9 @@ export const validateItemForm = (
     errors.price = 'Price must be a number.'
   }
 
+  if (!values.images || values.images.length === 0) {
+    errors.images = 'At least one image is required.'
+  }
+
   return errors
 }
