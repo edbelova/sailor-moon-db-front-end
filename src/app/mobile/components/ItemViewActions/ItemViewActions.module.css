@@ -4,12 +4,3 @@
   gap: var(--spacing-md);
   margin-left: auto;
 }
-
-.actionBtn {
-  color: var(--color-primary);
-}
-
-.actionBtn:active {
-  transform: scale(0.95);
-  background-color: var(--glass-frame);
-}

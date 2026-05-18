@@ -153,7 +153,6 @@ export function MobileItemFormPage() {
                     icon="delete" 
                     onClick={handleDelete} 
                     disabled={isPending}
-                    className={styles.deleteBtn}
                     iconSize={24}
                   />
                 )}
@@ -161,7 +160,6 @@ export function MobileItemFormPage() {
                   icon={isPending ? 'sync' : 'save'} 
                   onClick={handleSave}
                   disabled={isPending}
-                  className={styles.saveBtn}
                   iconSize={24}
                 />
               </div>

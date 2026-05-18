@@ -9,40 +9,31 @@
 .rightActions {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-md);
+  margin-left: auto;
 }
 
 .cancelBtn {
   border: none;
   background: transparent;
-  color: var(--color-primary);
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
+  color: var(--color-on-surface);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
   cursor: pointer;
-  padding: var(--spacing-sm) 0;
+  padding: 0;
   font-family: var(--font-family-base);
+  height: 32px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.cancelBtn:active {
+  color: var(--color-primary);
 }
 
 .cancelBtn:disabled {
   opacity: 0.5;
-}
-
-.saveBtn {
-  color: var(--color-primary);
-  transition: transform 0.1s ease;
-}
-
-.saveBtn:active {
-  transform: scale(0.95);
-}
-
-.deleteBtn {
-  color: var(--color-error);
-  transition: transform 0.1s ease;
-}
-
-.deleteBtn:active {
-  transform: scale(0.95);
 }
 
 .loading {

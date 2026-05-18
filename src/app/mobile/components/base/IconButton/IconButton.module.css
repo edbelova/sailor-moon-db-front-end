@@ -10,7 +10,7 @@
   cursor: pointer;
   padding: 0;
   border-radius: var(--radius-full);
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
 }
 
 .button span {

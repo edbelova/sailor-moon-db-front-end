@@ -36,13 +36,11 @@ export function ItemViewActions({ itemId }: ItemViewActionsProps) {
       <IconButton 
         icon="delete" 
         onClick={handleDelete} 
-        className={styles.actionBtn}
         iconSize={24}
       />
       <IconButton 
         icon="edit" 
         onClick={handleEdit} 
-        className={styles.actionBtn}
         iconSize={24}
       />
     </div>
