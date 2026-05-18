@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useItemById } from '../../../../features/items/queries/useItemById'
+import { useCreateItem } from '../../../../features/items/queries/useCreateItem'
 import { useUpdateItem } from '../../../../features/items/queries/useUpdateItem'
 import { useDeleteItem } from '../../../../features/items/queries/useDeleteItem'
 import { useCategories } from '../../../../features/categories/queries/useCategories'
@@ -14,22 +15,27 @@ import { MobileFormField } from '../../components/MobileFormField/MobileFormFiel
 import { PillInput } from '../../components/base/PillInput/PillInput'
 import { TagInput } from '../../components/base/TagInput/TagInput'
 import { MobileCategorySelector } from '../../components/MobileCategorySelector/MobileCategorySelector'
-import { validateItemForm, buildUpdateItemRequest } from '../../../../features/items/components/ItemForm/validation'
-import styles from './ItemEditPage.module.css'
+import { validateItemForm, buildCreateItemRequest, buildUpdateItemRequest } from '../../../../features/items/components/ItemForm/validation'
+import styles from './ItemFormPage.module.css'
 
-export function MobileItemEditPage() {
+export function MobileItemFormPage() {
   const { itemId } = useParams<{ itemId: string }>()
+  const isEditMode = Boolean(itemId)
   const navigate = useNavigate()
+
   const { data: item, isLoading } = useItemById(itemId)
   const { data: categories = [] } = useCategories()
+
+  const createMutation = useCreateItem()
   const updateMutation = useUpdateItem()
   const deleteMutation = useDeleteItem()
 
   const { values, imageItems, formErrors, setField, setValues, setImageItems, setFormErrors, reset } = useItemFormStore()
   const [isUploading, setIsUploading] = useState(false)
 
+  // Hydrate store on edit mode
   useEffect(() => {
-    if (item) {
+    if (isEditMode && item) {
       setValues({
         name: item.name,
         categoryId: item.categoryId,
@@ -52,8 +58,12 @@ export function MobileItemEditPage() {
       }))
       setImageItems(images)
     }
+  }, [item, isEditMode, setValues, setImageItems])
+
+  // Reset store on unmount
+  useEffect(() => {
     return () => reset()
-  }, [item, setValues, setImageItems, reset])
+  }, [reset])
 
   const handleSave = async () => {
     const imageKeys = imageItems.map((img) => img.key)
@@ -67,20 +77,18 @@ export function MobileItemEditPage() {
     }
 
     try {
-      const payload = buildUpdateItemRequest(
-        { ...values, images: imageKeys }, 
-        values.categoryId, 
-        itemId!
-      )
-      
-      await updateMutation.mutateAsync({
-        itemId: itemId!,
-        payload
-      })
-      navigate(`/items/${itemId}`, { replace: true })
+      if (isEditMode) {
+        const payload = buildUpdateItemRequest({ ...values, images: imageKeys }, values.categoryId, itemId!)
+        await updateMutation.mutateAsync({ itemId: itemId!, payload })
+        navigate(`/items/${itemId}`, { replace: true })
+      } else {
+        const payload = buildCreateItemRequest({ ...values, images: imageKeys }, values.categoryId)
+        const newItem = await createMutation.mutateAsync(payload)
+        navigate(`/items/${newItem.id}`, { replace: true })
+      }
     } catch (err) {
-      console.error('Update failed', err)
-      alert('Failed to update item. Please try again.')
+      console.error('Save failed', err)
+      alert(`Failed to ${isEditMode ? 'update' : 'create'} item. Please try again.`)
     }
   }
 
@@ -120,7 +128,9 @@ export function MobileItemEditPage() {
     }
   }
 
-  if (isLoading) return <div className={styles.loading}>Loading item...</div>
+  if (isEditMode && isLoading) return <div className={styles.loading}>Loading item...</div>
+
+  const isPending = createMutation.isPending || updateMutation.isPending || deleteMutation.isPending || isUploading
 
   return (
     <MobileAppLayout
@@ -130,25 +140,27 @@ export function MobileItemEditPage() {
             left={
               <button 
                 className={styles.cancelBtn} 
-                onClick={() => navigate(`/items/${itemId}`)} 
-                disabled={updateMutation.isPending || deleteMutation.isPending || isUploading}
+                onClick={() => navigate(isEditMode ? `/items/${itemId}` : '/')} 
+                disabled={isPending}
               >
                 Cancel
               </button>
             }
             right={
               <div className={styles.rightActions}>
+                {isEditMode && (
+                  <IconButton 
+                    icon="delete" 
+                    onClick={handleDelete} 
+                    disabled={isPending}
+                    className={styles.deleteBtn}
+                    iconSize={24}
+                  />
+                )}
                 <IconButton 
-                  icon="delete" 
-                  onClick={handleDelete} 
-                  disabled={updateMutation.isPending || deleteMutation.isPending || isUploading}
-                  className={styles.deleteBtn}
-                  iconSize={24}
-                />
-                <IconButton 
-                  icon={updateMutation.isPending || deleteMutation.isPending || isUploading ? 'sync' : 'save'} 
+                  icon={isPending ? 'sync' : 'save'} 
                   onClick={handleSave}
-                  disabled={updateMutation.isPending || deleteMutation.isPending || isUploading}
+                  disabled={isPending}
                   className={styles.saveBtn}
                   iconSize={24}
                 />

@@ -36,6 +36,40 @@
   transform: scale(0.95);
 }
 
+.deleteBtn {
+  color: var(--color-error);
+  transition: transform 0.1s ease;
+}
+
+.deleteBtn:active {
+  transform: scale(0.95);
+}
+
+.loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background);
+  color: var(--color-on-surface-variant);
+  font-weight: var(--font-weight-semibold);
+}
+
+.formSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
 .fields {
   display: flex;
   flex-direction: column;
@@ -46,7 +80,7 @@
   width: 100%;
   background-color: var(--color-surface);
   border: 1px solid var(--border-divider);
-  border-radius: 8px;
+  border-radius: 8px; /* Matches --radius-sm */
   padding: var(--spacing-md);
   font-size: var(--font-size-md);
   font-family: var(--font-family-base);
