@@ -14,7 +14,7 @@ import { buildSearchFromFilters } from '../../../../features/items/filters/query
 import { defaultFilters } from '../../../../features/items/filters/types'
 import { Breadcrumbs } from '../../layout/MobileHeader/components/Breadcrumbs'
 import { findCategoryById } from '../../../../features/categories/utils'
-import { Header } from '../../../../shared/components/Header/Header'
+import { Header } from '../../components/base/Header/Header'
 
 export function MobileItemViewPage() {
   const { itemId } = useParams<{ itemId: string }>()

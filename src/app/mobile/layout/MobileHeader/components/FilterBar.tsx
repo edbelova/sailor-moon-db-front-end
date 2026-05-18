@@ -1,4 +1,4 @@
-import { Header } from '../../../../../shared/components/Header/Header'
+import { Header } from '../../../components/base/Header/Header'
 import { PillButton, PillButtonVariant } from '../../../components/base/PillButton/PillButton'
 import { FilterButton } from '../../../components/base/FilterButton/FilterButton'
 import styles from '../MobileHeader.module.css'

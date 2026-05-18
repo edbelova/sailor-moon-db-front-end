@@ -5,7 +5,7 @@ import { useCategories } from '../../../../features/categories/queries/useCatego
 import { useItemFormStore } from '../../../../features/items/state/useItemFormStore'
 import { uploadItemImages } from '../../../../features/items/api/uploadItemImage'
 import { MobileAppLayout } from '../../layout/MobileAppLayout/MobileAppLayout'
-import { Header } from '../../../../shared/components/Header/Header'
+import { Header } from '../../components/base/Header/Header'
 import { IconButton } from '../../components/base/IconButton/IconButton'
 import { MobileMediaManager } from '../../components/MobileMediaManager/MobileMediaManager'
 import { MobileFormField } from '../../components/MobileFormField/MobileFormField'
