@@ -12,7 +12,7 @@ import { ItemViewActions } from '../../components/ItemViewActions/ItemViewAction
 import styles from './ItemViewPage.module.css'
 import { buildSearchFromFilters } from '../../../../features/items/filters/queryParams'
 import { defaultFilters } from '../../../../features/items/filters/types'
-import { Breadcrumbs } from '../../layout/MobileHeader/components/Breadcrumbs'
+import { MobileBreadcrumbs } from '../../components/MobileBreadcrumbs/MobileBreadcrumbs'
 import { findCategoryById } from '../../../../features/categories/utils'
 import { Header } from '../../components/base/Header/Header'
 
@@ -64,7 +64,7 @@ export function MobileItemViewPage() {
         <MobileImageGallery imageUrls={item.imageUrls ?? []} />
         
         <div className={styles.breadcrumbWrapper}>
-          <Breadcrumbs category={itemCategory} />
+          <MobileBreadcrumbs category={itemCategory} />
         </div>
 
         <ItemDetailTitle 

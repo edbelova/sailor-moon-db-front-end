@@ -1,7 +1,7 @@
 import { Header } from '../../components/base/Header/Header'
 import styles from './MobileHeader.module.css'
 import { AuthButton } from './components/AuthButton'
-import { Breadcrumbs } from './components/Breadcrumbs'
+import { MobileBreadcrumbs } from '../../components/MobileBreadcrumbs/MobileBreadcrumbs'
 import { FilterBar } from './components/FilterBar'
 import { Logo } from './components/Logo'
 import { SearchBox } from './components/SearchBox'
@@ -25,7 +25,7 @@ export function MobileHeader({ onMenuClick, onFilterClick }: MobileHeaderProps) 
       {/* Row 2: Menu & Breadcrumbs */}
       <Header.CustomRow>
         <IconButton icon="menu" onClick={onMenuClick} />
-        <Breadcrumbs />
+        <MobileBreadcrumbs />
       </Header.CustomRow>
 
       {/* Row 3: Filter & Sort Chips */}

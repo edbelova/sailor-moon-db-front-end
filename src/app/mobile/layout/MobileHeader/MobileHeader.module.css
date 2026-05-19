@@ -19,41 +19,6 @@
   white-space: nowrap;
 }
 
-.breadcrumbs {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-.breadcrumbs::-webkit-scrollbar {
-  display: none;
-}
-
-.crumb {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-on-surface); /* Darker text */
-  cursor: pointer;
-}
-
-.crumbGroup {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-}
-
-.activeCrumb {
-  color: var(--color-primary);
-  font-weight: var(--font-weight-bold);
-}
-
-.breadcrumbs span {
-  font-size: var(--font-size-xl);
-  color: var(--color-on-surface-variant); /* Darker separators */
-}
-
 .row3 {
   padding: var(--spacing-xs) var(--grid-margin) var(--spacing-md);
   overflow: hidden;
