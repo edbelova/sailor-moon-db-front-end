@@ -1,13 +1,13 @@
-import { ItemImagesForm } from '../ItemImagesForm/ItemImagesForm'
-import { ItemDetailsForm } from '../ItemDetailsForm/ItemDetailsForm'
-import { ItemDescriptionForm } from '../ItemDescriptionForm/ItemDescriptionForm'
-import { ItemFormActions } from '../ItemFormActions/ItemFormActions'
-import { useItemFormStore } from '../../state/useItemFormStore'
-import { uploadItemImages } from '../../api/uploadItemImage'
+import { ItemImagesForm } from '@/features/items/components/ItemImagesForm/ItemImagesForm'
+import { ItemDetailsForm } from '@/features/items/components/ItemDetailsForm/ItemDetailsForm'
+import { ItemDescriptionForm } from '@/features/items/components/ItemDescriptionForm/ItemDescriptionForm'
+import { ItemFormActions } from '@/features/items/components/ItemFormActions/ItemFormActions'
+import { useItemFormStore } from '@/features/items/state/useItemFormStore'
+import { uploadItemImages } from '@/features/items/api/uploadItemImage'
 import { useState } from 'react'
 
 
-import styles from './ItemForm.module.css'
+import styles from '@/features/items/components/ItemForm/ItemForm.module.css'
 
 type ItemFormProps = {
   mode?: 'create' | 'edit'

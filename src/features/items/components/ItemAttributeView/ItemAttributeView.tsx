@@ -1,6 +1,6 @@
-import type { ItemAttributeViewProps } from "./types";
+import type { ItemAttributeViewProps } from "@/features/items/components/ItemAttributeView/types";
 
-import styles from "./ItemAttributeView.module.css";
+import styles from "@/features/items/components/ItemAttributeView/ItemAttributeView.module.css";
 
 
 export function ItemAttributeView({ label, values }: ItemAttributeViewProps) {

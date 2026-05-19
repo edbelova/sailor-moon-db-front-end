@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchCategories } from '../api/fetchCategories'
-import type { Category } from '../types'
+import { fetchCategories } from '@/features/categories/api/fetchCategories'
+import type { Category } from '@/features/categories/types'
 
 export const categoryQueryKeys = {
   all: ['categories'] as const,

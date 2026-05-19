@@ -1,11 +1,11 @@
-import styles from './Item.module.css'
-import type { Item as ItemType } from '../../types'
+import styles from '@/features/items/components/ItemPreview/Item.module.css'
+import type { Item as ItemType } from '@/features/items/types'
 import { Link } from 'react-router-dom'
-// import Star from './Star.svg'
-// import Check from './Check.svg'
-import Heart from './Heart.svg'
-import Bookmark from './Bookmark.svg'
-// import Cart from './Cart.svg'
+// import Star from '@/features/items/components/ItemPreview/Star.svg'
+// import Check from '@/features/items/components/ItemPreview/Check.svg'
+import Heart from '@/features/items/components/ItemPreview/Heart.svg'
+import Bookmark from '@/features/items/components/ItemPreview/Bookmark.svg'
+// import Cart from '@/features/items/components/ItemPreview/Cart.svg'
 
 export function ItemPreview( { item }: { item: ItemType }) {
 

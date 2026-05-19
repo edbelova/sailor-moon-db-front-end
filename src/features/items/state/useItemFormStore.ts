@@ -1,8 +1,8 @@
 import { create } from 'zustand'
-import { getDefaultItemFormValues } from '../components/ItemForm/validation'
-import type { ItemFormValues } from '../components/ItemForm/types'
-import type { ItemImage } from '../components/ItemForm/types'
-import type { ItemFormErrors } from '../components/ItemForm/types'
+import { getDefaultItemFormValues } from '@/features/items/components/ItemForm/validation'
+import type { ItemFormValues } from '@/features/items/components/ItemForm/types'
+import type { ItemImage } from '@/features/items/components/ItemForm/types'
+import type { ItemFormErrors } from '@/features/items/components/ItemForm/types'
 
 type ItemFormState = {
   values: ItemFormValues

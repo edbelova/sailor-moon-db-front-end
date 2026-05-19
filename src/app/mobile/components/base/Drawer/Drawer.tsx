@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { useEffect } from 'react'
-import styles from './Drawer.module.css'
+import styles from '@/app/mobile/components/base/Drawer/Drawer.module.css'
 
 type DrawerProps = {
   isOpen: boolean

@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes } from 'react'
-import styles from './ActionIconButton.module.css'
-import { IconButton } from '../IconButton/IconButton'
+import styles from '@/app/mobile/components/base/ActionIconButton/ActionIconButton.module.css'
+import { IconButton } from '@/app/mobile/components/base/IconButton/IconButton'
 
 export const ActionVariant = {
   HEART: 'heart',

@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { Category } from '../types'
+import type { Category } from '@/features/categories/types'
 
 type CategoryUiState = {
   activeCategory: Category | null

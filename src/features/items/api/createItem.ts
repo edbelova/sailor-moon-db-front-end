@@ -1,5 +1,5 @@
-import type { CreateItemRequest, Item } from '../types'
-import { apiFetch } from '../../../shared/api'
+import type { CreateItemRequest, Item } from '@/features/items/types'
+import { apiFetch } from '@/shared/api'
 
 export const createItem = async (payload: CreateItemRequest): Promise<Item> => {
   const item: CreateItemRequest = {

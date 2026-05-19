@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useCategories } from '../../../../../../features/categories/queries/useCategories'
-import { useCategoryUiStore } from '../../../../../../features/categories/state/useCategoryUiStore'
-import type { Category } from '../../../../../../features/categories/types'
-import styles from './MobileCategoryMenu.module.css'
+import { useCategories } from '@/features/categories/queries/useCategories'
+import { useCategoryUiStore } from '@/features/categories/state/useCategoryUiStore'
+import type { Category } from '@/features/categories/types'
+import styles from '@/app/mobile/features/categories/components/MobileCategoryMenu/MobileCategoryMenu.module.css'
 
 type MobileCategoryMenuProps = {
   onCategorySelect: () => void

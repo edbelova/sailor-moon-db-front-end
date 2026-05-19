@@ -1,6 +1,6 @@
-import { useCategoryUiStore } from "../../state/useCategoryUiStore"
+import { useCategoryUiStore } from "@/features/categories/state/useCategoryUiStore"
 import { Link } from 'react-router-dom'
-import styles from './CategoryBreadCrumbs.module.css'
+import styles from '@/features/categories/components/CategoryBreadCrumbs/CategoryBreadCrumbs.module.css'
 
 export function CategoryBreadCrumbs() {
     const activeCategory = useCategoryUiStore((state) => state.activeCategory)

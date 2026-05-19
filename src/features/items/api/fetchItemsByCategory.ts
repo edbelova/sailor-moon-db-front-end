@@ -1,6 +1,6 @@
-import type { Item } from '../types'
-import { apiFetch } from '../../../shared/api'
-import type { ItemFiltersState } from '../filters/types'
+import type { Item } from '@/features/items/types'
+import { apiFetch } from '@/shared/api'
+import type { ItemFiltersState } from '@/features/items/filters/types'
 
 // Fetches items by category while applying filters and ordering from URL state.
 export async function fetchItemsByCategory(

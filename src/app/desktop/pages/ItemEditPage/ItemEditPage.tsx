@@ -1,14 +1,14 @@
 import { Link, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
-import styles from './ItemEditPage.module.css'
-import { useItemById } from '../../../../features/items/queries/useItemById'
-import { useItemFormStore } from '../../../../features/items/state/useItemFormStore'
-import { buildItemFormValues } from '../../../../features/items/components/ItemForm/validation'
-import { ItemForm } from '../../../../features/items/components/ItemForm/ItemForm'
-import { useCategories } from '../../../../features/categories/queries/useCategories'
-import { useCategoryUiStore } from '../../../../features/categories/state/useCategoryUiStore'
-import { CategoryBreadCrumbs } from '../../../../features/categories/components/CategoryBreadCrumbs/CategoryBreadCrumbs'
-import type { Category } from '../../../../features/categories/types'
+import styles from '@/app/desktop/pages/ItemEditPage/ItemEditPage.module.css'
+import { useItemById } from '@/features/items/queries/useItemById'
+import { useItemFormStore } from '@/features/items/state/useItemFormStore'
+import { buildItemFormValues } from '@/features/items/components/ItemForm/validation'
+import { ItemForm } from '@/features/items/components/ItemForm/ItemForm'
+import { useCategories } from '@/features/categories/queries/useCategories'
+import { useCategoryUiStore } from '@/features/categories/state/useCategoryUiStore'
+import { CategoryBreadCrumbs } from '@/features/categories/components/CategoryBreadCrumbs/CategoryBreadCrumbs'
+import type { Category } from '@/features/categories/types'
 
 export function ItemEditPage() {
   const { itemId } = useParams<{ itemId: string }>()

@@ -1,4 +1,4 @@
-import { apiFetch } from '../../../shared/api'
+import { apiFetch } from '@/shared/api'
 
 // Response shape returned by GET /api/items/filters.
 export type ItemFilterOptions = {

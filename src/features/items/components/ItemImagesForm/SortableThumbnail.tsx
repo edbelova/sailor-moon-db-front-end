@@ -1,8 +1,8 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import styles from './SortableThumbnail.module.css'
-import type { ItemImage } from '../ItemForm/types'
-import TrashBin from './trash-bin.svg'
+import styles from '@/features/items/components/ItemImagesForm/SortableThumbnail.module.css'
+import type { ItemImage } from '@/features/items/components/ItemForm/types'
+import TrashBin from '@/features/items/components/ItemImagesForm/trash-bin.svg'
 
 export function SortableThumbnail({
     img,

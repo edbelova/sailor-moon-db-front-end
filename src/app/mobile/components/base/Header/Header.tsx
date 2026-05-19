@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import styles from './Header.module.css';
+import styles from '@/app/mobile/components/base/Header/Header.module.css';
 
 interface HeaderProps {
   children: ReactNode;

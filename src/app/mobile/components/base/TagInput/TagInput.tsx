@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { KeyboardEvent } from 'react'
-import { Tag } from '../Tag/Tag'
-import styles from './TagInput.module.css'
+import { Tag } from '@/app/mobile/components/base/Tag/Tag'
+import styles from '@/app/mobile/components/base/TagInput/TagInput.module.css'
 
 type TagInputProps = {
   value: string // Shared store uses strings

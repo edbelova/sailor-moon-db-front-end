@@ -1,5 +1,5 @@
-import type { CreateItemRequest, ItemFormErrors, ItemFormValues } from './types'
-import type { Item, UpdateItemRequest } from '../../types'
+import type { CreateItemRequest, ItemFormErrors, ItemFormValues } from '@/features/items/components/ItemForm/types'
+import type { Item, UpdateItemRequest } from '@/features/items/types'
 
 const listSeparator = /[,\n]+/g
 

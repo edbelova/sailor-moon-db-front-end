@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { useCategories } from '../../queries/useCategories'
-import { useCategoryUiStore } from '../../state/useCategoryUiStore'
-import type { Category } from '../../types'
-import styles from './CategoryList.module.css'
+import { useCategories } from '@/features/categories/queries/useCategories'
+import { useCategoryUiStore } from '@/features/categories/state/useCategoryUiStore'
+import type { Category } from '@/features/categories/types'
+import styles from '@/features/categories/components/CategoryList/CategoryList.module.css'
 import { useNavigate } from 'react-router-dom'
 
 export function CategoryList() {

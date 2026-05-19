@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-import type { Category } from '../../../../features/categories/types'
-import styles from './MobileCategorySelector.module.css'
+import type { Category } from '@/features/categories/types'
+import styles from '@/app/mobile/components/MobileCategorySelector/MobileCategorySelector.module.css'
 
 type MobileCategorySelectorProps = {
   value: string

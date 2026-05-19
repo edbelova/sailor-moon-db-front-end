@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { createItem } from '../api/createItem'
-import { itemQueryKeys } from './useItemsByCategory'
-import type { CreateItemRequest, Item } from '../types'
+import { createItem } from '@/features/items/api/createItem'
+import { itemQueryKeys } from '@/features/items/queries/useItemsByCategory'
+import type { CreateItemRequest, Item } from '@/features/items/types'
 
 export const useCreateItem = () => {
   const queryClient = useQueryClient()

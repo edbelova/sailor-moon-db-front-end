@@ -1,5 +1,5 @@
-import styles from '../MobileItemCard.module.css'
-import { ActionIconButton, ActionVariant } from '../../base/ActionIconButton/ActionIconButton'
+import styles from '@/app/mobile/components/MobileItemCard/MobileItemCard.module.css'
+import { ActionIconButton, ActionVariant } from '@/app/mobile/components/base/ActionIconButton/ActionIconButton'
 
 type CardActionsProps = {
   onFavorite?: () => void

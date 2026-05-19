@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import styles from './AboutPage.module.css'
+import styles from '@/app/desktop/pages/AboutPage/AboutPage.module.css'
 
 export function AboutPage() {
   const { itemId } = useParams<{ itemId: string }>()

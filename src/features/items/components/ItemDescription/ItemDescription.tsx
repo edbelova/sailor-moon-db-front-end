@@ -1,5 +1,5 @@
-import styles from './ItemDescription.module.css'
-import type { ItemDescriptionProps } from './types'
+import styles from '@/features/items/components/ItemDescription/ItemDescription.module.css'
+import type { ItemDescriptionProps } from '@/features/items/components/ItemDescription/types'
 
 export function ItemDescription({ description }: ItemDescriptionProps) {
 	return (

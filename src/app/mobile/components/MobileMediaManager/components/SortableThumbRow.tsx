@@ -1,8 +1,8 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { IconButton } from '../../base/IconButton/IconButton'
-import type { ItemImage } from '../../../../../features/items/components/ItemForm/types'
-import styles from '../MobileMediaManager.module.css'
+import { IconButton } from '@/app/mobile/components/base/IconButton/IconButton'
+import type { ItemImage } from '@/features/items/components/ItemForm/types'
+import styles from '@/app/mobile/components/MobileMediaManager/MobileMediaManager.module.css'
 
 type SortableThumbRowProps = {
   img: ItemImage

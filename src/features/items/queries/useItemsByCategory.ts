@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchItemsByCategory } from '../api/fetchItemsByCategory'
-import type { Item } from '../types'
-import type { ItemFiltersState } from '../filters/types'
+import { fetchItemsByCategory } from '@/features/items/api/fetchItemsByCategory'
+import type { Item } from '@/features/items/types'
+import type { ItemFiltersState } from '@/features/items/filters/types'
 
 export const itemQueryKeys = {
   all: ['items'] as const,

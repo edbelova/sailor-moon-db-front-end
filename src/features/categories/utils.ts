@@ -1,4 +1,4 @@
-import type { Category } from './types'
+import type { Category } from '@/features/categories/types'
 
 /**
  * Recursively finds a category by its ID in a tree structure.

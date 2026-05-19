@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import styles from './FilterButton.module.css'
+import styles from '@/app/mobile/components/base/FilterButton/FilterButton.module.css'
 
 interface FilterButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode

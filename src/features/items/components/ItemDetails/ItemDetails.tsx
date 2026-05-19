@@ -1,8 +1,8 @@
-import { ItemAttributeView, ItemAttributeActionView } from '../ItemAttributeView'
-import { defaultFilters } from '../../filters/types'
-import { buildSearchFromFilters } from '../../filters/queryParams'
-import styles from './ItemDetails.module.css'
-import type { ItemDetailsProps } from "./types";
+import { ItemAttributeView, ItemAttributeActionView } from '@/features/items/components/ItemAttributeView'
+import { defaultFilters } from '@/features/items/filters/types'
+import { buildSearchFromFilters } from '@/features/items/filters/queryParams'
+import styles from '@/features/items/components/ItemDetails/ItemDetails.module.css'
+import type { ItemDetailsProps } from "@/features/items/components/ItemDetails/types";
 import { useNavigate } from 'react-router-dom'
 
 export function ItemDetails({

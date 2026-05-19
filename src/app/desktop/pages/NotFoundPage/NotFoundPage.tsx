@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import styles from './NotFoundPage.module.css'
+import styles from '@/app/desktop/pages/NotFoundPage/NotFoundPage.module.css'
 
 export function NotFoundPage() {
   const location = useLocation()

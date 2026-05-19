@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import '../../shared/styles/tokens.css'
-import '../../shared/styles/globals.css'
-import { App } from './App'
+import '@/shared/styles/tokens.css'
+import '@/shared/styles/globals.css'
+import { App } from '@/app/mobile/App'
 
 const queryClient = new QueryClient()
 

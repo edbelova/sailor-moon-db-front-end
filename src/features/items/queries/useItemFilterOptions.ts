@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchItemFilterOptions } from '../api/fetchItemFilterOptions'
+import { fetchItemFilterOptions } from '@/features/items/api/fetchItemFilterOptions'
 
 // React Query hook so autosuggest values share cached data and avoid refetching on every render.
 export function useItemFilterOptions() {

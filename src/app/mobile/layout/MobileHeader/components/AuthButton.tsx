@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../../../../features/auth/useAuth'
-import { PillButton, PillButtonVariant } from '../../../components/base/PillButton/PillButton'
-import styles from '../MobileHeader.module.css'
+import { useAuth } from '@/features/auth/useAuth'
+import { PillButton, PillButtonVariant } from '@/app/mobile/components/base/PillButton/PillButton'
+import styles from '@/app/mobile/layout/MobileHeader/MobileHeader.module.css'
 
 export function AuthButton() {
   const { isAuthenticated, user, logout } = useAuth()

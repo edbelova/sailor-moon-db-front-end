@@ -1,5 +1,5 @@
 import type { ReactNode, ButtonHTMLAttributes } from 'react'
-import styles from './PillButton.module.css'
+import styles from '@/app/mobile/components/base/PillButton/PillButton.module.css'
 
 export const PillButtonVariant = {
   MAGICAL: 'magical',

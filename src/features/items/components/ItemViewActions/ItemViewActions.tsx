@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom'
-import { useDeleteItem } from '../../queries/useDeleteItem'
-import { useCategoryUiStore } from '../../../categories/state/useCategoryUiStore'
-import styles from './ItemViewActions.module.css'
-import EditIcon from './edit.svg'
-import DeleteIcon from './trash-bin.svg'
+import { useDeleteItem } from '@/features/items/queries/useDeleteItem'
+import { useCategoryUiStore } from '@/features/categories/state/useCategoryUiStore'
+import styles from '@/features/items/components/ItemViewActions/ItemViewActions.module.css'
+import EditIcon from '@/features/items/components/ItemViewActions/edit.svg'
+import DeleteIcon from '@/features/items/components/ItemViewActions/trash-bin.svg'
 
 type ItemViewActionsProps = {
     itemId: string

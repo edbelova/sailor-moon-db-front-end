@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import styles from './ContactPage.module.css'
+import styles from '@/app/desktop/pages/ContactPage/ContactPage.module.css'
 
 export function ContactPage() {
   const { itemId } = useParams<{ itemId: string }>()

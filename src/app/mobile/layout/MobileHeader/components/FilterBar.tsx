@@ -1,7 +1,7 @@
-import { Header } from '../../../components/base/Header/Header'
-import { PillButton, PillButtonVariant } from '../../../components/base/PillButton/PillButton'
-import { FilterButton } from '../../../components/base/FilterButton/FilterButton'
-import styles from '../MobileHeader.module.css'
+import { Header } from '@/app/mobile/components/base/Header/Header'
+import { PillButton, PillButtonVariant } from '@/app/mobile/components/base/PillButton/PillButton'
+import { FilterButton } from '@/app/mobile/components/base/FilterButton/FilterButton'
+import styles from '@/app/mobile/layout/MobileHeader/MobileHeader.module.css'
 
 type FilterBarProps = {
   onFilterClick?: () => void

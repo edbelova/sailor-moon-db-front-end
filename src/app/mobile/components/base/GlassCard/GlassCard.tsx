@@ -1,5 +1,5 @@
 import type { ReactNode, HTMLAttributes } from 'react'
-import styles from './GlassCard.module.css'
+import styles from '@/app/mobile/components/base/GlassCard/GlassCard.module.css'
 
 interface GlassCardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode

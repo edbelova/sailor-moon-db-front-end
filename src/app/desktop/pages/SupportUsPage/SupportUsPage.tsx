@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import styles from './SupportUsPage.module.css'
+import styles from '@/app/desktop/pages/SupportUsPage/SupportUsPage.module.css'
 
 export function SupportUsPage() {
   const { itemId } = useParams<{ itemId: string }>()

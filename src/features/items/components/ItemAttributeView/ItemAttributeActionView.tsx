@@ -1,6 +1,6 @@
-import type { ItemAttributeActionViewProps } from "./types";
+import type { ItemAttributeActionViewProps } from "@/features/items/components/ItemAttributeView/types";
 
-import styles from "./ItemAttributeView.module.css";
+import styles from "@/features/items/components/ItemAttributeView/ItemAttributeView.module.css";
 
 
 export function ItemAttributeActionView({ label, values, onAction }: ItemAttributeActionViewProps) {

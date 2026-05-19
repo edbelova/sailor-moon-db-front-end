@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { updateItem } from '../api/updateItem'
-import type { Item, UpdateItemRequest } from '../types'
-import { itemQueryKeys } from './useItemsByCategory'
+import { updateItem } from '@/features/items/api/updateItem'
+import type { Item, UpdateItemRequest } from '@/features/items/types'
+import { itemQueryKeys } from '@/features/items/queries/useItemsByCategory'
 
 type UpdateItemPayload = {
   itemId: string

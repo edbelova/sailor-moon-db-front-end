@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import styles from './MobileFormField.module.css'
+import styles from '@/app/mobile/components/MobileFormField/MobileFormField.module.css'
 
 type MobileFormFieldProps = {
   label: string

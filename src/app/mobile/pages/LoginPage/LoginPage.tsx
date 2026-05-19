@@ -1,11 +1,11 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../../../features/auth/useAuth'
-import Logo from '../../../desktop/layout/Header/Logo.png'
-import { GlassCard } from '../../components/base/GlassCard/GlassCard'
-import { PillInput } from '../../components/base/PillInput/PillInput'
-import { PillButton, PillButtonVariant } from '../../components/base/PillButton/PillButton'
-import styles from './LoginPage.module.css'
+import { useAuth } from '@/features/auth/useAuth'
+import Logo from '@/app/desktop/layout/Header/Logo.png'
+import { GlassCard } from '@/app/mobile/components/base/GlassCard/GlassCard'
+import { PillInput } from '@/app/mobile/components/base/PillInput/PillInput'
+import { PillButton, PillButtonVariant } from '@/app/mobile/components/base/PillButton/PillButton'
+import styles from '@/app/mobile/pages/LoginPage/LoginPage.module.css'
 
 export function MobileLoginPage() {
   const [username, setUsername] = useState('')

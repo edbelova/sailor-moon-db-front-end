@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { MobileLoginPage } from './pages/LoginPage/LoginPage'
-import { MobileMainPage } from './pages/MainPage/MainPage'
-import { MobileItemViewPage } from './pages/ItemViewPage/ItemViewPage'
-import { MobileItemFormPage } from './pages/ItemFormPage/ItemFormPage'
+import { MobileLoginPage } from '@/app/mobile/pages/LoginPage/LoginPage'
+import { MobileMainPage } from '@/app/mobile/pages/MainPage/MainPage'
+import { MobileItemViewPage } from '@/app/mobile/pages/ItemViewPage/ItemViewPage'
+import { MobileItemFormPage } from '@/app/mobile/pages/ItemFormPage/ItemFormPage'
 
 export function App() {
   return (

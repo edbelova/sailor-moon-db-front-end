@@ -1,10 +1,10 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../../../features/auth/useAuth'
-import styles from './Header.module.css'
-import moonIcon from './Moon.svg'
-import Logo from './Logo.png'
-import searchIcon from './Search.svg'
+import { useAuth } from '@/features/auth/useAuth'
+import styles from '@/app/desktop/layout/Header/Header.module.css'
+import moonIcon from '@/app/desktop/layout/Header/Moon.svg'
+import Logo from '@/app/desktop/layout/Header/Logo.png'
+import searchIcon from '@/app/desktop/layout/Header/Search.svg'
 
 export function Header() {
   const { user, isAuthenticated, logout } = useAuth()

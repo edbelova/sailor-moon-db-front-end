@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import styles from './MobileImageGallery.module.css'
+import styles from '@/app/mobile/components/MobileImageGallery/MobileImageGallery.module.css'
 
 type MobileImageGalleryProps = {
   imageUrls: string[]

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../../../features/auth/useAuth'
-import styles from './AddFab.module.css'
+import { useAuth } from '@/features/auth/useAuth'
+import styles from '@/app/mobile/components/AddFab/AddFab.module.css'
 
 export function AddFab() {
   const { isAdmin } = useAuth()

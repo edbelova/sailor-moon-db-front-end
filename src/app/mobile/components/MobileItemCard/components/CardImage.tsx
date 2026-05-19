@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import styles from '../MobileItemCard.module.css'
+import styles from '@/app/mobile/components/MobileItemCard/MobileItemCard.module.css'
 
 type CardImageProps = {
   imageUrl: string

@@ -1,5 +1,5 @@
-import type { Item, UpdateItemRequest } from '../types'
-import { apiFetch } from '../../../shared/api'
+import type { Item, UpdateItemRequest } from '@/features/items/types'
+import { apiFetch } from '@/shared/api'
 
 export const updateItem = async (
   itemId: string,

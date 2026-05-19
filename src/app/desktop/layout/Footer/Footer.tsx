@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import styles from './Footer.module.css'
-import InstagramIcon from './InstagramIcon.svg'
+import styles from '@/app/desktop/layout/Footer/Footer.module.css'
+import InstagramIcon from '@/app/desktop/layout/Footer/InstagramIcon.svg'
 
 export function Footer() {
   return (

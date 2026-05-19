@@ -1,4 +1,4 @@
-import styles from './ItemDetailTitle.module.css'
+import styles from '@/app/mobile/components/ItemDetailTitle/ItemDetailTitle.module.css'
 
 type ItemDetailTitleProps = {
   name: string

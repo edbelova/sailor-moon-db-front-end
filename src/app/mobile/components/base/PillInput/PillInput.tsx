@@ -1,5 +1,5 @@
 import type { InputHTMLAttributes } from 'react'
-import styles from './PillInput.module.css'
+import styles from '@/app/mobile/components/base/PillInput/PillInput.module.css'
 
 interface PillInputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: string

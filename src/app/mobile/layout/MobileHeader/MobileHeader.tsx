@@ -1,11 +1,11 @@
-import { Header } from '../../components/base/Header/Header'
-import styles from './MobileHeader.module.css'
-import { AuthButton } from './components/AuthButton'
-import { MobileBreadcrumbs } from '../../components/MobileBreadcrumbs/MobileBreadcrumbs'
-import { FilterBar } from './components/FilterBar'
-import { Logo } from './components/Logo'
-import { SearchBox } from './components/SearchBox'
-import { IconButton } from '../../components/base/IconButton/IconButton'
+import { Header } from '@/app/mobile/components/base/Header/Header'
+import styles from '@/app/mobile/layout/MobileHeader/MobileHeader.module.css'
+import { AuthButton } from '@/app/mobile/layout/MobileHeader/components/AuthButton'
+import { MobileBreadcrumbs } from '@/app/mobile/components/MobileBreadcrumbs/MobileBreadcrumbs'
+import { FilterBar } from '@/app/mobile/layout/MobileHeader/components/FilterBar'
+import { Logo } from '@/app/mobile/layout/MobileHeader/components/Logo'
+import { SearchBox } from '@/app/mobile/layout/MobileHeader/components/SearchBox'
+import { IconButton } from '@/app/mobile/components/base/IconButton/IconButton'
 
 type MobileHeaderProps = {
   onMenuClick?: () => void

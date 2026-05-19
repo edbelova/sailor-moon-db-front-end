@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import type { User } from './types'
-import { apiFetch } from '../../shared/api'
+import type { User } from '@/features/auth/types'
+import { apiFetch } from '@/shared/api'
 
 export function useAuth() {
   const queryClient = useQueryClient()

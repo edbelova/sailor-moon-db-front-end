@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
-import { useCategoryUiStore } from '../../../../features/categories/state/useCategoryUiStore'
-import type { Category } from '../../../../features/categories/types'
-import styles from './MobileBreadcrumbs.module.css'
+import { useCategoryUiStore } from '@/features/categories/state/useCategoryUiStore'
+import type { Category } from '@/features/categories/types'
+import styles from '@/app/mobile/components/MobileBreadcrumbs/MobileBreadcrumbs.module.css'
 
 type MobileBreadcrumbsProps = {
   category?: Category | null

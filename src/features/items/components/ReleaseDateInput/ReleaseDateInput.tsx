@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react'
 import type { ChangeEvent } from 'react'
-import styles from './ReleaseDateInput.module.css'
+import styles from '@/features/items/components/ReleaseDateInput/ReleaseDateInput.module.css'
 
 type ReleaseDateInputProps = {
   value: string

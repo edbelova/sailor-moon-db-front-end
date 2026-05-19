@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import styles from './MobileAppLayout.module.css'
+import styles from '@/app/mobile/layout/MobileAppLayout/MobileAppLayout.module.css'
 
 type MobileAppLayoutProps = {
   children: ReactNode

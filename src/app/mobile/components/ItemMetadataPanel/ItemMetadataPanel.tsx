@@ -1,5 +1,5 @@
-import { Tag } from '../base/Tag/Tag'
-import styles from './ItemMetadataPanel.module.css'
+import { Tag } from '@/app/mobile/components/base/Tag/Tag'
+import styles from '@/app/mobile/components/ItemMetadataPanel/ItemMetadataPanel.module.css'
 
 type MetadataItemProps = {
   label: string

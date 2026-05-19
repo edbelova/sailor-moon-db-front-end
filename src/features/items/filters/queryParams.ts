@@ -1,4 +1,4 @@
-import { defaultFilters, type ItemFiltersState } from './types'
+import { defaultFilters, type ItemFiltersState } from '@/features/items/filters/types'
 
 // Convert null params to empty strings and trim whitespace so filters are consistent.
 const normalize = (value: string | null) => (value ?? '').trim()

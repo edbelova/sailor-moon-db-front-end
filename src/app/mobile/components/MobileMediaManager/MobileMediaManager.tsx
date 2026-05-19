@@ -13,9 +13,9 @@ import {
   verticalListSortingStrategy, 
   arrayMove 
 } from '@dnd-kit/sortable'
-import type { ItemImage } from '../../../../features/items/components/ItemForm/types'
-import { SortableThumbRow } from './components/SortableThumbRow'
-import styles from './MobileMediaManager.module.css'
+import type { ItemImage } from '@/features/items/components/ItemForm/types'
+import { SortableThumbRow } from '@/app/mobile/components/MobileMediaManager/components/SortableThumbRow'
+import styles from '@/app/mobile/components/MobileMediaManager/MobileMediaManager.module.css'
 
 type MobileMediaManagerProps = {
   images: ItemImage[]

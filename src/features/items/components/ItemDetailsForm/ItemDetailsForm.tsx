@@ -1,6 +1,6 @@
-import styles from './ItemDetailsForm.module.css'
-import { ReleaseDateInput } from '../ReleaseDateInput/ReleaseDateInput'
-import { useItemFormStore } from '../../state/useItemFormStore'
+import styles from '@/features/items/components/ItemDetailsForm/ItemDetailsForm.module.css'
+import { ReleaseDateInput } from '@/features/items/components/ReleaseDateInput/ReleaseDateInput'
+import { useItemFormStore } from '@/features/items/state/useItemFormStore'
 
 export function ItemDetailsForm() {
     const values = useItemFormStore((state) => state.values)

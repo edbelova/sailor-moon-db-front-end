@@ -1,4 +1,4 @@
-import styles from './MobileItemDescription.module.css'
+import styles from '@/app/mobile/components/MobileItemDescription/MobileItemDescription.module.css'
 
 type MobileItemDescriptionProps = {
   description?: string

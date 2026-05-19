@@ -1,5 +1,5 @@
-import styles from './ItemDescriptionForm.module.css'
-import { useItemFormStore } from '../../state/useItemFormStore'
+import styles from '@/features/items/components/ItemDescriptionForm/ItemDescriptionForm.module.css'
+import { useItemFormStore } from '@/features/items/state/useItemFormStore'
 
 export function ItemDescriptionForm() {
     const description = useItemFormStore((state) => state.values.description)

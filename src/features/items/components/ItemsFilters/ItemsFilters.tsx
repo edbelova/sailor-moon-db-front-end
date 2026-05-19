@@ -1,10 +1,10 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import styles from './ItemsFilters.module.css'
-import { defaultFilters, type ItemFiltersState } from '../../filters/types'
-import { buildSearchFromFilters, parseFiltersFromSearch } from '../../filters/queryParams'
-import { useItemFilterOptions } from '../../queries/useItemFilterOptions'
-import Filter from './Filter.svg'
+import styles from '@/features/items/components/ItemsFilters/ItemsFilters.module.css'
+import { defaultFilters, type ItemFiltersState } from '@/features/items/filters/types'
+import { buildSearchFromFilters, parseFiltersFromSearch } from '@/features/items/filters/queryParams'
+import { useItemFilterOptions } from '@/features/items/queries/useItemFilterOptions'
+import Filter from '@/features/items/components/ItemsFilters/Filter.svg'
 
 // Filter panel used on both main and category pages.
 export function ItemsFilters({ trailingControl }: { trailingControl?: ReactNode }) {

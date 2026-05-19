@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import styles from './ItemImages.module.css'
+import styles from '@/features/items/components/ItemImages/ItemImages.module.css'
 
 type ItemImagesProps = {
     images: string[]

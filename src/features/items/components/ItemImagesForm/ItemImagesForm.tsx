@@ -5,11 +5,11 @@ import type { DragEndEvent, DragMoveEvent, DragOverEvent, DragStartEvent } from 
 import { DragOverlay } from '@dnd-kit/core'
 import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useCallback, useRef, useState } from 'react';
-import type { ItemImage } from '../ItemForm/types';
-import styles from './ItemImagesForm.module.css'
-import UploadIcon from './Upload.svg'
-import { useItemFormStore } from '../../state/useItemFormStore';
-import { SortableThumbnail } from './SortableThumbnail';
+import type { ItemImage } from '@/features/items/components/ItemForm/types';
+import styles from '@/features/items/components/ItemImagesForm/ItemImagesForm.module.css'
+import UploadIcon from '@/features/items/components/ItemImagesForm/Upload.svg'
+import { useItemFormStore } from '@/features/items/state/useItemFormStore';
+import { SortableThumbnail } from '@/features/items/components/ItemImagesForm/SortableThumbnail';
 
 type ItemImagesFormProps = {
     images: ItemImage[]

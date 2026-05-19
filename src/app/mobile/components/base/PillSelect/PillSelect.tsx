@@ -1,5 +1,5 @@
 import type { SelectHTMLAttributes } from 'react'
-import styles from './PillSelect.module.css'
+import styles from '@/app/mobile/components/base/PillSelect/PillSelect.module.css'
 
 interface PillSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   containerClassName?: string

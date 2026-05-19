@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../../../features/auth/useAuth'
-import { useDeleteItem } from '../../../../features/items/queries/useDeleteItem'
-import { IconButton } from '../base/IconButton/IconButton'
-import styles from './ItemViewActions.module.css'
+import { useAuth } from '@/features/auth/useAuth'
+import { useDeleteItem } from '@/features/items/queries/useDeleteItem'
+import { IconButton } from '@/app/mobile/components/base/IconButton/IconButton'
+import styles from '@/app/mobile/components/ItemViewActions/ItemViewActions.module.css'
 
 type ItemViewActionsProps = {
   itemId: string

@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom'
-import { CategoryList } from '../../../../features/categories/components/CategoryList/CategoryList'
-import { Footer } from '../Footer/Footer'
-import { Header } from '../Header/Header'
-import styles from './AppLayout.module.css'
+import { CategoryList } from '@/features/categories/components/CategoryList/CategoryList'
+import { Footer } from '@/app/desktop/layout/Footer/Footer'
+import { Header } from '@/app/desktop/layout/Header/Header'
+import styles from '@/app/desktop/layout/AppLayout/AppLayout.module.css'
 
 export function AppLayout() {
   return (

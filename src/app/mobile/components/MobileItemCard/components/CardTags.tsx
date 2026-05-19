@@ -1,5 +1,5 @@
-import styles from '../MobileItemCard.module.css'
-import { Tag } from '../../base/Tag/Tag'
+import styles from '@/app/mobile/components/MobileItemCard/MobileItemCard.module.css'
+import { Tag } from '@/app/mobile/components/base/Tag/Tag'
 
 type CardTagsProps = {
   tags: string[]

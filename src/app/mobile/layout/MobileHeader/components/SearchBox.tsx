@@ -1,5 +1,5 @@
-import { PillInput } from '../../../components/base/PillInput/PillInput'
-import styles from '../MobileHeader.module.css'
+import { PillInput } from '@/app/mobile/components/base/PillInput/PillInput'
+import styles from '@/app/mobile/layout/MobileHeader/MobileHeader.module.css'
 
 export function SearchBox() {
   return (

@@ -22,6 +22,11 @@ const mobileSwitchPlugin = (): Plugin => ({
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), mobileSwitchPlugin()],
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
+    },
+  },
   build: {
     rollupOptions: {
       input: {

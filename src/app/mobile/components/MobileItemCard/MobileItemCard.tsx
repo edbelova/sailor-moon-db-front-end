@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import styles from './MobileItemCard.module.css'
-import { CardActions } from './components/CardActions'
-import { CardImage } from './components/CardImage'
-import { CardTags } from './components/CardTags'
-import { CardTitle } from './components/CardTitle'
+import styles from '@/app/mobile/components/MobileItemCard/MobileItemCard.module.css'
+import { CardActions } from '@/app/mobile/components/MobileItemCard/components/CardActions'
+import { CardImage } from '@/app/mobile/components/MobileItemCard/components/CardImage'
+import { CardTags } from '@/app/mobile/components/MobileItemCard/components/CardTags'
+import { CardTitle } from '@/app/mobile/components/MobileItemCard/components/CardTitle'
 
 type MobileItemCardProps = {
   id: string
