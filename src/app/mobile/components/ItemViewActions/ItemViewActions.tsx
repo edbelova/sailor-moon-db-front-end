@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/features/auth/useAuth'
 import { useDeleteItem } from '@/features/items/queries/useDeleteItem'
-import { IconButton } from '@/app/mobile/components/base/IconButton/IconButton'
-import styles from '@/app/mobile/components/ItemViewActions/ItemViewActions.module.css'
+import { Button } from '@/shared/components/base/Button/Button'
+import styles from './ItemViewActions.module.css'
 
 type ItemViewActionsProps = {
   itemId: string
@@ -33,15 +33,19 @@ export function ItemViewActions({ itemId }: ItemViewActionsProps) {
 
   return (
     <div className={styles.container}>
-      <IconButton 
-        icon="delete" 
+      <Button 
+        variant="ghost"
+        shape="circle"
+        size="sm"
+        iconLeft="delete" 
         onClick={handleDelete} 
-        iconSize={24}
       />
-      <IconButton 
-        icon="edit" 
+      <Button 
+        variant="ghost"
+        shape="circle"
+        size="sm"
+        iconLeft="edit" 
         onClick={handleEdit} 
-        iconSize={24}
       />
     </div>
   )

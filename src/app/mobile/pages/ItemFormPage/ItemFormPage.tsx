@@ -9,7 +9,7 @@ import { useItemFormStore } from '@/features/items/state/useItemFormStore'
 import { uploadItemImages } from '@/features/items/api/uploadItemImage'
 import { MobileAppLayout } from '@/app/mobile/layout/MobileAppLayout/MobileAppLayout'
 import { Header } from '@/app/mobile/components/base/Header/Header'
-import { IconButton } from '@/app/mobile/components/base/IconButton/IconButton'
+import { Button } from '@/shared/components/base/Button/Button'
 import { MobileMediaManager } from '@/app/mobile/components/MobileMediaManager/MobileMediaManager'
 import { MobileFormField } from '@/app/mobile/components/MobileFormField/MobileFormField'
 import { PillInput } from '@/app/mobile/components/base/PillInput/PillInput'
@@ -149,18 +149,22 @@ export function MobileItemFormPage() {
             right={
               <div className={styles.rightActions}>
                 {isEditMode && (
-                  <IconButton 
-                    icon="delete" 
+                  <Button 
+                    variant="ghost"
+                    shape="circle"
+                    size="sm"
+                    iconLeft="delete" 
                     onClick={handleDelete} 
                     disabled={isPending}
-                    iconSize={24}
                   />
                 )}
-                <IconButton 
-                  icon={isPending ? 'sync' : 'save'} 
+                <Button 
+                  variant="ghost"
+                  shape="circle"
+                  size="sm"
+                  iconLeft={isPending ? 'sync' : 'save'} 
                   onClick={handleSave}
                   disabled={isPending}
-                  iconSize={24}
                 />
               </div>
             }

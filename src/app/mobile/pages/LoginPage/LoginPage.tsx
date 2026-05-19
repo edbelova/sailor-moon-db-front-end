@@ -4,7 +4,7 @@ import { useAuth } from '@/features/auth/useAuth'
 import Logo from '@/app/desktop/layout/Header/Logo.png'
 import { GlassCard } from '@/app/mobile/components/base/GlassCard/GlassCard'
 import { PillInput } from '@/app/mobile/components/base/PillInput/PillInput'
-import { PillButton, PillButtonVariant } from '@/app/mobile/components/base/PillButton/PillButton'
+import { Button } from '@/shared/components/base/Button/Button'
 import styles from '@/app/mobile/pages/LoginPage/LoginPage.module.css'
 
 export function MobileLoginPage() {
@@ -87,9 +87,14 @@ export function MobileLoginPage() {
               </label>
             </div>
 
-            <PillButton variant={PillButtonVariant.MAGICAL} type="submit" className={styles.submitBtn}>
-              Log In
-            </PillButton>
+            <Button 
+              variant="magical" 
+              shape="pill" 
+              size="md" 
+              type="submit" 
+              className={styles.submitBtn}
+              caption="Log In"
+            />
           </form>
         </GlassCard>
       </main>

@@ -5,7 +5,7 @@ import { MobileBreadcrumbs } from '@/app/mobile/components/MobileBreadcrumbs/Mob
 import { FilterBar } from '@/app/mobile/layout/MobileHeader/components/FilterBar'
 import { Logo } from '@/app/mobile/layout/MobileHeader/components/Logo'
 import { SearchBox } from '@/app/mobile/layout/MobileHeader/components/SearchBox'
-import { IconButton } from '@/app/mobile/components/base/IconButton/IconButton'
+import { Button } from '@/shared/components/base/Button/Button'
 
 type MobileHeaderProps = {
   onMenuClick?: () => void
@@ -24,7 +24,7 @@ export function MobileHeader({ onMenuClick, onFilterClick }: MobileHeaderProps) 
 
       {/* Row 2: Menu & Breadcrumbs */}
       <Header.CustomRow>
-        <IconButton icon="menu" onClick={onMenuClick} />
+        <Button variant="ghost" shape="circle" size="md" iconLeft="menu" onClick={onMenuClick} />
         <MobileBreadcrumbs />
       </Header.CustomRow>
 

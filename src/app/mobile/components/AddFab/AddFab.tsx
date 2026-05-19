@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/features/auth/useAuth'
+import { Button } from '@/shared/components/base/Button/Button'
 import styles from '@/app/mobile/components/AddFab/AddFab.module.css'
 
 export function AddFab() {
@@ -9,12 +10,15 @@ export function AddFab() {
   if (!isAdmin) return null
 
   return (
-    <button 
-      className={styles.fab} 
-      onClick={() => navigate('/items/new')}
-      aria-label="Add new item"
-    >
-      <span className="material-symbols-outlined">add</span>
-    </button>
+    <div className={styles.fabContainer}>
+      <Button 
+        variant="magical"
+        shape="circle"
+        size="lg"
+        iconLeft="add"
+        onClick={() => navigate('/items/new')}
+        aria-label="Add new item"
+      />
+    </div>
   )
 }

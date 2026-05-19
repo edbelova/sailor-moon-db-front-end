@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { useEffect } from 'react'
+import { Button } from '@/shared/components/base/Button/Button'
 import styles from '@/app/mobile/components/base/Drawer/Drawer.module.css'
 
 type DrawerProps = {
@@ -33,9 +34,13 @@ export function Drawer({ isOpen, onClose, children, title }: DrawerProps) {
       <aside className={`${styles.drawer} ${isOpen ? styles.drawerOpen : ''}`}>
         <div className={styles.header}>
           <h2 className={styles.title}>{title}</h2>
-          <button className={styles.closeBtn} onClick={onClose}>
-            <span className="material-symbols-outlined">close</span>
-          </button>
+          <Button 
+            variant="ghost" 
+            shape="circle" 
+            size="md" 
+            iconLeft="close" 
+            onClick={onClose} 
+          />
         </div>
         <div className={styles.content}>
           {children}

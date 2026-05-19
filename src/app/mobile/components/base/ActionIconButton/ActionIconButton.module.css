@@ -1,25 +1,15 @@
 .button {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background: transparent;
   color: var(--color-on-surface-variant);
-  transition: all 0.2s ease;
 }
 
 .button:hover {
   color: var(--color-on-surface);
 }
 
-.heartActive span {
-  color: var(--color-heart);
-  font-variation-settings: "FILL" 1;
+.heartActive {
+  color: var(--color-heart) !important;
 }
 
-.bookmarkActive span {
-  color: var(--color-bookmark);
-  font-variation-settings: "FILL" 1;
+.bookmarkActive {
+  color: var(--color-bookmark) !important;
 }

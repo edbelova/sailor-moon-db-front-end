@@ -1,0 +1,117 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-family-base);
+  transition: transform 0.1s ease, background-color 0.2s ease, opacity 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.95);
+  transition-duration: 0.05s;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Shapes */
+.shape-pill {
+  border-radius: var(--radius-full);
+}
+
+.shape-circle {
+  border-radius: var(--radius-full);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+/* Sizes */
+/* size: sm */
+.size-sm.shape-pill {
+  height: 32px;
+  padding: 0 var(--spacing-md);
+  font-size: var(--font-size-sm);
+  gap: var(--spacing-sm);
+  --icon-size: 18px;
+}
+.size-sm.shape-circle {
+  width: 32px;
+  height: 32px;
+  --icon-size: 20px;
+}
+
+/* size: md */
+.size-md.shape-pill {
+  height: 40px;
+  padding: 0 var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  gap: var(--spacing-sm);
+  --icon-size: 20px;
+}
+.size-md.shape-circle {
+  width: 40px;
+  height: 40px;
+  --icon-size: 24px;
+}
+
+/* size: lg */
+.size-lg.shape-pill {
+  height: 48px;
+  padding: 0 var(--spacing-xl);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  gap: var(--spacing-md);
+  --icon-size: 24px;
+}
+.size-lg.shape-circle {
+  width: 56px;
+  height: 56px;
+  --icon-size: 28px;
+}
+
+/* Variants */
+.variant-magical {
+  background: var(--gradient-magical);
+  color: var(--color-on-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.variant-surface {
+  background-color: var(--color-surface);
+  border: 1px solid var(--border-divider);
+  color: var(--color-on-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.variant-neutral {
+  background-color: var(--color-accent);
+  color: var(--color-on-surface-variant);
+  border: 1px solid var(--border-divider);
+}
+
+.variant-ghost {
+  background: transparent;
+  color: var(--color-on-surface);
+}
+
+.variant-ghost:active:not(:disabled) {
+  background-color: rgba(0, 0, 0, 0.05);
+  transition-duration: 0.05s;
+}
+
+/* Material icon sizing helper */
+.icon {
+  font-size: var(--icon-size) !important;
+}
+
+.iconFilled .icon {
+  font-variation-settings: "FILL" 1;
+}

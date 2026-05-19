@@ -1,6 +1,6 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { IconButton } from '@/app/mobile/components/base/IconButton/IconButton'
+import { Button } from '@/shared/components/base/Button/Button'
 import type { ItemImage } from '@/features/items/components/ItemForm/types'
 import styles from '@/app/mobile/components/MobileMediaManager/MobileMediaManager.module.css'
 
@@ -49,11 +49,13 @@ export function SortableThumbRow({ img, onDelete, onSelect }: SortableThumbRowPr
       <div className={styles.thumbInfo} onClick={() => onSelect(img.key)}>
         <p className={styles.fileName}>{img.key.split('/').pop()}</p>
       </div>
-      <IconButton 
-        icon="delete" 
+      <Button 
+        variant="ghost"
+        shape="circle"
+        size="sm"
+        iconLeft="delete" 
         onClick={() => onDelete(img.key)} 
         className={styles.deleteBtn}
-        iconSize={20}
       />
     </div>
   )

@@ -1,6 +1,7 @@
 import type { ButtonHTMLAttributes } from 'react'
+import type { MaterialIcon } from '@/shared/types/icons'
 import styles from '@/app/mobile/components/base/ActionIconButton/ActionIconButton.module.css'
-import { IconButton } from '@/app/mobile/components/base/IconButton/IconButton'
+import { Button } from '@/shared/components/base/Button/Button'
 
 export const ActionVariant = {
   HEART: 'heart',
@@ -9,18 +10,16 @@ export const ActionVariant = {
 
 export type ActionVariant = typeof ActionVariant[keyof typeof ActionVariant]
 
-interface ActionIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  icon: string
+interface ActionIconButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
+  icon: MaterialIcon
   active?: boolean
   variant: ActionVariant
-  iconSize?: number
 }
 
 export function ActionIconButton({ 
   icon, 
   active = false, 
   variant,
-  iconSize = 18,
   className = '',
   onClick,
   ...props 
@@ -35,9 +34,12 @@ export function ActionIconButton({
   }
 
   return (
-    <IconButton
-      icon={icon}
-      iconSize={iconSize}
+    <Button
+      variant="ghost"
+      shape="circle"
+      size="sm"
+      iconLeft={icon}
+      iconFilled={active}
       className={`${styles.button} ${activeClass} ${className}`.trim()}
       onClick={handleClick}
       {...props}

@@ -1,35 +1,11 @@
-.button {
+.filterButton {
+  /* Enforce no-shrink since it lives in a horizontal scroll container */
   flex-shrink: 0;
-  height: 36px;
-  padding: 0 var(--spacing-lg);
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  cursor: pointer;
-  border: 1px solid var(--border-divider);
-  background-color: var(--color-accent);
-  color: var(--color-on-surface-variant);
-  transition: transform 0.1s ease;
-}
-
-.button:active {
-  transform: scale(0.95);
-}
-
-.label {
-  white-space: nowrap;
+  /* Specific padding for filters */
+  padding: 0 var(--spacing-lg) !important;
 }
 
 .active {
-  background-color: var(--color-active-pill);
-  color: var(--color-text-category);
-  font-weight: var(--font-weight-bold);
-}
-
-.arrow {
-  font-size: var(--font-size-xs);
-  margin-left: var(--spacing-xs);
-  opacity: 0.7;
+  color: var(--color-text-category) !important;
+  font-weight: var(--font-weight-bold) !important;
 }

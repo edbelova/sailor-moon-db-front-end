@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/features/auth/useAuth'
-import { PillButton, PillButtonVariant } from '@/app/mobile/components/base/PillButton/PillButton'
-import styles from '@/app/mobile/layout/MobileHeader/MobileHeader.module.css'
+import { Button } from '@/shared/components/base/Button/Button'
 
 export function AuthButton() {
   const { isAuthenticated, user, logout } = useAuth()
@@ -9,18 +8,26 @@ export function AuthButton() {
 
   if (isAuthenticated) {
     return (
-      <PillButton variant={PillButtonVariant.MAGICAL} onClick={() => logout()}>
-        <span className="material-symbols-outlined">account_circle</span>
-        <span className={styles.username}>{user?.username}</span>
-      </PillButton>
+      <Button 
+        variant="magical" 
+        shape="pill" 
+        size="md" 
+        onClick={() => logout()} 
+        iconLeft="account_circle"
+        caption={user?.username}
+      />
     )
   }
 
   return (
-    <PillButton variant={PillButtonVariant.MAGICAL} onClick={() => navigate('/login')}>
-      <span className="material-symbols-outlined">account_circle</span>
-      <span>Login</span>
-    </PillButton>
+    <Button 
+      variant="magical" 
+      shape="pill" 
+      size="md" 
+      onClick={() => navigate('/login')} 
+      iconLeft="account_circle"
+      caption="Login"
+    />
   )
 }
 

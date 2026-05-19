@@ -3,7 +3,7 @@ import { useItemById } from '@/features/items/queries/useItemById'
 import { useCategories } from '@/features/categories/queries/useCategories'
 import { useCategoryUiStore } from '@/features/categories/state/useCategoryUiStore'
 import { MobileAppLayout } from '@/app/mobile/layout/MobileAppLayout/MobileAppLayout'
-import { IconButton } from '@/app/mobile/components/base/IconButton/IconButton'
+import { Button } from '@/shared/components/base/Button/Button'
 import { MobileImageGallery } from '@/app/mobile/components/MobileImageGallery/MobileImageGallery'
 import { ItemDetailTitle } from '@/app/mobile/components/ItemDetailTitle/ItemDetailTitle'
 import { ItemMetadataPanel } from '@/app/mobile/components/ItemMetadataPanel/ItemMetadataPanel'
@@ -49,8 +49,11 @@ export function MobileItemViewPage() {
         <Header>
           <Header.StandardRow
             left={
-              <IconButton 
-                icon="arrow_back" 
+              <Button 
+                variant="ghost"
+                shape="circle"
+                size="sm"
+                iconLeft="arrow_back" 
                 onClick={handleBack} 
                 className={styles.backBtn}
               />

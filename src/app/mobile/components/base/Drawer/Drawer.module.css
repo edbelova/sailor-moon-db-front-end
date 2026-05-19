@@ -49,16 +49,6 @@
   margin: 0;
 }
 
-.closeBtn {
-  border: none;
-  background: transparent;
-  color: var(--color-on-surface-variant);
-  cursor: pointer;
-  padding: var(--spacing-sm);
-  display: flex;
-  align-items: center;
-}
-
 .content {
   flex: 1;
   overflow-y: auto;
