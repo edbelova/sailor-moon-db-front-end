@@ -3,6 +3,7 @@ export type MaterialIcon =
   | 'add'
   | 'arrow_back'
   | 'arrow_drop_down'
+  | 'arrow_drop_up'
   | 'bookmark'
   | 'check'
   | 'chevron_right'

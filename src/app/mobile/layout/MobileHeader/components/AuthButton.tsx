@@ -1,10 +1,11 @@
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/features/auth/useAuth'
 import { Button } from '@/shared/components/base/Button/Button'
 
 export function AuthButton() {
   const { isAuthenticated, user, logout } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
 
   if (isAuthenticated) {
     return (
@@ -24,7 +25,7 @@ export function AuthButton() {
       variant="magical" 
       shape="pill" 
       size="md" 
-      onClick={() => navigate('/login')} 
+      onClick={() => navigate('/login', { state: { from: location } })} 
       iconLeft="account_circle"
       caption="Login"
     />

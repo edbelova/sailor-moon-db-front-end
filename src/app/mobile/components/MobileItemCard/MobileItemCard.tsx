@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styles from '@/app/mobile/components/MobileItemCard/MobileItemCard.module.css'
 import { CardActions } from '@/app/mobile/components/MobileItemCard/components/CardActions'
 import { CardImage } from '@/app/mobile/components/MobileItemCard/components/CardImage'
@@ -26,9 +26,10 @@ export function MobileItemCard({
   const [isFavorite, setIsFavorite] = useState(false)
   const [isBookmarked, setIsBookmarked] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
 
   const handleCardClick = () => {
-    navigate(`/items/${id}`)
+    navigate({ pathname: `/items/${id}`, search: location.search })
   }
 
   const handleFavorite = () => {

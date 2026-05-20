@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/features/auth/useAuth'
 import { useDeleteItem } from '@/features/items/queries/useDeleteItem'
 import { Button } from '@/shared/components/base/Button/Button'
@@ -11,19 +11,20 @@ type ItemViewActionsProps = {
 export function ItemViewActions({ itemId }: ItemViewActionsProps) {
   const { isAdmin } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
   const deleteMutation = useDeleteItem()
 
   if (!isAdmin) return null
 
   const handleEdit = () => {
-    navigate(`/items/${itemId}/edit`)
+    navigate({ pathname: `/items/${itemId}/edit`, search: location.search })
   }
 
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to remove this item from the museum archives?')) {
       try {
         await deleteMutation.mutateAsync(itemId)
-        navigate('/', { replace: true })
+        navigate({ pathname: '/', search: location.search }, { replace: true })
       } catch (err) {
         console.error('Failed to delete item', err)
         alert('Failed to delete item. Please try again.')

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useCategoryUiStore } from '@/features/categories/state/useCategoryUiStore'
 import type { Category } from '@/features/categories/types'
 import styles from '@/app/mobile/components/MobileBreadcrumbs/MobileBreadcrumbs.module.css'
@@ -10,16 +10,17 @@ type MobileBreadcrumbsProps = {
 export function MobileBreadcrumbs({ category }: MobileBreadcrumbsProps) {
   const { activeCategory: storeCategory } = useCategoryUiStore()
   const navigate = useNavigate()
+  const location = useLocation()
 
   // Use the passed category if available (detail page), otherwise use the store (gallery)
   const currentCategory = category !== undefined ? category : storeCategory
 
   const handleReset = () => {
-    navigate('/')
+    navigate({ pathname: '/', search: location.search })
   }
 
   const handleCategoryClick = (cat: Category) => {
-    navigate(`/${cat.id}`)
+    navigate({ pathname: `/${cat.id}`, search: location.search })
   }
 
   // Build the trail of categories

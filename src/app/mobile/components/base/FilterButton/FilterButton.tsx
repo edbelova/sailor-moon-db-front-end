@@ -5,13 +5,13 @@ import styles from '@/app/mobile/components/base/FilterButton/FilterButton.modul
 interface FilterButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
   children?: string
   active?: boolean
-  hasArrow?: boolean
+  direction?: 'asc' | 'desc'
 }
 
 export function FilterButton({ 
   children, 
   active = false, 
-  hasArrow = false, 
+  direction, 
   className = '',
   ...props 
 }: FilterButtonProps) {
@@ -23,7 +23,7 @@ export function FilterButton({
       shape="pill" 
       size="sm" 
       caption={children}
-      iconRight={hasArrow ? 'arrow_drop_down' : undefined}
+      iconRight={direction === 'asc' ? 'arrow_drop_up' : direction === 'desc' ? 'arrow_drop_down' : undefined}
       className={buttonClass} 
       {...props} 
     />

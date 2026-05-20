@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import { useCategoryUiStore } from '@/features/categories/state/useCategoryUiStore'
 import { useCategories } from '@/features/categories/queries/useCategories'
 import { useItemsByCategory } from '@/features/items/queries/useItemsByCategory'
-import { defaultFilters } from '@/features/items/filters/types'
+import { parseFiltersFromSearch } from '@/features/items/filters/queryParams'
 import { MobileItemCard } from '@/app/mobile/components/MobileItemCard/MobileItemCard'
 import { MobileHeader } from '@/app/mobile/layout/MobileHeader/MobileHeader'
 import { MobileAppLayout } from '@/app/mobile/layout/MobileAppLayout/MobileAppLayout'
@@ -16,13 +16,16 @@ import styles from '@/app/mobile/pages/MainPage/MainPage.module.css'
 export function MobileMainPage() {
   const { categoryId } = useParams<{ categoryId: string }>()
   const navigate = useNavigate()
+  const location = useLocation()
   const { data: categories = [], isLoading: categoriesLoading, isError: categoriesError } = useCategories()
   const activeCategory = useCategoryUiStore((state) => state.activeCategory)
   const setActiveCategory = useCategoryUiStore((state) => state.setActiveCategory)
 
+  const currentFilters = parseFiltersFromSearch(location.search)
+
   const { data: items = [], isLoading } = useItemsByCategory(
     activeCategory?.id ?? null,
-    defaultFilters
+    currentFilters
   )
 
   const activeCategoryId = activeCategory?.id ?? null

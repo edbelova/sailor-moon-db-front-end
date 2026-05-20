@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '@/features/auth/useAuth'
 import Logo from '@/app/desktop/layout/Header/Logo.png'
 import { GlassCard } from '@/app/mobile/components/base/GlassCard/GlassCard'
@@ -14,13 +14,16 @@ export function MobileLoginPage() {
   const [error, setError] = useState<string | null>(null)
   const { login } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
+
+  const from = location.state?.from || { pathname: '/' }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setError(null)
     try {
       await login(username, password, rememberMe)
-      navigate('/', { replace: true })
+      navigate(from, { replace: true })
     } catch {
       setError('Invalid collector ID or password')
     }

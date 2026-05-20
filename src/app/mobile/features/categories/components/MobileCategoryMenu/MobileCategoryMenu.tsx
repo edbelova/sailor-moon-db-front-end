@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useCategories } from '@/features/categories/queries/useCategories'
 import { useCategoryUiStore } from '@/features/categories/state/useCategoryUiStore'
 import type { Category } from '@/features/categories/types'
@@ -14,9 +14,10 @@ export function MobileCategoryMenu({ onCategorySelect }: MobileCategoryMenuProps
   const { activeCategory } = useCategoryUiStore()
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const navigate = useNavigate()
+  const location = useLocation()
 
   const handleParentSelect = (category: Category) => {
-    navigate(`/${category.id}`)
+    navigate({ pathname: `/${category.id}`, search: location.search })
     onCategorySelect() // Close drawer on selection
   }
 
@@ -26,7 +27,7 @@ export function MobileCategoryMenu({ onCategorySelect }: MobileCategoryMenuProps
   }
 
   const handleChildClick = (category: Category) => {
-    navigate(`/${category.id}`)
+    navigate({ pathname: `/${category.id}`, search: location.search })
     onCategorySelect()
   }
 
@@ -36,7 +37,7 @@ export function MobileCategoryMenu({ onCategorySelect }: MobileCategoryMenuProps
       <div 
         className={`${styles.parentItem} ${!activeCategory ? styles.parentActive : ''}`} 
         onClick={() => {
-          navigate('/')
+          navigate({ pathname: '/', search: location.search })
           onCategorySelect()
         }}
       >

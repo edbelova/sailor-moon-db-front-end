@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useItemById } from '@/features/items/queries/useItemById'
 import { useCategories } from '@/features/categories/queries/useCategories'
 import { useCategoryUiStore } from '@/features/categories/state/useCategoryUiStore'
@@ -10,7 +10,7 @@ import { ItemMetadataPanel } from '@/app/mobile/components/ItemMetadataPanel/Ite
 import { MobileItemDescription } from '@/app/mobile/components/MobileItemDescription/MobileItemDescription'
 import { ItemViewActions } from '@/app/mobile/components/ItemViewActions/ItemViewActions'
 import styles from '@/app/mobile/pages/ItemViewPage/ItemViewPage.module.css'
-import { buildSearchFromFilters } from '@/features/items/filters/queryParams'
+import { buildSearchFromFilters, parseFiltersFromSearch } from '@/features/items/filters/queryParams'
 import { defaultFilters } from '@/features/items/filters/types'
 import { MobileBreadcrumbs } from '@/app/mobile/components/MobileBreadcrumbs/MobileBreadcrumbs'
 import { findCategoryById } from '@/features/categories/utils'
@@ -19,6 +19,7 @@ import { Header } from '@/app/mobile/components/base/Header/Header'
 export function MobileItemViewPage() {
   const { itemId } = useParams<{ itemId: string }>()
   const navigate = useNavigate()
+  const location = useLocation()
   const { data: item, isLoading, isError } = useItemById(itemId)
   const { data: categories = [] } = useCategories()
   const activeCategory = useCategoryUiStore((state) => state.activeCategory)
@@ -29,15 +30,16 @@ export function MobileItemViewPage() {
   const handleBack = () => {
     // Navigate to the current filter state in the store
     const path = activeCategory ? `/${activeCategory.id}` : '/'
-    navigate(path)
+    navigate({ pathname: path, search: location.search })
   }
 
   // Find the specific category object for the breadcrumbs without setting it globally
   const itemCategory = item.categoryId ? findCategoryById(categories, item.categoryId) : null
 
   const handleAttributeClick = (field: string, value: string) => {
+    const filters = parseFiltersFromSearch(location.search)
     const search = buildSearchFromFilters({
-      ...defaultFilters,
+      ...filters,
       [field as keyof typeof defaultFilters]: value,
     })
     navigate({ pathname: '/', search })

@@ -140,7 +140,7 @@ export function MobileItemFormPage() {
             left={
               <button 
                 className={styles.cancelBtn} 
-                onClick={() => navigate(isEditMode ? `/items/${itemId}` : '/')} 
+                onClick={() => navigate({ pathname: isEditMode ? `/items/${itemId}` : '/', search: location.search })} 
                 disabled={isPending}
               >
                 Cancel
