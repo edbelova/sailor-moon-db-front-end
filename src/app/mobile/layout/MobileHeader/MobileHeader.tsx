@@ -24,7 +24,14 @@ export function MobileHeader({ onMenuClick, onFilterClick }: MobileHeaderProps) 
 
       {/* Row 2: Menu & Breadcrumbs */}
       <Header.CustomRow>
-        <Button variant="ghost" shape="circle" size="md" iconLeft="menu" onClick={onMenuClick} />
+        <Button 
+          variant="ghost" 
+          shape="circle" 
+          size="sm" 
+          iconLeft="menu" 
+          onClick={onMenuClick} 
+          className={styles.menuBtn}
+        />
         <MobileBreadcrumbs />
       </Header.CustomRow>
 

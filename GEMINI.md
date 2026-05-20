@@ -60,9 +60,10 @@ Follow the "Modern Museum" aesthetic defined in `DESIGN.md`:
 
 - **Install Dependencies:** `npm install`
 - **Development Server:** `npm run dev` (Runs at `http://localhost:5173`)
-- **Build Project:** `npm run build` (Runs `tsc` then `vite build`)
-- **Linting:** `npm run lint` (ESLint)
-- **Preview Build:** `npm run preview`
+- **Build Project:** `npm run build` (Runs `tsc -b` for type checking then `vite build`)
+- **Local Production Preview:** `npm run preview` (Serve the `dist` folder locally)
+- **Linting:** `npm run lint` (Runs ESLint across the project)
+- **Deployment:** `./deploy.sh` (Automated build and sync to production server)
 
 ## Deployment
 

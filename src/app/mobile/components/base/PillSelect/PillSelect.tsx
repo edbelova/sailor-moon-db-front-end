@@ -1,18 +1,32 @@
 import type { SelectHTMLAttributes } from 'react'
 import styles from '@/app/mobile/components/base/PillSelect/PillSelect.module.css'
 
-interface PillSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+export type PillSelectSize = 'sm' | 'md' | 'lg'
+export type PillSelectShape = 'pill' | 'rounded'
+
+interface PillSelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
+  size?: PillSelectSize
+  shape?: PillSelectShape
   containerClassName?: string
 }
 
 export function PillSelect({ 
+  size = 'md',
+  shape = 'pill',
   containerClassName = '', 
   className = '', 
   children,
   ...props 
 }: PillSelectProps) {
+  const containerClass = [
+    styles.container,
+    styles[`size-${size}`],
+    styles[`shape-${shape}`],
+    containerClassName
+  ].filter(Boolean).join(' ')
+
   return (
-    <div className={`${styles.container} ${containerClassName}`.trim()}>
+    <div className={containerClass}>
       <select className={`${styles.select} ${className}`.trim()} {...props}>
         {children}
       </select>

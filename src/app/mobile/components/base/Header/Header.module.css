@@ -4,13 +4,15 @@
   z-index: 50;
   display: flex;
   flex-direction: column;
+  padding-top: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
 }
 
 .row {
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
-  padding: var(--spacing-sm) var(--grid-margin);
+  padding: var(--spacing-xs) var(--grid-margin);
   width: 100%;
 }
 
@@ -19,10 +21,8 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: var(--spacing-sm) var(--grid-margin);
+  padding: var(--spacing-xs) var(--grid-margin);
   gap: var(--spacing-md);
-  /* The children will handle positioning if center or right is missing,
-     because flex layout with space-between will naturally push them apart. */
 }
 
 /* If there's a center item, we want it to be centered. If we only have left and right, space-between works well.

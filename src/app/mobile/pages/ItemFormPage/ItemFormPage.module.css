@@ -56,7 +56,6 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-on-surface-variant);
-  text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 0;
 }
@@ -71,8 +70,8 @@
   width: 100%;
   background-color: var(--color-surface);
   border: 1px solid var(--border-divider);
-  border-radius: 8px; /* Matches --radius-sm */
-  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md) var(--spacing-lg);
   font-size: var(--font-size-md);
   font-family: var(--font-family-base);
   color: var(--color-on-surface);

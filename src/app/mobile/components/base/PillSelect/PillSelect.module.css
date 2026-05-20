@@ -1,12 +1,33 @@
 .container {
   display: flex;
   align-items: center;
-  height: 40px;
-  border-radius: var(--radius-full);
   background-color: var(--color-surface);
   border: 1px solid var(--border-divider);
   position: relative;
   overflow: hidden;
+}
+
+.shape-pill {
+  border-radius: var(--radius-full);
+}
+
+.shape-rounded {
+  border-radius: var(--radius-sm);
+}
+
+.size-sm {
+  height: 32px;
+  --arrow-size: 18px;
+}
+
+.size-md {
+  height: 40px;
+  --arrow-size: 20px;
+}
+
+.size-lg {
+  height: 48px;
+  --arrow-size: 24px;
 }
 
 .select {
@@ -22,10 +43,20 @@
   appearance: none;
 }
 
+.size-sm .select {
+  font-size: var(--font-size-sm);
+  padding: 0 var(--spacing-sm);
+  padding-right: 32px;
+}
+
 .arrow {
   position: absolute;
   right: 12px;
   pointer-events: none;
   color: var(--color-on-surface-variant);
-  font-size: 20px;
+  font-size: var(--arrow-size);
+}
+
+.size-sm .arrow {
+  right: 8px;
 }

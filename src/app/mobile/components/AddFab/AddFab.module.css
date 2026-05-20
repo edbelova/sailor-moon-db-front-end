@@ -1,6 +1,6 @@
 .fabContainer {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: var(--spacing-xl);
+  right: var(--spacing-xl);
   z-index: 50;
 }

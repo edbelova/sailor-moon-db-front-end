@@ -30,7 +30,6 @@
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   color: var(--border-outline);
-  text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 0;
 }

@@ -34,10 +34,10 @@
 
 .content {
   height: 35%;
-  padding: var(--spacing-sm);
+  padding: var(--spacing-md);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Title stays at the top of content area */
+  justify-content: flex-start;
 }
 
 .title {
@@ -53,7 +53,7 @@
 }
 
 .footer {
-  margin-top: auto; /* Anchors the tags to the bottom of the card */
+  margin-top: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -64,21 +64,21 @@
   flex-wrap: nowrap;
   gap: var(--spacing-xs);
   overflow: hidden;
-  flex: 1; /* Take all available space in the footer */
-  min-width: 0; /* Allow container to shrink */
+  flex: 1;
+  min-width: 0;
 }
 
 .tag {
-  flex-shrink: 1 !important; /* Force shrink in this specific context */
+  flex-shrink: 1 !important;
   min-width: 0;
 }
 
 .actions {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--spacing-xs);
   z-index: 20;
 }

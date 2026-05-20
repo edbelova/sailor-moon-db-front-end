@@ -20,8 +20,14 @@
 }
 
 .row3 {
-  padding: var(--spacing-xs) var(--grid-margin) var(--spacing-md);
   overflow: hidden;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.menuBtn {
+  margin-left: -6px; /* Optical alignment: Pull the icon 6px left to align with logo/filter edges */
 }
 
 .filterBtn {

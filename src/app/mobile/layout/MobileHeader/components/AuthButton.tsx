@@ -12,7 +12,7 @@ export function AuthButton() {
       <Button 
         variant="magical" 
         shape="pill" 
-        size="md" 
+        size="sm" 
         onClick={() => logout()} 
         iconLeft="account_circle"
         caption={user?.username}
@@ -24,7 +24,7 @@ export function AuthButton() {
     <Button 
       variant="magical" 
       shape="pill" 
-      size="md" 
+      size="sm" 
       onClick={() => navigate('/login', { state: { from: location } })} 
       iconLeft="account_circle"
       caption="Login"

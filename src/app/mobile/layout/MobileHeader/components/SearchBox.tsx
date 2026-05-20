@@ -41,6 +41,7 @@ function SearchBoxInner({ initialTerm, onSearch }: SearchBoxInnerProps) {
   return (
     <form onSubmit={handleSubmit} className={styles.searchContainer}>
       <PillInput 
+        size="sm"
         icon="search"
         placeholder="Search..."
         value={term}

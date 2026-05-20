@@ -15,7 +15,7 @@ export function AddFab() {
       <Button 
         variant="magical"
         shape="circle"
-        size="lg"
+        size="md"
         iconLeft="add"
         onClick={() => navigate({ pathname: '/items/new', search: location.search })}
         aria-label="Add new item"

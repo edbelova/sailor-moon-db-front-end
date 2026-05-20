@@ -1,16 +1,46 @@
 .container {
   display: flex;
   align-items: center;
-  height: 40px;
-  padding: 0 var(--spacing-md);
-  border-radius: var(--radius-full);
   background-color: var(--color-surface);
   border: 1px solid var(--border-subtle);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.container span {
-  font-size: 18px;
+.shape-pill {
+  border-radius: var(--radius-full);
+}
+
+.shape-rounded {
+  border-radius: var(--radius-sm);
+}
+
+.container:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(0, 102, 134, 0.1);
+}
+
+.size-sm {
+  height: 32px;
+  padding: 0 var(--spacing-sm);
+  --icon-size: 18px;
+}
+
+.size-md {
+  height: 40px;
+  padding: 0 var(--spacing-md);
+  --icon-size: 18px;
+}
+
+.size-lg {
+  height: 48px;
+  padding: 0 var(--spacing-lg);
+  --icon-size: 20px;
+}
+
+.icon {
+  font-size: var(--icon-size) !important;
   color: var(--color-on-surface-variant);
+  flex-shrink: 0;
 }
 
 .input {
@@ -21,6 +51,10 @@
   font-size: var(--font-size-md);
   outline: none;
   color: var(--color-on-surface);
+}
+
+.size-sm .input {
+  font-size: var(--font-size-sm);
 }
 
 .input::placeholder {

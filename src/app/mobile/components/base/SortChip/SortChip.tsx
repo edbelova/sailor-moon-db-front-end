@@ -1,21 +1,21 @@
 import type { ButtonHTMLAttributes } from 'react'
 import { Button } from '@/shared/components/base/Button/Button'
-import styles from '@/app/mobile/components/base/FilterButton/FilterButton.module.css'
+import styles from '@/app/mobile/components/base/SortChip/SortChip.module.css'
 
-interface FilterButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
+interface SortChipProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
   children?: string
   active?: boolean
   direction?: 'asc' | 'desc'
 }
 
-export function FilterButton({ 
+export function SortChip({ 
   children, 
   active = false, 
   direction, 
   className = '',
   ...props 
-}: FilterButtonProps) {
-  const buttonClass = `${styles.filterButton} ${active ? styles.active : ''} ${className}`.trim()
+}: SortChipProps) {
+  const buttonClass = `${styles.sortChip} ${active ? styles.active : ''} ${className}`.trim()
   
   return (
     <Button 

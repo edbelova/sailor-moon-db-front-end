@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Header } from '@/app/mobile/components/base/Header/Header'
 import { Button } from '@/shared/components/base/Button/Button'
-import { FilterButton } from '@/app/mobile/components/base/FilterButton/FilterButton'
+import { SortChip } from '@/app/mobile/components/base/SortChip/SortChip'
 import { parseFiltersFromSearch, buildSearchFromFilters } from '@/features/items/filters/queryParams'
 import type { ItemFiltersState } from '@/features/items/filters/types'
 import styles from '@/app/mobile/layout/MobileHeader/MobileHeader.module.css'
@@ -58,20 +58,20 @@ export function FilterBar({ onFilterClick }: FilterBarProps) {
       />
       <div className={styles.chipsContainer}>
         {usesImplicitRelevance && (
-          <FilterButton active={false}>Relevance</FilterButton>
+          <SortChip active={false}>Relevance</SortChip>
         )}
         {orderingOptions.map((option) => {
           const isActive = !usesImplicitRelevance && filters.orderBy === option.orderBy
           
           return (
-            <FilterButton 
+            <SortChip 
               key={option.orderBy}
               active={isActive} 
               direction={isActive ? filters.orderDir : undefined}
               onClick={() => handleOrderClick(option.orderBy)}
             >
               {option.label}
-            </FilterButton>
+            </SortChip>
           )
         })}
       </div>
