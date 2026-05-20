@@ -1,3 +1,63 @@
+---
+name: Pretty Guardian Sailor Moon Museum
+colors:
+  primary: '#006686'
+  primary-container: '#139ecd'
+  secondary: '#605980'
+  secondary-container: '#dbd1ff'
+  error: '#ba1a1a'
+  heart: '#ba1a1a'
+  bookmark: '#006686'
+  background: '#faf9f9'
+  surface: '#ffffff'
+  surface-variant: '#eeeeee'
+  surface-container-lowest: '#ffffff'
+  surface-container-low: '#f4f3f3'
+  surface-container: '#eeeeee'
+  surface-container-high: '#e8e8e8'
+  surface-container-highest: '#e2e2e2'
+  accent: '#f2f2f6'
+  on-surface: '#1a1c1c'
+  on-surface-variant: '#3e484e'
+  on-primary: '#ffffff'
+  text-category: '#433126'
+typography:
+  brand-display:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 26px
+    fontWeight: '700'
+  heading-main:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 14px
+    fontWeight: '600'
+  body-standard:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 12px
+    fontWeight: '400'
+  label-medium:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 11px
+    fontWeight: '500'
+  tag-caption:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 10px
+    fontWeight: '500'
+rounded:
+  xs: 4px
+  sm: 8px
+  md: 16px
+  lg: 32px
+  full: 9999px
+spacing:
+  xs: 4px
+  sm: 8px
+  md: 12px
+  lg: 18px
+  xl: 24px
+  grid-margin: 24px
+  grid-gutter: 16px
+---
+
 # Design Guidebook: Pretty Guardian Sailor Moon Museum
 
 This document serves as the visual and structural source of truth for the Sailor Moon Museum frontend. It establishes a "Modern Museum" aesthetic: high-end, clean, and magical, optimized for a premium mobile experience.
