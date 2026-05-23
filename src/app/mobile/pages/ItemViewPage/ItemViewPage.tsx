@@ -65,7 +65,7 @@ export function MobileItemViewPage() {
         </Header>
       }
     >
-      <div className={styles.content}>
+      <div className={styles.main}>
         <MobileImageGallery imageUrls={item.imageUrls ?? []} />
         
         <div className={styles.breadcrumbWrapper}>

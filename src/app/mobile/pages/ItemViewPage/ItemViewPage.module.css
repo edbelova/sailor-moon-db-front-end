@@ -2,7 +2,7 @@
   color: var(--color-primary);
 }
 
-.content {
+.main {
   display: flex;
   flex-direction: column;
   padding-bottom: var(--spacing-xl);

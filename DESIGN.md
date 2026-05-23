@@ -98,8 +98,11 @@ Always use CSS variables from `src/shared/styles/tokens.css`. Never hardcode col
   - `xs (10px)`: Tag captions.
 
 ### Spacing & Grid
-- **Margins:** `--grid-margin (24px)` - Standard horizontal padding for all pages.
+- **Margins:** `--grid-margin (16px)` - Standard horizontal padding for all pages.
 - **Gutters:** `--grid-gutter (16px)` - Gap between items in a grid.
+- **Header Heights:**
+  - `--header-height-base (64px)`: Standard single-row fixed header.
+  - `--header-height-main (144px)`: 3-row fixed header with filters/sort.
 - **Standard Scale:** `xs (4px)`, `sm (8px)`, `md (12px)`, `lg (18px)`, `xl (24px)`.
 
 ### Shapes (Radius)
@@ -162,7 +165,7 @@ To maintain a consistent flow across different page types, we use a tiered spaci
 ### 4.1 Vertical Gap Tiers
 | Tier | Variable | Value | Usage |
 | :--- | :--- | :--- | :--- |
-| **Section Gap** | `--spacing-xl` | 24px | Between major page blocks (e.g., Header -> Gallery -> Description). |
+| **Section Gap** | `--grid-margin` | 16px | Between major page blocks (e.g., Header -> Gallery -> Description). |
 | **Field Gap** | `--spacing-lg` | 18px | Standard vertical spacing between interactive form fields. |
 | **Data Row Gap** | `--spacing-md` | 12px | Spacing between rows of information/metadata or list items. |
 | **Internal Gap** | `--spacing-sm` | 8px | Between a label and its input, or between tightly grouped items. |
@@ -216,5 +219,5 @@ To maintain a high-end, tactile experience, the application follows a strict **P
 
 ### 5.7 Interactive States
 To ensure a consistent feedback loop, all interactive elements share the same semantic colors for activation:
-- **Active / Focus:** Use **`--color-primary`** (`#006686`) for borders and text highlights.
+- **Active / Focus:** Use **`--color-primary`** (`#006686`) for borders and text highlights. This is the standard "Selected" state for Chips, Sort options, and Toggle buttons.
 - **Focus Rings:** Use a translucent version of the primary color (`rgba(0, 102, 134, 0.1)`) for subtle depth without cluttering the UI.

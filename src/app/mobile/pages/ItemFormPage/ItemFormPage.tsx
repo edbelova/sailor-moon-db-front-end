@@ -172,7 +172,7 @@ export function MobileItemFormPage() {
         </Header>
       }
     >
-      <main className={styles.main}>
+      <div className={styles.main}>
         <MobileMediaManager 
           images={imageItems}
           onAddImages={handleAddImages}
@@ -271,7 +271,7 @@ export function MobileItemFormPage() {
             />
           </MobileFormField>
         </section>
-      </main>
+      </div>
     </MobileAppLayout>
   )
 }

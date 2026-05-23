@@ -44,3 +44,61 @@
 .chipsContainer::-webkit-scrollbar {
   display: none;
 }
+
+.headerWrapper {
+  position: relative;
+  z-index: 50;
+}
+
+.expandedFilters {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.expandedFiltersOpen {
+  grid-template-rows: 1fr;
+}
+
+.expandedFiltersInner {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: 0 var(--grid-margin);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out, padding 0.3s ease-in-out;
+}
+
+.expandedFiltersOpen .expandedFiltersInner {
+  opacity: 1;
+  padding: var(--spacing-md) var(--grid-margin);
+}
+
+.filterRow {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.filterRow > * {
+  flex: 1;
+}
+
+.filterActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.rangeRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.rangeDivider {
+  color: var(--color-on-surface-variant);
+  font-size: var(--font-size-md);
+}

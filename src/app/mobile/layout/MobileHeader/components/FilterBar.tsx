@@ -8,6 +8,7 @@ import styles from '@/app/mobile/layout/MobileHeader/MobileHeader.module.css'
 
 type FilterBarProps = {
   onFilterClick?: () => void
+  isFiltersOpen?: boolean
 }
 
 type OrderingOption = {
@@ -24,7 +25,7 @@ const orderingOptions: OrderingOption[] = [
   { label: 'Release date', orderBy: 'releaseDate' },
 ]
 
-export function FilterBar({ onFilterClick }: FilterBarProps) {
+export function FilterBar({ onFilterClick, isFiltersOpen }: FilterBarProps) {
   const location = useLocation()
   const navigate = useNavigate()
   
@@ -48,13 +49,14 @@ export function FilterBar({ onFilterClick }: FilterBarProps) {
   return (
     <Header.CustomRow className={styles.row3}>
       <Button 
-        variant="surface" 
+        variant="surface"
         shape="pill" 
         size="sm" 
         onClick={onFilterClick} 
         className={styles.filterBtn}
         iconLeft="tune"
         caption="Filter"
+        active={isFiltersOpen}
       />
       <div className={styles.chipsContainer}>
         {usesImplicitRelevance && (

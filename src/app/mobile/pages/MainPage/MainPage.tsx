@@ -66,14 +66,25 @@ export function MobileMainPage() {
   ])
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false)
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add('bodyLocked')
+    } else {
+      document.body.classList.remove('bodyLocked')
+    }
+    return () => {
+      document.body.classList.remove('bodyLocked')
+    }
+  }, [isMenuOpen])
 
   const handleMenuClick = () => {
     setIsMenuOpen(true)
   }
 
   const handleFilterClick = () => {
-    console.log('Filter clicked')
-    // TODO: Implement Mobile Filter Modal
+    setIsFiltersOpen(!isFiltersOpen)
   }
 
   const handleCategorySelect = () => {
@@ -86,7 +97,8 @@ export function MobileMainPage() {
         header={
           <MobileHeader 
             onMenuClick={handleMenuClick} 
-            onFilterClick={handleFilterClick} 
+            onFilterClick={handleFilterClick}
+            isFiltersOpen={isFiltersOpen}
           />
         }
       >

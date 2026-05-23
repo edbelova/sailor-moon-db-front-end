@@ -14,6 +14,7 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
   iconLeft?: MaterialIcon
   iconRight?: MaterialIcon
   iconFilled?: boolean
+  active?: boolean
 }
 
 export function Button({ 
@@ -24,6 +25,7 @@ export function Button({
   iconLeft, 
   iconRight,
   iconFilled = false,
+  active = false,
   className = '', 
   ...props 
 }: ButtonProps) {
@@ -33,6 +35,7 @@ export function Button({
     styles[`shape-${shape}`],
     styles[`size-${size}`],
     iconFilled ? styles.iconFilled : '',
+    active ? styles.active : '',
     className
   ].filter(Boolean).join(' ')
 

@@ -59,8 +59,12 @@
   --spacing-lg: 18px;
   --spacing-xl: 24px;
   
-  --grid-margin: 24px;
+  --grid-margin: 16px;
   --grid-gutter: 16px;
+
+  /* --- Layout Heights --- */
+  --header-height-base: 64px;
+  --header-height-main: 144px;
 
   /* --- Radius --- */
   --radius-xs: 4px;

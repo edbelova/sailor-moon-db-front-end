@@ -1,6 +1,7 @@
 .main {
   flex: 1;
-  padding: var(--grid-margin);
+  padding-inline: var(--grid-margin);
+  padding-bottom: var(--grid-margin);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xl);

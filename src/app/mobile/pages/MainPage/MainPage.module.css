@@ -1,12 +1,15 @@
 .gallerySection {
   flex: 1;
-  padding: 24px;
+  padding: 0 var(--grid-margin);
+  padding-bottom: var(--spacing-xl);
+  /* Adds the difference between tall and base header. */
+  padding-top: calc(var(--header-height-main) - var(--header-height-base));
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: var(--grid-gutter);
 }
 
 .cardLink {
