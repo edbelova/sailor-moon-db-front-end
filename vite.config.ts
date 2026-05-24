@@ -30,8 +30,19 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
+        desktop: resolve(__dirname, 'index.html'),
         mobile: resolve(__dirname, 'mobile.html'),
+      },
+      output: {
+        manualChunks: {
+          'shared-core': [
+            '@/features/items/queries/useItemFilterOptions',
+            'react',
+            'react-dom',
+            'react-router-dom',
+            '@tanstack/react-query',
+          ],
+        },
       },
     },
   },
