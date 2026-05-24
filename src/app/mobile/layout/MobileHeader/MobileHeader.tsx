@@ -9,6 +9,7 @@ import { Logo } from '@/app/mobile/layout/MobileHeader/components/Logo'
 import { SearchBox } from '@/app/mobile/layout/MobileHeader/components/SearchBox'
 import { Button } from '@/shared/components/base/Button/Button'
 import { PillInput } from '@/app/mobile/components/base/PillInput/PillInput'
+import { PillCombobox } from '@/app/mobile/components/base/PillCombobox/PillCombobox'
 import { MobileFormField } from '@/app/mobile/components/MobileFormField/MobileFormField'
 import { useItemFilterOptions } from '@/features/items/queries/useItemFilterOptions'
 import { buildSearchFromFilters, parseFiltersFromSearch } from '@/features/items/filters/queryParams'
@@ -48,7 +49,13 @@ export function MobileHeader({
   const handleApply = () => {
     const search = buildSearchFromFilters(filters)
     navigate({ search }, { replace: true })
-    setLocalFilters({}) // Clear overrides after they are committed to URL
+    
+    // Use a small delay to clear overrides. 
+    // This ensures the URL update is processed by the router before we wipe the local draft.
+    setTimeout(() => {
+      setLocalFilters({})
+    }, 0)
+    
     onFilterClick?.() // Close the panel
   }
 
@@ -63,12 +70,13 @@ export function MobileHeader({
     }
     const search = buildSearchFromFilters(next)
     navigate({ search }, { replace: true })
-    setLocalFilters({}) 
+    
+    setTimeout(() => {
+      setLocalFilters({})
+    }, 0)
+    
     onFilterClick?.() // Close the panel
   }
-
-  const renderOptions = (values: string[] = []) =>
-    values.map((v) => <option key={v} value={v} />)
 
   return (
     <div className={styles.headerWrapper}>
@@ -105,58 +113,60 @@ export function MobileHeader({
                   size="sm" 
                   value={filters.name} 
                   onChange={(e) => updateField('name', e.target.value)} 
+                  onClear={() => updateField('name', '')}
+                  onEnter={handleApply}
                 />
               </MobileFormField>
               <MobileFormField label="Series">
-                <PillInput 
+                <PillCombobox 
                   size="sm" 
                   value={filters.series} 
-                  onChange={(e) => updateField('series', e.target.value)} 
-                  list="series-opts"
+                  onChange={(val) => updateField('series', val)} 
+                  options={options?.series}
+                  onEnter={handleApply}
                 />
-                <datalist id="series-opts">{renderOptions(options?.series)}</datalist>
               </MobileFormField>
             </div>
 
             <div className={styles.filterRow}>
               <MobileFormField label="Manufacturer">
-                <PillInput 
+                <PillCombobox 
                   size="sm" 
                   value={filters.manufacturer} 
-                  onChange={(e) => updateField('manufacturer', e.target.value)} 
-                  list="manuf-opts"
+                  onChange={(val) => updateField('manufacturer', val)} 
+                  options={options?.manufacturers}
+                  onEnter={handleApply}
                 />
-                <datalist id="manuf-opts">{renderOptions(options?.manufacturers)}</datalist>
               </MobileFormField>
               <MobileFormField label="Characters">
-                <PillInput 
+                <PillCombobox 
                   size="sm" 
                   value={filters.characters} 
-                  onChange={(e) => updateField('characters', e.target.value)} 
-                  list="char-opts"
+                  onChange={(val) => updateField('characters', val)} 
+                  options={options?.characters}
+                  onEnter={handleApply}
                 />
-                <datalist id="char-opts">{renderOptions(options?.characters)}</datalist>
               </MobileFormField>
             </div>
 
             <div className={styles.filterRow}>
               <MobileFormField label="Country">
-                <PillInput 
+                <PillCombobox 
                   size="sm" 
                   value={filters.country} 
-                  onChange={(e) => updateField('country', e.target.value)} 
-                  list="country-opts"
+                  onChange={(val) => updateField('country', val)} 
+                  options={options?.countries}
+                  onEnter={handleApply}
                 />
-                <datalist id="country-opts">{renderOptions(options?.countries)}</datalist>
               </MobileFormField>
               <MobileFormField label="Materials">
-                <PillInput 
+                <PillCombobox 
                   size="sm" 
                   value={filters.materials} 
-                  onChange={(e) => updateField('materials', e.target.value)} 
-                  list="mat-opts"
+                  onChange={(val) => updateField('materials', val)} 
+                  options={options?.materials}
+                  onEnter={handleApply}
                 />
-                <datalist id="mat-opts">{renderOptions(options?.materials)}</datalist>
               </MobileFormField>
             </div>
 
@@ -168,6 +178,8 @@ export function MobileHeader({
                     placeholder="From" 
                     value={filters.releaseDateFrom} 
                     onChange={(e) => updateField('releaseDateFrom', e.target.value)} 
+                    onClear={() => updateField('releaseDateFrom', '')}
+                    onEnter={handleApply}
                   />
                   <span className={styles.rangeDivider}>-</span>
                   <PillInput 
@@ -175,6 +187,8 @@ export function MobileHeader({
                     placeholder="To" 
                     value={filters.releaseDateTo} 
                     onChange={(e) => updateField('releaseDateTo', e.target.value)} 
+                    onClear={() => updateField('releaseDateTo', '')}
+                    onEnter={handleApply}
                   />
                 </div>
               </MobileFormField>
@@ -189,6 +203,8 @@ export function MobileHeader({
                     placeholder="Min" 
                     value={filters.priceMin} 
                     onChange={(e) => updateField('priceMin', e.target.value)} 
+                    onClear={() => updateField('priceMin', '')}
+                    onEnter={handleApply}
                   />
                   <span className={styles.rangeDivider}>-</span>
                   <PillInput 
@@ -197,6 +213,8 @@ export function MobileHeader({
                     placeholder="Max" 
                     value={filters.priceMax} 
                     onChange={(e) => updateField('priceMax', e.target.value)} 
+                    onClear={() => updateField('priceMax', '')}
+                    onEnter={handleApply}
                   />
                 </div>
               </MobileFormField>

@@ -124,6 +124,7 @@ The base `Button` component in `src/shared/components/base/Button` defines our i
 
 ### 3.2 Inputs & Selection
 - **`PillInput`**: Used for Search and Text entries. Always paired with an icon on the left. Supports `sm`, `md`, and `lg` sizes.
+  - **Clearable Pattern**: Inputs should show a small "X" icon on the right when they contain a value, allowing for quick clearing.
 - **`PillSelect`**: Used for category or option selection. Always pill-shaped with a custom dropdown arrow. Supports `sm`, `md`, and `lg` sizes.
 - **`TagInput`**: Specialized input for adding/removing metadata tags.
 

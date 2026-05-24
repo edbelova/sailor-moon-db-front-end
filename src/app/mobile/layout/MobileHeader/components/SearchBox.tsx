@@ -46,6 +46,10 @@ function SearchBoxInner({ initialTerm, onSearch }: SearchBoxInnerProps) {
         placeholder="Search..."
         value={term}
         onChange={(e) => setTerm(e.target.value)}
+        onClear={() => {
+          setTerm('')
+          onSearch('')
+        }}
       />
     </form>
   )
